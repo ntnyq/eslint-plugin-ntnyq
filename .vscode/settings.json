@@ -1,0 +1,16 @@
+{
+  "eslint.validate": [
+    "vue",
+    "yaml",
+    "html",
+    "json",
+    "jsonc",
+    "json5",
+    "markdown",
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+  "cSpell.words": ["bumpp", "iife", "lcov", "pnpm", "TSES", "tsup"]
+}

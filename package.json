@@ -1,0 +1,75 @@
+{
+  "name": "eslint-plugin-ntnyq",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.30.3",
+  "description": "eslint-plugin-ntnyq",
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "ntnyq"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "ntnyq",
+    "email": "ntnyq13@gmail.com"
+  },
+  "homepage": "https://github.com/ntnyq/eslint-plugin-ntnyq#readme",
+  "repository": "ntnyq/eslint-plugin-ntnyq",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./*": "./*"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "DEV=1 tsup",
+    "lint": "eslint .",
+    "prepare": "husky install",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@typescript-eslint/utils": "^5.56.0"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.1",
+    "@ntnyq/eslint-config": "^1.6.1",
+    "@ntnyq/prettier-config": "^1.6.1",
+    "@types/node": "^18.15.7",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "husky": "^8.0.3",
+    "nano-staged": "^0.8.0",
+    "prettier": "^2.8.7",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.2",
+    "vitest": "^0.29.7"
+  },
+  "engines": {
+    "node": ">=14.19.0"
+  },
+  "prettier": "@ntnyq/prettier-config",
+  "nano-staged": {
+    "*": "eslint --fix"
+  }
+}
