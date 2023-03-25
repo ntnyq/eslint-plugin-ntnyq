@@ -43,6 +43,7 @@
     "dev": "DEV=1 tsup",
     "lint": "eslint .",
     "prepare": "husky install",
+    "publish": "pnpm build && changeset publish",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
