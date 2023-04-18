@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-ntnyq",
   "version": "0.0.0",
-  "packageManager": "pnpm@7.30.3",
+  "packageManager": "pnpm@8.3.0",
   "description": "eslint-plugin-ntnyq",
   "keywords": [
     "eslint",
@@ -48,23 +48,23 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^5.56.0"
+    "@typescript-eslint/utils": "^5.59.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.1",
-    "@ntnyq/eslint-config": "^1.6.1",
-    "@ntnyq/prettier-config": "^1.6.1",
-    "@types/node": "^18.15.7",
-    "@typescript-eslint/parser": "^5.56.0",
-    "eslint": "^8.36.0",
+    "@ntnyq/eslint-config": "^1.7.0",
+    "@ntnyq/prettier-config": "^1.7.0",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/parser": "^5.59.0",
+    "eslint": "^8.38.0",
     "husky": "^8.0.3",
     "nano-staged": "^0.8.0",
     "prettier": "^2.8.7",
     "tsup": "^6.7.0",
     "tsx": "^3.12.6",
-    "typescript": "^5.0.2",
-    "vitest": "^0.29.7"
+    "typescript": "^5.0.4",
+    "vitest": "^0.30.1"
   },
   "engines": {
     "node": ">=14.19.0"

@@ -13,20 +13,20 @@
 
 **npm**:
 
-```sh
-npm install eslint-plugin-ntnyq
+```bash
+npm i eslint-plugin-ntnyq -D
 ```
 
 **yarn**
 
-```sh
-yarn add eslint-plugin-ntnyq
+```bash
+yarn add eslint-plugin-ntnyq -D
 ```
 
 **pnpm**
 
-```sh
-pnpm add eslint-plugin-ntnyq
+```bash
+pnpm add eslint-plugin-ntnyq -D
 ```
 
 ## License
