@@ -14,5 +14,5 @@
     "javascriptreact",
     "typescriptreact"
   ],
-  "cSpell.words": ["bumpp", "iife", "lcov", "pnpm", "tses", "tsup"]
+  "cSpell.words": ["bumpp", "iife", "lcov", "pnpm", "tses", "tsup", "vitepess", "vitepress"]
 }

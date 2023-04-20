@@ -1,0 +1,13 @@
+/* :root {
+  --vp-c-brand: #8265fe;
+  --vp-c-brand-light: #8265fe;
+} */
+
+.package-status {
+  position: relative;
+}
+
+.package-status img {
+  display: inline;
+  margin-right: 0.5rem;
+}
