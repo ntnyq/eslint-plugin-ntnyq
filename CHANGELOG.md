@@ -1,5 +1,11 @@
 # eslint-plugin-ntnyq
 
+## 0.0.2
+
+### Patch Changes
+
+- [`4e04a6a`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/4e04a6aee62b5a27b00f7d5443a77e7c91458037) Thanks [@ntnyq](https://github.com/ntnyq)! - fix: change `no-member-accessibility` description
+
 ## 0.0.1
 
 ### Patch Changes
