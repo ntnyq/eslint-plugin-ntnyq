@@ -42,13 +42,13 @@ export default createESLintRule<Options, MessageIds>({
   meta: {
     type: 'problem',
     docs: {
-      description: 'Disable TypeScript member accessibility usage',
+      description: 'Disallow usage of typescript member accessibility',
       recommended: 'error',
     },
     fixable: 'code',
     schema: [],
     messages: {
-      noMemberAccessibility: 'Disable TypeScript member accessibility usage',
+      noMemberAccessibility: 'Disallow usage of typescript member accessibility',
     },
   },
   defaultOptions: [],
