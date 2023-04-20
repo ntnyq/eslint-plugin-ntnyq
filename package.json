@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "version": "0.0.1",
   "packageManager": "pnpm@8.3.1",
-  "description": "eslint-plugin-ntnyq",
+  "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
     "eslint-plugin",
@@ -13,7 +13,7 @@
     "name": "ntnyq",
     "email": "ntnyq13@gmail.com"
   },
-  "homepage": "https://github.com/ntnyq/eslint-plugin-ntnyq#readme",
+  "homepage": "https://eslint-plugin.ntnyq.com",
   "repository": "ntnyq/eslint-plugin-ntnyq",
   "exports": {
     ".": {
@@ -40,6 +40,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
+    "coverage": "vitest --coverage",
     "dev": "DEV=1 tsup",
     "lint": "eslint .",
     "prepare": "husky install",
@@ -57,6 +58,7 @@
     "@ntnyq/prettier-config": "^1.7.0",
     "@types/node": "^18.15.12",
     "@typescript-eslint/parser": "^5.59.0",
+    "@vitest/coverage-c8": "^0.30.1",
     "eslint": "^8.38.0",
     "husky": "^8.0.3",
     "nano-staged": "^0.8.0",

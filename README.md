@@ -3,11 +3,12 @@
 [![CI](https://github.com/ntnyq/eslint-plugin-ntnyq/workflows/CI/badge.svg)](https://github.com/ntnyq/eslint-plugin-ntnyq/actions)
 [![NPM VERSION](https://img.shields.io/npm/v/eslint-plugin-ntnyq.svg)](https://www.npmjs.com/package/eslint-plugin-ntnyq)
 [![NPM DOWNLOADS](https://img.shields.io/npm/dy/eslint-plugin-ntnyq.svg)](https://www.npmjs.com/package/eslint-plugin-ntnyq)
+[![COVERAGE](https://coveralls.io/repos/github/ntnyq/eslint-plugin-ntnyq/badge.svg?branch=main)](https://coveralls.io/github/ntnyq/eslint-plugin-ntnyq?branch=main)
 [![LICENSE](https://img.shields.io/github/license/ntnyq/eslint-plugin-ntnyq.svg)](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/LICENSE)
 
-> A ESLint plugin.
+> An opinionated ESLint plugin.
 
-⚠️ Currently only for learning. Please do not use it in your production.
+⚠️ Do check the output to ensure it's doing its job correctly and only run this on code that has been checked into source control.
 
 ## Install
 
@@ -31,4 +32,4 @@ pnpm add eslint-plugin-ntnyq -D
 
 ## License
 
-[MIT](./LICENSE) License © 2022-PRESENT [ntnyq](https://github.com/ntnyq)
+[MIT](./LICENSE) License © 2023-PRESENT [ntnyq](https://github.com/ntnyq)
