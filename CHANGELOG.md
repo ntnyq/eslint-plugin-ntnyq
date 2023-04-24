@@ -1,5 +1,13 @@
 # eslint-plugin-ntnyq
 
+## 0.0.3
+
+### Patch Changes
+
+- [`4755236`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/475523665bd2d0415368beff1acd68f38ff88954) Thanks [@ntnyq](https://github.com/ntnyq)! - feat: add preset `all`
+
+- [`a79c655`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/a79c6552cbef85483764eac6775fa72bf3f7c597) Thanks [@ntnyq](https://github.com/ntnyq)! - feat: drop node v14 support
+
 ## 0.0.2
 
 ### Patch Changes
