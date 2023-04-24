@@ -6,9 +6,11 @@
 [![COVERAGE](https://coveralls.io/repos/github/ntnyq/eslint-plugin-ntnyq/badge.svg?branch=main)](https://coveralls.io/github/ntnyq/eslint-plugin-ntnyq?branch=main)
 [![LICENSE](https://img.shields.io/github/license/ntnyq/eslint-plugin-ntnyq.svg)](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/LICENSE)
 
-> An opinionated ESLint plugin.
+> Do not use this plugin unless you know exactly every rule may change.
 
-⚠️ Do check the output to ensure it's doing its job correctly and only run this on code that has been checked into source control.
+## ⚠️ Caveat
+
+Do check the output to ensure it's doing its job correctly and only run this on code that has been checked into source control.
 
 ## Install
 
