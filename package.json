@@ -56,15 +56,15 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.1",
-    "@ntnyq/eslint-config": "^1.7.0",
-    "@ntnyq/prettier-config": "^1.7.0",
-    "@types/node": "^18.15.12",
+    "@ntnyq/eslint-config": "^1.7.2",
+    "@ntnyq/prettier-config": "^1.7.2",
+    "@types/node": "^18.16.0",
     "@typescript-eslint/parser": "^5.59.0",
     "@vitest/coverage-c8": "^0.30.1",
-    "eslint": "^8.38.0",
+    "eslint": "^8.39.0",
     "husky": "^8.0.3",
     "nano-staged": "^0.8.0",
-    "prettier": "^2.8.7",
+    "prettier": "^2.8.8",
     "tsup": "^6.7.0",
     "tsx": "^3.12.6",
     "typescript": "^5.0.4",
@@ -72,7 +72,7 @@
     "vitest": "^0.30.1"
   },
   "engines": {
-    "node": ">=14.19.0"
+    "node": ">=16.14.0"
   },
   "prettier": "@ntnyq/prettier-config",
   "nano-staged": {
