@@ -1,7 +1,9 @@
-import noMemberAccessibility from './rules/no-member-accessibility'
+import * as all from './configs/all'
 import * as recommended from './configs/recommended'
+import noMemberAccessibility from './rules/no-member-accessibility'
 
 export const configs = {
+  all,
   recommended,
 }
 
