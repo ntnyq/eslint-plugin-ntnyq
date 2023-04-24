@@ -1,6 +1,6 @@
 import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { it } from 'vitest'
-import rule, { RULE_NAME, messageId } from './no-member-accessibility'
+import rule, { RULE_NAME, messageId } from 'src/rules/no-member-accessibility'
 
 const validCases = [
   `
@@ -135,7 +135,7 @@ class Test {
   ],
 ]
 
-it('no-member-accessibility', () => {
+it(RULE_NAME, () => {
   const ruleTester = new RuleTester({
     parser: require.resolve('@typescript-eslint/parser'),
   })

@@ -8,7 +8,7 @@ since: v0.0.1
 
 # ntnyq/no-member-accessibility
 
-💼 This rule is enabled in the ✅ `plugin:ntnyq/recommended` config.
+💼 This rule is enabled in the 🌐 `plugin:ntnyq/all` config.
 
 > disallow usage of typescript member accessibility.
 

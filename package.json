@@ -58,6 +58,7 @@
     "@changesets/cli": "^2.26.1",
     "@ntnyq/eslint-config": "^1.7.2",
     "@ntnyq/prettier-config": "^1.7.2",
+    "@types/eslint": "^8.37.0",
     "@types/node": "^18.16.0",
     "@typescript-eslint/parser": "^5.59.0",
     "@vitest/coverage-c8": "^0.30.1",
