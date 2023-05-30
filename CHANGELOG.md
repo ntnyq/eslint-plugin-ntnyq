@@ -1,5 +1,11 @@
 # eslint-plugin-ntnyq
 
+## 0.0.4
+
+### Patch Changes
+
+- [`6565a96`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/6565a961ab37abe54a66df6825f3fe984c15eeb7) Thanks [@ntnyq](https://github.com/ntnyq)! - feat: export meta object
+
 ## 0.0.3
 
 ### Patch Changes
