@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { ESLint } from 'eslint'
-import * as pluginNtnyq from 'eslint-plugin-ntnyq'
+import * as pluginNtnyq from '../dist'
 import { resolve } from './internal'
 
 const TEST_CWD = resolve('tests/fixtures/integrations/eslint-plugin')

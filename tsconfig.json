@@ -10,6 +10,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "strict": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "noEmitOnError": true,
     "noImplicitAny": false,
