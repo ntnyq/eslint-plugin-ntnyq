@@ -1,4 +1,4 @@
-import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
+import * as TSESLintUtils from '@typescript-eslint/utils'
 import { it } from 'vitest'
 import rule, { RULE_NAME, messageId } from 'src/rules/no-member-accessibility'
 
@@ -136,7 +136,7 @@ class Test {
 ]
 
 it(RULE_NAME, () => {
-  const ruleTester = new RuleTester({
+  const ruleTester = new TSESLintUtils.TSESLint.RuleTester({
     parser: require.resolve('@typescript-eslint/parser'),
   })
 

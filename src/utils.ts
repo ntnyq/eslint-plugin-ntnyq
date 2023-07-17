@@ -1,3 +1,3 @@
-import { ESLintUtils } from '@typescript-eslint/utils'
+import * as TSESLintUtils from '@typescript-eslint/utils'
 
-export const createESLintRule = ESLintUtils.RuleCreator(ruleName => ruleName)
+export const createESLintRule = TSESLintUtils.ESLintUtils.RuleCreator(ruleName => ruleName)
