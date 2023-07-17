@@ -1,5 +1,11 @@
 # eslint-plugin-ntnyq
 
+## 0.1.0
+
+### Minor Changes
+
+- [`64bfe79`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/64bfe79a48bbe2a2bc2c00270e808f7511309eae) Thanks [@ntnyq](https://github.com/ntnyq)! - feat: bump typescript-eslint to v6
+
 ## 0.0.4
 
 ### Patch Changes
