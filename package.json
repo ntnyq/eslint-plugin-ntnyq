@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-ntnyq",
   "version": "0.1.0",
-  "packageManager": "pnpm@8.6.11",
+  "packageManager": "pnpm@8.6.12",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -42,8 +42,8 @@
     "build": "tsup",
     "coverage": "vitest --coverage",
     "dev": "DEV=1 tsup",
-    "docs:build": "vitepress build docs",
-    "docs:dev": "vitepress dev docs",
+    "docs:build": "pnpm -C docs run build",
+    "docs:dev": "pnpm -C docs run dev",
     "lint": "eslint .",
     "prepare": "husky install",
     "publish": "pnpm build && changeset publish",
@@ -51,28 +51,27 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^6.2.0"
+    "@typescript-eslint/utils": "^6.3.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.2",
     "@ntnyq/eslint-config": "^1.12.2",
     "@ntnyq/prettier-config": "^1.12.2",
-    "@types/eslint": "^8.44.1",
-    "@types/node": "^20.4.5",
-    "@typescript-eslint/parser": "^6.2.0",
-    "@vitest/coverage-v8": "^0.33.0",
+    "@types/eslint": "^8.44.2",
+    "@types/node": "^20.4.9",
+    "@typescript-eslint/parser": "^6.3.0",
+    "@vitest/coverage-v8": "^0.34.1",
     "eslint": "^8.46.0",
     "husky": "^8.0.3",
     "nano-staged": "^0.8.0",
-    "pnpm": "^8.6.11",
-    "prettier": "^3.0.0",
-    "tsup": "^7.1.0",
+    "pnpm": "^8.6.12",
+    "prettier": "^3.0.1",
+    "tsup": "^7.2.0",
     "tsx": "^3.12.7",
     "typescript": "^5.1.6",
     "vite-tsconfig-paths": "^4.2.0",
-    "vitepress": "1.0.0-beta.7",
-    "vitest": "^0.33.0"
+    "vitest": "^0.34.1"
   },
   "engines": {
     "node": ">=16.14.0"
