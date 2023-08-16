@@ -1,5 +1,4 @@
-import * as TSESLintUtils from '@typescript-eslint/utils'
-import { it } from 'vitest'
+import { RuleTester } from '@typescript-eslint/rule-tester'
 import rule, { RULE_NAME, messageId } from 'src/rules/no-member-accessibility'
 
 const validCases = [
@@ -135,17 +134,15 @@ class Test {
   ],
 ]
 
-it(RULE_NAME, () => {
-  const ruleTester = new TSESLintUtils.TSESLint.RuleTester({
-    parser: require.resolve('@typescript-eslint/parser'),
-  })
+const ruleTester = new RuleTester({
+  parser: require.resolve('@typescript-eslint/parser'),
+})
 
-  ruleTester.run(RULE_NAME, rule, {
-    valid: validCases,
-    invalid: invalidCases.map(i => ({
-      code: i[0],
-      output: i[1],
-      errors: [{ messageId }],
-    })),
-  })
+ruleTester.run(RULE_NAME, rule, {
+  valid: validCases,
+  invalid: invalidCases.map(i => ({
+    code: i[0],
+    output: i[1],
+    errors: [{ messageId }],
+  })),
 })
