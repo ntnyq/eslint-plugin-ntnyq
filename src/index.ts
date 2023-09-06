@@ -1,7 +1,7 @@
 import * as all from './configs/all'
 import * as recommended from './configs/recommended'
 import noMemberAccessibility from './rules/no-member-accessibility'
-import type * as TSESLintUtils from '@typescript-eslint/utils'
+import type { TSESLint } from '@typescript-eslint/utils'
 
 // defined in tsup.config.ts
 declare const __PKG_NAME__: string
@@ -17,7 +17,7 @@ export const configs = {
   recommended,
 }
 
-export const rules: Record<string, TSESLintUtils.TSESLint.RuleModule<string>> = {
+export const rules: Record<string, TSESLint.RuleModule<string>> = {
   'no-member-accessibility': noMemberAccessibility,
 }
 

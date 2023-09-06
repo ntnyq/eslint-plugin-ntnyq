@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-ntnyq",
   "version": "0.1.0",
-  "packageManager": "pnpm@8.6.12",
+  "packageManager": "pnpm@8.7.4",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -16,12 +16,17 @@
   "homepage": "https://eslint-plugin.ntnyq.com",
   "repository": "ntnyq/eslint-plugin-ntnyq",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./*": "./*"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -51,28 +56,28 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@typescript-eslint/rule-tester": "^6.4.0",
-    "@typescript-eslint/utils": "^6.4.0"
+    "@typescript-eslint/rule-tester": "^6.6.0",
+    "@typescript-eslint/utils": "^6.6.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.2",
-    "@ntnyq/eslint-config": "^1.12.4",
-    "@ntnyq/prettier-config": "^1.12.4",
+    "@ntnyq/eslint-config": "^1.13.0",
+    "@ntnyq/prettier-config": "^1.13.0",
     "@types/eslint": "^8.44.2",
-    "@types/node": "^20.5.0",
-    "@typescript-eslint/parser": "^6.4.0",
-    "@vitest/coverage-v8": "^0.34.1",
-    "eslint": "^8.47.0",
+    "@types/node": "^20.5.9",
+    "@typescript-eslint/parser": "^6.6.0",
+    "@vitest/coverage-v8": "^0.34.3",
+    "eslint": "^8.48.0",
     "husky": "^8.0.3",
     "nano-staged": "^0.8.0",
-    "pnpm": "^8.6.12",
-    "prettier": "^3.0.2",
+    "pnpm": "^8.7.4",
+    "prettier": "^3.0.3",
     "tsup": "^7.2.0",
-    "tsx": "^3.12.7",
-    "typescript": "^5.1.6",
+    "tsx": "^3.12.8",
+    "typescript": "^5.2.2",
     "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.34.1"
+    "vitest": "^0.34.3"
   },
   "engines": {
     "node": ">=16.14.0"
