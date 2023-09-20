@@ -1,5 +1,11 @@
 # eslint-plugin-ntnyq
 
+## 0.2.0
+
+### Minor Changes
+
+- [`54aad08`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/54aad086d2f2dfb0e63a08724bdc063fee249fbd) Thanks [@ntnyq](https://github.com/ntnyq)! - feat: drop node v16 support
+
 ## 0.1.0
 
 ### Minor Changes
