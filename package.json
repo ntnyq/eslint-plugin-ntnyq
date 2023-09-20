@@ -80,7 +80,7 @@
     "vitest": "^0.34.4"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=18.12.0"
   },
   "prettier": "@ntnyq/prettier-config",
   "nano-staged": {

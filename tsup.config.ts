@@ -5,7 +5,7 @@ import pkg from './package.json'
 export default defineConfig({
   entry: ['src/index.ts'],
   format: ['cjs', 'esm'],
-  target: 'node16.14',
+  target: 'es2022',
   dts: true,
   clean: true,
   watch: !!process.env.DEV,

@@ -16,6 +16,7 @@ jobs:
       - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          node-version: lts/*
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
@@ -29,7 +30,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [16.14, 18]
+        node: [18]
       fail-fast: false
 
     steps:
