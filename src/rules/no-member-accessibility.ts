@@ -61,7 +61,7 @@ export default createESLintRule<Options, MessageIds>({
           start: node.loc.start,
           end: {
             ...node.loc.start,
-            column: node.loc.start.column + node.accessibility?.length ?? 0,
+            column: node.loc.start.column + (node.accessibility?.length ?? 0),
           },
         },
         fix: fixer => fixRemoveMemberAccessibility(node, context, fixer),
