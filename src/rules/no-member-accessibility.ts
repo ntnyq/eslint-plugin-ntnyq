@@ -19,7 +19,7 @@ function fixRemoveMemberAccessibility(
   context: Readonly<TSESLint.RuleContext<MessageIds, Options>>,
   fixer: TSESLint.RuleFixer,
 ) {
-  const sourceCode = context.getSourceCode()
+  const sourceCode = context.sourceCode
   const tokens = sourceCode.getTokens(node)
   let rangeToRemove: TSESTree.Range
   for (let i = 0; i < tokens.length; i++) {
@@ -36,7 +36,7 @@ function fixRemoveMemberAccessibility(
   return fixer.removeRange(rangeToRemove!)
 }
 
-export default createESLintRule<Options, MessageIds>({
+const rule = createESLintRule<Options, MessageIds>({
   name: RULE_NAME,
   meta: {
     type: 'problem',
@@ -76,3 +76,5 @@ export default createESLintRule<Options, MessageIds>({
     }
   },
 })
+
+export default rule

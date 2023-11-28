@@ -21,8 +21,10 @@ export const rules: Record<string, TSESLint.RuleModule<string>> = {
   'no-member-accessibility': noMemberAccessibility,
 }
 
-export default {
+const plugin = {
   meta,
   configs,
   rules,
 }
+
+export default plugin

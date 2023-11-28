@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-named-as-default
-import DefaultTheme from 'vitepress/theme'
+import theme from 'vitepress/theme'
 import './app.css'
 
-export default DefaultTheme
+export default theme
