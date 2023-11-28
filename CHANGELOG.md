@@ -1,5 +1,11 @@
 # eslint-plugin-ntnyq
 
+## 0.3.0
+
+### Minor Changes
+
+- [`243fdcd`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/243fdcd1c4eaf5ce34c47111f6b676ab30750f47) Thanks [@ntnyq](https://github.com/ntnyq)! - feat: refactor to esm
+
 ## 0.2.0
 
 ### Minor Changes
