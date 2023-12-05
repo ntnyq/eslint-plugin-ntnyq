@@ -1,5 +1,11 @@
 # eslint-plugin-ntnyq
 
+## 0.3.1
+
+### Patch Changes
+
+- [`d0a5d15`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/d0a5d15046729897a5a713f1d665b8b19e9e3c3f) Thanks [@ntnyq](https://github.com/ntnyq)! - fix: fix cjs compact
+
 ## 0.3.0
 
 ### Minor Changes
