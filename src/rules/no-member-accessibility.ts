@@ -1,27 +1,27 @@
 import { AST_TOKEN_TYPES } from '@typescript-eslint/utils'
-import { createESLintRule } from '../utils'
-import type { TSESLint, TSESTree } from '@typescript-eslint/utils'
+import { createRule } from '../utils'
+import type { RuleContext, RuleFixer, Tree } from '../types'
 
 export const RULE_NAME = 'no-member-accessibility'
 export const messageId = 'noMemberAccessibility'
 export type MessageIds = typeof messageId
-export type Options = []
+export type RuleOptions = []
 
 type MemberAccessibilityNode =
-  | TSESTree.MethodDefinition
-  | TSESTree.PropertyDefinition
-  | TSESTree.TSAbstractMethodDefinition
-  | TSESTree.TSAbstractPropertyDefinition
-  | TSESTree.TSParameterProperty
+  | Tree.MethodDefinition
+  | Tree.PropertyDefinition
+  | Tree.TSAbstractMethodDefinition
+  | Tree.TSAbstractPropertyDefinition
+  | Tree.TSParameterProperty
 
 function fixRemoveMemberAccessibility(
   node: MemberAccessibilityNode,
-  context: Readonly<TSESLint.RuleContext<MessageIds, Options>>,
-  fixer: TSESLint.RuleFixer,
+  context: Readonly<RuleContext<MessageIds, RuleOptions>>,
+  fixer: RuleFixer,
 ) {
   const sourceCode = context.sourceCode
   const tokens = sourceCode.getTokens(node)
-  let rangeToRemove: TSESTree.Range
+  let rangeToRemove: Tree.Range
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i]
     if (
@@ -36,8 +36,7 @@ function fixRemoveMemberAccessibility(
   return fixer.removeRange(rangeToRemove!)
 }
 
-const rule = createESLintRule<Options, MessageIds>({
-  name: RULE_NAME,
+const rule = createRule<MessageIds, RuleOptions>({
   meta: {
     type: 'problem',
     docs: {
@@ -50,7 +49,6 @@ const rule = createESLintRule<Options, MessageIds>({
       noMemberAccessibility: 'Disallow usage of typescript member accessibility',
     },
   },
-  defaultOptions: [],
   create: context => {
     const handleMemberAccessibility = (node: MemberAccessibilityNode) => {
       if (!node.accessibility) return
