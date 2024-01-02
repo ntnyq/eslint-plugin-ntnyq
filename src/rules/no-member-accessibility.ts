@@ -49,6 +49,7 @@ const rule = createRule<MessageIds, RuleOptions>({
       noMemberAccessibility: 'Disallow usage of typescript member accessibility',
     },
   },
+  defaultOptions: [],
   create: context => {
     const handleMemberAccessibility = (node: MemberAccessibilityNode) => {
       if (!node.accessibility) return
