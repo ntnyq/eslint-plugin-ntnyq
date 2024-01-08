@@ -8,6 +8,6 @@
     "dev": "vitepress dev ."
   },
   "devDependencies": {
-    "vitepress": "1.0.0-rc.34"
+    "vitepress": "1.0.0-rc.35"
   }
 }
