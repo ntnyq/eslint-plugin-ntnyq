@@ -1,5 +1,11 @@
 # eslint-plugin-ntnyq
 
+## 0.4.0
+
+### Minor Changes
+
+- [`d1d8135`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/d1d81357a035e794427e318eff8879327fb5e7ad) Thanks [@ntnyq](https://github.com/ntnyq)! - fix: fix exports
+
 ## 0.3.1
 
 ### Patch Changes
