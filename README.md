@@ -43,7 +43,7 @@ The `plugin:ntnyq/recommended` config enables a subset of [the rules](#rules) th
 
 _See [src/configs/recommended.ts](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/configs/recommended.ts) for more details._
 
-```jsonc
+```json
 // .eslintrc.json
 {
   "extends": [
@@ -59,7 +59,7 @@ The `plugin:ntnyq/all` config enables all the [the rules](#rules).
 
 _See [src/configs/all.ts](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/configs/all.ts) for more details._
 
-```jsonc
+```json
 // .eslintrc.json
 {
   "extends": [
@@ -75,7 +75,7 @@ Override/add specific rules configurations.
 
 _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring)_.
 
-```jsonc
+```json
 // .eslintrc.json
 {
   "plugins": ["ntnyq"],

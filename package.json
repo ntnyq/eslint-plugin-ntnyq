@@ -51,7 +51,7 @@
     "docs:build": "pnpm -C docs run build",
     "docs:dev": "pnpm -C docs run dev",
     "lint": "eslint .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "publish": "pnpm build && changeset publish",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
