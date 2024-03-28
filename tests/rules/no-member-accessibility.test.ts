@@ -138,7 +138,7 @@ const ruleTester = new RuleTester({
   parser: require.resolve('@typescript-eslint/parser'),
 })
 
-ruleTester.run(RULE_NAME, rule as any, {
+ruleTester.run(RULE_NAME, rule, {
   valid: validCases,
   invalid: invalidCases.map(i => ({
     code: i[0],
