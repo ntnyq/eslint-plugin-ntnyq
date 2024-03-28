@@ -1,5 +1,11 @@
 # eslint-plugin-ntnyq
 
+## 0.4.1
+
+### Patch Changes
+
+- [`1fb4ee9`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/1fb4ee926e104364f29ca968334d0bbc734cce75) Thanks [@ntnyq](https://github.com/ntnyq)! - fix: cleanup moot type
+
 ## 0.4.0
 
 ### Minor Changes
