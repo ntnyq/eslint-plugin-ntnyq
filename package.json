@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.4.1",
-  "packageManager": "pnpm@9.0.4",
+  "packageManager": "pnpm@9.0.5",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -72,7 +72,7 @@
     "eslint": "^8.57.0",
     "husky": "^9.0.11",
     "nano-staged": "^0.8.0",
-    "pnpm": "^9.0.4",
+    "pnpm": "^9.0.5",
     "prettier": "^3.2.5",
     "tsup": "^8.0.2",
     "tsx": "^4.7.2",
