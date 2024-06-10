@@ -41,7 +41,6 @@ const rule = createRule<MessageIds, RuleOptions>({
     type: 'problem',
     docs: {
       description: 'Disallow usage of typescript member accessibility',
-      recommended: 'stylistic',
     },
     fixable: 'code',
     schema: [],

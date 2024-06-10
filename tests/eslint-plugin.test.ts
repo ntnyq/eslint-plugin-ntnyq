@@ -1,21 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { ESLint } from 'eslint'
-import pluginNtnyq from 'src/index'
 import { resolve } from './internal'
 
 const TEST_CWD = resolve('tests/fixtures/integrations/eslint-plugin')
 
 describe('Integration test', () => {
   it('should lint without errors', async () => {
-    const eslint = new ESLint({
-      cwd: TEST_CWD,
-      plugins: {
-        'eslint-plugin-ntnyq': pluginNtnyq as never,
-      },
-      overrideConfig: {
-        extends: ['plugin:ntnyq/all'],
-      },
-    })
+    const eslint = new ESLint({ cwd: TEST_CWD })
     const results: ESLint.LintResult[] = await eslint.lintFiles(['valid.ts', 'invalid.ts'])
 
     expect(results.length).toBe(2)
