@@ -1,6 +1,7 @@
-import * as all from './configs/all'
-import * as recommended from './configs/recommended'
+import all from './configs/all'
+import recommended from './configs/recommended'
 import noMemberAccessibility from './rules/no-member-accessibility'
+import type { ESLint, Linter } from 'eslint'
 
 // defined in tsup.config.ts
 declare const __PKG_NAME__: string
@@ -20,10 +21,19 @@ export const rules = {
   'no-member-accessibility': noMemberAccessibility,
 }
 
-const plugin = {
+export const plugin: ESLint.Plugin = {
   meta,
   configs,
   rules,
 }
 
 export default plugin
+
+type RuleDefinitions = (typeof plugin)['rules']
+
+export type RuleOptions = {
+  [K in keyof RuleDefinitions]: RuleDefinitions[K]['defaultOptions']
+}
+export type Rules = {
+  [K in keyof RuleOptions]: Linter.RuleEntry<RuleOptions[K]>
+}

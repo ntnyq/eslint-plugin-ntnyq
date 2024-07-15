@@ -1,5 +1,5 @@
-import { RuleTester } from '@typescript-eslint/rule-tester'
-import rule, { RULE_NAME, messageId } from 'src/rules/no-member-accessibility'
+import { run } from '../internal'
+import rule, { RULE_NAME, messageId } from '../../src/rules/no-member-accessibility'
 
 const validCases = [
   `
@@ -134,11 +134,9 @@ class Test {
   ],
 ]
 
-const ruleTester = new RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-})
-
-ruleTester.run(RULE_NAME, rule, {
+run({
+  name: RULE_NAME,
+  rule,
   valid: validCases,
   invalid: invalidCases.map(i => ({
     code: i[0],

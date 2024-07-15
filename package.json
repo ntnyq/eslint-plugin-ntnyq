@@ -56,6 +56,9 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
+  "peerDependencies": {
+    "eslint": "9"
+  },
   "dependencies": {
     "@typescript-eslint/utils": "^8.0.0-alpha.44"
   },
@@ -66,9 +69,9 @@
     "@ntnyq/prettier-config": "^1.21.2",
     "@types/node": "^20.14.10",
     "@typescript-eslint/parser": "^8.0.0-alpha.44",
-    "@typescript-eslint/rule-tester": "^8.0.0-alpha.44",
     "@vitest/coverage-v8": "^2.0.2",
     "eslint": "^9.7.0",
+    "eslint-vitest-rule-tester": "^0.3.3",
     "husky": "^9.0.11",
     "nano-staged": "^0.8.0",
     "pnpm": "^9.5.0",

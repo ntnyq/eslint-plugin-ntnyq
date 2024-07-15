@@ -6,13 +6,5 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
 
   // Plugin rules
-  {
-    files: ['*.ts'],
-    plugins: {
-      ntnyq: pluginNtnyq,
-    },
-    rules: {
-      ...pluginNtnyq.configs.all.rules,
-    },
-  },
+  ...pluginNtnyq.configs.all,
 )
