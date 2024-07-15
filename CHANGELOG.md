@@ -1,5 +1,11 @@
 # eslint-plugin-ntnyq
 
+## 0.5.0
+
+### Minor Changes
+
+- [#65](https://github.com/ntnyq/eslint-plugin-ntnyq/pull/65) [`26695b7`](https://github.com/ntnyq/eslint-plugin-ntnyq/commit/26695b7d517bcac583c4a1c652aaa2e82f6d29bb) Thanks [@ntnyq](https://github.com/ntnyq)! - feat: support eslint v9
+
 ## 0.4.1
 
 ### Patch Changes
