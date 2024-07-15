@@ -2,6 +2,13 @@
  * @file preset `recommended`
  */
 
-export const plugins = ['ntnyq']
+import setup from './setup'
+import type { Linter } from 'eslint'
 
-export const rules = {}
+export default [
+  ...setup,
+  {
+    name: 'ntnyq/recommended/rules',
+    rules: {},
+  },
+] satisfies Linter.FlatConfig[]

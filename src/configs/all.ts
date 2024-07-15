@@ -2,8 +2,15 @@
  * @file preset `all`
  */
 
-export const plugins = ['ntnyq']
+import setup from './setup'
+import type { Linter } from 'eslint'
 
-export const rules = {
-  'ntnyq/no-member-accessibility': 'error',
-}
+export default [
+  ...setup,
+  {
+    name: 'ntnyq/all/rules',
+    rules: {
+      'ntnyq/no-member-accessibility': 'error',
+    },
+  },
+] satisfies Linter.FlatConfig[]

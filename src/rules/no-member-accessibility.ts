@@ -1,11 +1,11 @@
 import { AST_TOKEN_TYPES } from '@typescript-eslint/utils'
-import { createRule } from '../utils'
+import { createESLintRule } from '../utils'
 import type { RuleContext, RuleFixer, Tree } from '../types'
 
 export const RULE_NAME = 'no-member-accessibility'
 export const messageId = 'noMemberAccessibility'
 export type MessageIds = typeof messageId
-export type RuleOptions = []
+export type Options = []
 
 type MemberAccessibilityNode =
   | Tree.MethodDefinition
@@ -16,7 +16,7 @@ type MemberAccessibilityNode =
 
 function fixRemoveMemberAccessibility(
   node: MemberAccessibilityNode,
-  context: Readonly<RuleContext<MessageIds, RuleOptions>>,
+  context: Readonly<RuleContext<MessageIds, Options>>,
   fixer: RuleFixer,
 ) {
   const sourceCode = context.sourceCode
@@ -36,7 +36,8 @@ function fixRemoveMemberAccessibility(
   return fixer.removeRange(rangeToRemove!)
 }
 
-const rule = createRule<MessageIds, RuleOptions>({
+const rule = createESLintRule<Options, MessageIds>({
+  name: RULE_NAME,
   meta: {
     type: 'problem',
     docs: {

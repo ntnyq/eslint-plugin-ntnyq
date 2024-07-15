@@ -7,13 +7,6 @@ export default defineConfig({
 
   description: 'An opinionated ESLint plugin.',
 
-  vite: {
-    server: {
-      open: true,
-      host: true,
-    },
-  },
-
   head,
   themeConfig,
   lastUpdated: true,
