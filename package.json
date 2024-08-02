@@ -32,18 +32,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./dist/index.d.ts"
-      ]
-    }
-  },
   "files": [
     "dist"
   ],
-  "sideEffects": false,
   "scripts": {
     "build": "tsup",
     "coverage": "vitest --coverage",
@@ -57,7 +48,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "eslint": "9"
+    "eslint": "^9.0.0"
   },
   "dependencies": {
     "@typescript-eslint/utils": "^8.0.0"
@@ -87,6 +78,6 @@
   },
   "prettier": "@ntnyq/prettier-config",
   "nano-staged": {
-    "*.{js,ts,md,yml,yaml,json}": "eslint --fix"
+    "*.{js,ts,cjs,mjs,md,yml,yaml,json}": "eslint --fix"
   }
 }
