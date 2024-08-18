@@ -2,8 +2,11 @@
 node_modules
 *.log*
 *.local
+
 *.tsbuildinfo
+
 dist
 coverage
+
 docs/.vitepress/cache
 .eslintcache
