@@ -11,4 +11,4 @@ export default [
     name: 'ntnyq/recommended/rules',
     rules: {},
   },
-] satisfies Linter.FlatConfig[]
+] satisfies Linter.Config[]

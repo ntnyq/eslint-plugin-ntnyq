@@ -13,4 +13,4 @@ export default [
       'ntnyq/no-member-accessibility': 'error',
     },
   },
-] satisfies Linter.FlatConfig[]
+] satisfies Linter.Config[]
