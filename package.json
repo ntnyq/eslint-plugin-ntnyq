@@ -56,7 +56,7 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.8",
-    "@ntnyq/eslint-config": "^3.0.0-beta.7",
+    "@ntnyq/eslint-config": "^3.0.0-beta.8",
     "@ntnyq/prettier-config": "^1.21.2",
     "@types/node": "^22.5.4",
     "@typescript-eslint/parser": "^8.4.0",
