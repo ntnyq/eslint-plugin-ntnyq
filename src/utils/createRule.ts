@@ -1,10 +1,10 @@
-import type { Rule } from 'eslint'
-import type { RuleContext } from '@typescript-eslint/utils/ts-eslint'
 import type {
   RuleListener,
   RuleWithMeta,
   RuleWithMetaAndName,
 } from '@typescript-eslint/utils/eslint-utils'
+import type { RuleContext } from '@typescript-eslint/utils/ts-eslint'
+import type { Rule } from 'eslint'
 
 const docsUrl = 'https://eslint-plugin.ntnyq.com/rules/'
 

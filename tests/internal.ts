@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { URL, fileURLToPath } from 'node:url'
+import { fileURLToPath, URL } from 'node:url'
 import tsParser from '@typescript-eslint/parser'
 import { run as _run } from 'eslint-vitest-rule-tester'
 import type { RuleTesterInitOptions, TestCasesOptions } from 'eslint-vitest-rule-tester'

@@ -6,10 +6,10 @@ export type NodeTypes = `${AST_NODE_TYPES}`
 export type { TSESTree as Tree }
 export type { JSONSchema } from '@typescript-eslint/utils'
 export type {
-  RuleContext,
-  RuleFunction,
   ReportDescriptor,
-  SourceCode,
-  RuleFixer,
   ReportFixFunction,
+  RuleContext,
+  RuleFixer,
+  RuleFunction,
+  SourceCode,
 } from '@typescript-eslint/utils/ts-eslint'

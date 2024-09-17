@@ -1,5 +1,5 @@
+import rule, { messageId, RULE_NAME } from '../../src/rules/no-member-accessibility'
 import { $, run } from '../internal'
-import rule, { RULE_NAME, messageId } from '../../src/rules/no-member-accessibility'
 
 const validCases = [
   $`

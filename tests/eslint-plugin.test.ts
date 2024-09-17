@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { ESLint } from 'eslint'
+import { describe, expect, it } from 'vitest'
 import { resolve } from './internal'
 
 const TEST_CWD = resolve('tests/fixtures/integrations/eslint-plugin')
