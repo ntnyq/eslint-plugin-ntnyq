@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.5.0",
-  "packageManager": "pnpm@9.9.0",
+  "packageManager": "pnpm@9.10.0",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -51,27 +51,27 @@
     "eslint": "^9.0.0"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.4.0"
+    "@typescript-eslint/utils": "^8.6.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.8",
-    "@ntnyq/eslint-config": "^3.0.0-beta.8",
-    "@ntnyq/prettier-config": "^1.21.2",
-    "@types/node": "^22.5.4",
-    "@typescript-eslint/parser": "^8.4.0",
-    "@vitest/coverage-v8": "^2.0.5",
+    "@ntnyq/eslint-config": "^3.0.0-beta.12",
+    "@ntnyq/prettier-config": "^1.21.3",
+    "@types/node": "^22.5.5",
+    "@typescript-eslint/parser": "^8.6.0",
+    "@vitest/coverage-v8": "^2.1.1",
     "eslint": "^9.10.0",
     "eslint-vitest-rule-tester": "^0.6.1",
-    "husky": "^9.1.5",
+    "husky": "^9.1.6",
     "nano-staged": "^0.8.0",
-    "pnpm": "^9.9.0",
+    "pnpm": "^9.10.0",
     "prettier": "^3.3.3",
-    "tsup": "^8.2.4",
-    "tsx": "^4.19.0",
-    "typescript": "^5.5.4",
-    "typescript-eslint": "^8.4.0",
-    "vitest": "^2.0.5"
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.6.0",
+    "vitest": "^2.1.1"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
