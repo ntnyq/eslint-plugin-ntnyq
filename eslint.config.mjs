@@ -1,5 +1,5 @@
-import { ntnyq } from '@ntnyq/eslint-config'
+import { defineESLintConfig } from '@ntnyq/eslint-config'
 
-export default ntnyq({
+export default defineESLintConfig({
   ignores: ['**/tests/fixtures'],
 })

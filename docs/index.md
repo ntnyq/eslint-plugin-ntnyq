@@ -2,7 +2,7 @@
 
 [eslint-plugin-ntnyq](https://www.npmjs.com/package/eslint-plugin-ntnyq) is An opinionated ESLint plugin.
 
-<div class="package-status">
+<div id="package_status">
 
 [![CI](https://github.com/ntnyq/eslint-plugin-ntnyq/workflows/CI/badge.svg)](https://github.com/ntnyq/eslint-plugin-ntnyq/actions)
 [![NPM VERSION](https://img.shields.io/npm/v/eslint-plugin-ntnyq.svg)](https://www.npmjs.com/package/eslint-plugin-ntnyq)
