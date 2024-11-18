@@ -3,8 +3,7 @@ import { createESLintRule } from '../utils'
 import type { RuleContext, RuleFixer, Tree } from '../types'
 
 export const RULE_NAME = 'no-member-accessibility'
-export const messageId = 'noMemberAccessibility'
-export type MessageIds = typeof messageId
+export type MessageIds = 'noMemberAccessibility'
 export type Options = []
 
 type MemberAccessibilityNode =
@@ -36,7 +35,7 @@ function fixRemoveMemberAccessibility(
   return fixer.removeRange(rangeToRemove!)
 }
 
-const rule = createESLintRule<Options, MessageIds>({
+export default createESLintRule<Options, MessageIds>({
   name: RULE_NAME,
   meta: {
     type: 'problem',
@@ -50,12 +49,12 @@ const rule = createESLintRule<Options, MessageIds>({
     },
   },
   defaultOptions: [],
-  create: context => {
+  create(context) {
     const handleMemberAccessibility = (node: MemberAccessibilityNode) => {
       if (!node.accessibility) return
       context.report({
         node,
-        messageId,
+        messageId: 'noMemberAccessibility',
         loc: {
           start: node.loc.start,
           end: {
@@ -75,5 +74,3 @@ const rule = createESLintRule<Options, MessageIds>({
     }
   },
 })
-
-export default rule

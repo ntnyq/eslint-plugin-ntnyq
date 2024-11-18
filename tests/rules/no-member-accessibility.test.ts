@@ -1,4 +1,4 @@
-import rule, { messageId, RULE_NAME } from '../../src/rules/no-member-accessibility'
+import rule, { RULE_NAME } from '../../src/rules/no-member-accessibility'
 import { $, run } from '../internal'
 
 const validCases = [
@@ -141,6 +141,10 @@ run({
   invalid: invalidCases.map(i => ({
     code: i[0],
     output: i[1],
-    errors: [{ messageId }],
+    errors: [
+      {
+        messageId: 'noMemberAccessibility',
+      },
+    ],
   })),
 })
