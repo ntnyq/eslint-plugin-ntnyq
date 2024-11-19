@@ -22,7 +22,7 @@ See [Available Rules](./rules/index.md).
 
 ## :book: Changelog
 
-See [CHANGELOG](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/CHANGELOG.md).
+See [CHANGELOG](https://github.com/ntnyq/eslint-plugin-ntnyq/releases).
 
 ## :lock: License
 

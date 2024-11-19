@@ -17,7 +17,7 @@ export const themeConfig: DefaultTheme.Config = {
     { text: 'Rules', link: '/rules/' },
     {
       text: 'Changelog',
-      link: 'https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/CHANGELOG.md',
+      link: 'https://github.com/ntnyq/eslint-plugin-ntnyq/releases',
     },
   ],
 
@@ -51,7 +51,7 @@ export const themeConfig: DefaultTheme.Config = {
           { text: 'Rules', link: '/rules/' },
           {
             text: 'Changelog',
-            link: 'https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/CHANGELOG.md',
+            link: 'https://github.com/ntnyq/eslint-plugin-ntnyq/releases',
           },
         ],
       },
