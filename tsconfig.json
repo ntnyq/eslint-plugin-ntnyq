@@ -5,7 +5,6 @@
     "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "baseUrl": ".",
     "types": ["node"],
     "resolveJsonModule": true,
     "allowJs": true,

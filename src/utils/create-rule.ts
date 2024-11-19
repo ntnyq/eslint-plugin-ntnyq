@@ -1,3 +1,8 @@
+/**
+ * @copyright {@link https://github.com/eslint-stylistic/eslint-stylistic}
+ */
+
+import { deepMerge, isObjectNotArray } from './merge'
 import type { Rule } from 'eslint'
 import type { RuleContext, RuleListener, RuleWithMeta, RuleWithMetaAndName } from '../types'
 
@@ -18,10 +23,13 @@ function createRule<TOptions extends readonly unknown[], TMessageIds extends str
 }: Readonly<RuleWithMeta<TOptions, TMessageIds, PluginDocs>>): ESLintRuleModule<TOptions> {
   return {
     create: ((context: Readonly<RuleContext<TMessageIds, TOptions>>): RuleListener => {
-      const optionsWithDefault = context.options.map((option, index) => ({
-        ...(defaultOptions[index] || {}),
-        ...(option || {}),
-      })) as unknown as TOptions
+      const optionsCount = Math.max(context.options.length, defaultOptions.length)
+      const optionsWithDefault = Array.from({ length: optionsCount }, (_, i) => {
+        if (isObjectNotArray(context.options[i]) && isObjectNotArray(defaultOptions[i])) {
+          return deepMerge(defaultOptions[i], context.options[i])
+        }
+        return context.options[i] ?? defaultOptions[i]
+      }) as unknown as TOptions
       return create(context, optionsWithDefault)
     }) as any,
     defaultOptions,
