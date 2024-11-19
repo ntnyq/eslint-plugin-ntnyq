@@ -8,6 +8,7 @@
     "baseUrl": ".",
     "types": ["node"],
     "resolveJsonModule": true,
+    "allowJs": true,
     "declaration": true,
     "outDir": "dist",
     "noEmitOnError": true,
@@ -17,11 +18,13 @@
     "skipLibCheck": true
   },
   "include": [
+    "typings/**/*.d.ts",
     "./src/**/*.ts",
     "./scripts/**/*.ts",
     "./tests/**/*.ts",
     "./docs/.vitepress/**/*.ts",
-    "./*.config.ts"
+    "./*.config.ts",
+    "eslint.config.mjs"
   ],
   "exclude": ["**/node_modules", "**/dist"]
 }

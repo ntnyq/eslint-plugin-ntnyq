@@ -7,8 +7,7 @@ export default defineConfig({
     __PKG_VERSION__: JSON.stringify(pkg.version),
   },
   test: {
-    globals: true,
-    reporters: 'dot',
+    reporters: ['dot'],
     coverage: {
       reporter: ['lcov', 'json', 'text'],
     },
