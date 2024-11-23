@@ -1,10 +1,14 @@
 import tseslint from 'typescript-eslint'
-import pluginNtnyq from 'eslint-plugin-ntnyq'
+import { createRecommendedConfig } from 'eslint-plugin-ntnyq'
 
 export default tseslint.config(
   // typescript-eslint recommended rules
   ...tseslint.configs.recommended,
 
   // Plugin rules
-  ...pluginNtnyq.configs.all,
+  createRecommendedConfig({
+    overridesRules: {
+      'ntnyq/no-member-accessibility': 'error',
+    },
+  }),
 )

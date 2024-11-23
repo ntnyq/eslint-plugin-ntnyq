@@ -52,12 +52,6 @@ The `recommended` config enables a subset of [the rules](#rules) that should be 
 
 _See [src/configs/recommended.ts](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/configs/recommended.ts) for more details._
 
-### The all preset
-
-The `all` config enables all the [the rules](#rules).
-
-_See [src/configs/all.ts](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/configs/all.ts) for more details._
-
 ### Advanced Configuration
 
 Override/add specific rules configurations.
@@ -83,14 +77,13 @@ export default [
 ## Rules
 
 💼 Configurations enabled in.\
-🌐 Set in the `all` preset.\
 ✅ Set in the `recommended` preset.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
 💡 Manually fixable by [editor suggestions](https://eslint.org/docs/developer-guide/working-with-rules#providing-suggestions).
 
 | Name                                                                                          | Description                                       | 💼  | 🔧  | 💡  |
 | :-------------------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: | :-: |
-| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html) | disallow usage of typescript member accessibility | 🌐  | 🔧  |     |
+| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html) | disallow usage of typescript member accessibility |     | 🔧  |     |
 
 ## License
 
