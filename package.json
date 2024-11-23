@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-ntnyq",
   "type": "module",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "packageManager": "pnpm@9.14.2",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
