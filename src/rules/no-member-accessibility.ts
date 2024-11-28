@@ -38,7 +38,7 @@ function fixRemoveMemberAccessibility(
 export default createESLintRule<Options, MessageIds>({
   name: RULE_NAME,
   meta: {
-    type: 'problem',
+    type: 'suggestion',
     docs: {
       recommended: false,
       description: 'disallow usage of typescript member accessibility',

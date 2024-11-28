@@ -17,11 +17,11 @@
     "skipLibCheck": true
   },
   "include": [
-    "typings/**/*.d.ts",
     "./src/**/*.ts",
     "./scripts/**/*.ts",
     "./tests/**/*.ts",
     "./docs/.vitepress/**/*.ts",
+    "./typings/**/*.d.ts",
     "./*.config.ts",
     "eslint.config.mjs"
   ],
