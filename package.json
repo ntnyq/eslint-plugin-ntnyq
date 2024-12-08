@@ -55,14 +55,14 @@
     "@typescript-eslint/utils": "^8.17.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^3.9.0",
+    "@ntnyq/eslint-config": "^3.9.1",
     "@ntnyq/prettier-config": "^1.22.0",
     "@types/node": "^22.10.1",
     "@vitest/coverage-v8": "^2.1.8",
-    "bumpp": "^9.8.1",
+    "bumpp": "^9.9.0",
     "eslint": "^9.16.0",
     "eslint-plugin-eslint-plugin": "^6.3.2",
-    "eslint-vitest-rule-tester": "^0.7.0",
+    "eslint-vitest-rule-tester": "^0.7.1",
     "husky": "^9.1.7",
     "nano-staged": "^0.8.0",
     "prettier": "^3.4.2",
@@ -74,11 +74,6 @@
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "eslint-vitest-rule-tester": "patches/eslint-vitest-rule-tester.patch"
-    }
   },
   "nano-staged": {
     "*.{js,ts,cjs,mjs,vue,md,yml,yaml,json}": "eslint --fix"
