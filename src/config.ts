@@ -2,8 +2,7 @@ import { plugin } from '.'
 import type { Linter } from 'eslint'
 import type { Rules } from './dts'
 
-export interface RecommendedOptions
-  extends Pick<Linter.Config, 'name' | 'files' | 'ignores' | 'languageOptions'> {
+export interface RecommendedOptions extends Linter.Config {
   /**
    * Overrides rules.
    */
@@ -12,17 +11,23 @@ export interface RecommendedOptions
 
 export function createRecommendedConfig(options: RecommendedOptions = {}) {
   const config: Linter.Config = {
+    ...options,
+
     name: options.name || 'ntnyq/recommended',
     files: options.files || ['**/*.ts'],
-    languageOptions: {
-      ...(options.languageOptions || {}),
-    },
     plugins: {
+      ...(options.plugins || {}),
+
+      /* v8 ignore start */
       get ntnyq() {
         return plugin
       },
+      /* v8 ignore stop */
     },
     rules: {
+      ...options.rules,
+
+      // overrides rules
       ...(options.overridesRules || {}),
     },
   }

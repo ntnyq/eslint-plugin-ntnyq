@@ -1,11 +1,7 @@
 import { configs } from './config'
 import { meta } from './meta'
-import noMemberAccessibility from './rules/no-member-accessibility'
+import { rules } from './rules'
 import type { ESLint } from 'eslint'
-
-export const rules = {
-  'no-member-accessibility': noMemberAccessibility,
-}
 
 export const plugin = {
   meta,
@@ -13,8 +9,9 @@ export const plugin = {
   rules,
 } satisfies ESLint.Plugin
 
-export default plugin
-
 export * from './dts'
 export * from './meta'
+export * from './rules'
 export * from './config'
+
+export default plugin
