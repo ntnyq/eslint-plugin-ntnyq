@@ -5,18 +5,21 @@ import type { Rules } from './dts'
 export interface RecommendedOptions extends Linter.Config {
   /**
    * Overrides rules.
+   *
+   * @deprecated use `rules` instead
    */
   overridesRules?: Rules
 }
 
 export function createRecommendedConfig(options: RecommendedOptions = {}) {
+  const { overridesRules = {}, ...configOptions } = options
   const config: Linter.Config = {
-    ...options,
+    ...configOptions,
 
-    name: options.name || 'ntnyq/recommended',
-    files: options.files || ['**/*.ts'],
+    name: configOptions.name || 'ntnyq/recommended',
+    files: configOptions.files || ['**/*.ts'],
     plugins: {
-      ...(options.plugins || {}),
+      ...(configOptions.plugins || {}),
 
       /* v8 ignore start */
       get ntnyq() {
@@ -25,10 +28,10 @@ export function createRecommendedConfig(options: RecommendedOptions = {}) {
       /* v8 ignore stop */
     },
     rules: {
-      ...options.rules,
+      ...configOptions.rules,
 
       // overrides rules
-      ...(options.overridesRules || {}),
+      ...overridesRules,
     },
   }
   return config
