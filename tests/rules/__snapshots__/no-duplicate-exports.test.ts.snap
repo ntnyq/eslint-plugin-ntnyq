@@ -1,0 +1,136 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`no-duplicate-exports > invalid > Invalid #0: export-all 1`] = `
+[
+  {
+    "column": 1,
+    "endColumn": 25,
+    "endLine": 1,
+    "fix": {
+      "range": [
+        0,
+        24,
+      ],
+      "text": "",
+    },
+    "line": 1,
+    "message": "Multiple same export all statement 'export * from "./foobar"'",
+    "messageId": "multiSameExportAll",
+    "nodeType": "ExportAllDeclaration",
+    "ruleId": "no-duplicate-exports",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 25,
+    "endLine": 2,
+    "line": 2,
+    "message": "Multiple same export all statement 'export * from "./foobar"'",
+    "messageId": "multiSameExportAll",
+    "nodeType": "ExportAllDeclaration",
+    "ruleId": "no-duplicate-exports",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 35,
+    "endLine": 4,
+    "fix": {
+      "range": [
+        51,
+        85,
+      ],
+      "text": "",
+    },
+    "line": 4,
+    "message": "Multiple same export all statement 'export * as foobar from "./foobar"'",
+    "messageId": "multiSameExportAll",
+    "nodeType": "ExportAllDeclaration",
+    "ruleId": "no-duplicate-exports",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 35,
+    "endLine": 5,
+    "line": 5,
+    "message": "Multiple same export all statement 'export * as foobar from "./foobar"'",
+    "messageId": "multiSameExportAll",
+    "nodeType": "ExportAllDeclaration",
+    "ruleId": "no-duplicate-exports",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 30,
+    "endLine": 7,
+    "fix": {
+      "range": [
+        122,
+        151,
+      ],
+      "text": "",
+    },
+    "line": 7,
+    "message": "Multiple same export all statement 'export type * from "./foobar"'",
+    "messageId": "multiSameExportAll",
+    "nodeType": "ExportAllDeclaration",
+    "ruleId": "no-duplicate-exports",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 30,
+    "endLine": 8,
+    "line": 8,
+    "message": "Multiple same export all statement 'export type * from "./foobar"'",
+    "messageId": "multiSameExportAll",
+    "nodeType": "ExportAllDeclaration",
+    "ruleId": "no-duplicate-exports",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 40,
+    "endLine": 10,
+    "fix": {
+      "range": [
+        183,
+        222,
+      ],
+      "text": "",
+    },
+    "line": 10,
+    "message": "Multiple same export all statement 'export type * as Foobar from "./foobar"'",
+    "messageId": "multiSameExportAll",
+    "nodeType": "ExportAllDeclaration",
+    "ruleId": "no-duplicate-exports",
+    "severity": 2,
+  },
+  {
+    "column": 1,
+    "endColumn": 40,
+    "endLine": 11,
+    "line": 11,
+    "message": "Multiple same export all statement 'export type * as Foobar from "./foobar"'",
+    "messageId": "multiSameExportAll",
+    "nodeType": "ExportAllDeclaration",
+    "ruleId": "no-duplicate-exports",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`no-duplicate-exports > invalid > Invalid #0: export-all 2`] = `
+"
+export * from './foobar'
+
+
+export * as foobar from './foobar'
+
+
+export type * from './foobar'
+
+
+export type * as Foobar from './foobar'"
+`;

@@ -83,7 +83,8 @@ export default [
 
 | Name                                                                                          | Description                                       | 💼  | 🔧  | 💡  |
 | :-------------------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: | :-: |
-| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html) | disallow usage of typescript member accessibility |     | 🔧  |     |
+| [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)       | Disallow duplicate exports statement              |     | 🔧  |     |
+| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html) | Disallow usage of typescript member accessibility |     | 🔧  |     |
 
 ## License
 

@@ -36,6 +36,10 @@ export const themeConfig: DefaultTheme.Config = {
         text: 'Stylistic Issues',
         items: [
           {
+            text: 'ntnyq/no-duplicate-exports',
+            link: '/rules/no-duplicate-exports',
+          },
+          {
             text: 'ntnyq/no-member-accessibility',
             link: '/rules/no-member-accessibility',
           },

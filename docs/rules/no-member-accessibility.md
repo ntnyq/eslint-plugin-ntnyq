@@ -2,7 +2,7 @@
 pageClass: rule-details
 sidebarDepth: 0
 title: ntnyq/no-member-accessibility
-description: disallow usage of typescript member accessibility.
+description: Disallow usage of typescript member accessibility.
 since: v0.0.1
 ---
 
@@ -10,7 +10,7 @@ since: v0.0.1
 
 - :wrench: The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule.
 
-> disallow usage of typescript member accessibility.
+> Disallow usage of typescript member accessibility.
 
 ## :book: Rule Details
 

@@ -7,7 +7,7 @@
 [![CI](https://github.com/ntnyq/eslint-plugin-ntnyq/workflows/CI/badge.svg)](https://github.com/ntnyq/eslint-plugin-ntnyq/actions)
 [![NPM VERSION](https://img.shields.io/npm/v/eslint-plugin-ntnyq.svg)](https://www.npmjs.com/package/eslint-plugin-ntnyq)
 [![NPM DOWNLOADS](https://img.shields.io/npm/dy/eslint-plugin-ntnyq.svg)](https://www.npmjs.com/package/eslint-plugin-ntnyq)
-[![COVERAGE](https://coveralls.io/repos/github/ntnyq/eslint-plugin-ntnyq/badge.svg?branch=main)](https://coveralls.io/github/ntnyq/eslint-plugin-ntnyq?branch=main)
+[![CODECOV](https://codecov.io/github/ntnyq/eslint-plugin-ntnyq/branch/main/graph/badge.svg)](https://codecov.io/github/ntnyq/eslint-plugin-ntnyq)
 [![LICENSE](https://img.shields.io/github/license/ntnyq/eslint-plugin-ntnyq.svg)](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/LICENSE)
 
 </div>
