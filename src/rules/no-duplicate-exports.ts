@@ -1,4 +1,4 @@
-import { PROGRAM_EXIT } from '../constants'
+import { PROGRAM_EXIT, SEPARATOR } from '../constants'
 import { createESLintRule, join } from '../utils'
 import type { Tree } from '../types'
 
@@ -7,10 +7,8 @@ export type MessageIds = 'multiSameExportAll'
 // | 'multiSameModuleNamed'
 export type Options = []
 
-const SEPARATOR = ':'
-
 function toExportAllStatement(key: string) {
-  const [source, kind, name = ''] = key.split(SEPARATOR)
+  const [source, kind, name = ''] = key.split(SEPARATOR.colon)
 
   return join(
     [
@@ -22,7 +20,7 @@ function toExportAllStatement(key: string) {
       `"${source}"`,
     ],
     {
-      separator: ' ',
+      separator: SEPARATOR.whitespace,
     },
   )
 }
@@ -57,7 +55,7 @@ export default createESLintRule<Options, MessageIds>({
           node.exported?.name,
         ],
         {
-          separator: SEPARATOR,
+          separator: SEPARATOR.colon,
         },
       )
 
