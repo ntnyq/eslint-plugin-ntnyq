@@ -13,7 +13,7 @@ export const themeConfig: DefaultTheme.Config = {
 
   nav: [
     { text: 'Introduction', link: '/' },
-    { text: 'User Guide', link: '/user-guide/' },
+    { text: 'Guide', link: '/guide/' },
     { text: 'Rules', link: '/rules/' },
     {
       text: 'Changelog',
@@ -51,7 +51,7 @@ export const themeConfig: DefaultTheme.Config = {
         text: 'Guide',
         items: [
           { text: 'Introduction', link: '/' },
-          { text: 'User Guide', link: '/user-guide/' },
+          { text: 'Guide', link: '/guide/' },
           { text: 'Rules', link: '/rules/' },
           {
             text: 'Changelog',

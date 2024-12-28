@@ -8,9 +8,8 @@
 
 > Do not use this plugin unless you know exactly every rule may change.
 
-## ⚠️ Caveat
-
-Do check the output to ensure it's doing its job correctly and only run this on code that has been checked into source control.
+> [!CAUTION]
+> Do check the output to ensure it's doing its job correctly and only run this on code that has been checked into source control.
 
 ## Install
 
@@ -40,9 +39,8 @@ Config in `eslint.config.mjs`
 import pluginNtnyq from 'eslint-plugin-ntnyq'
 
 export default [
+  // other configs
   ...pluginNtnyq.configs.recommended,
-  // Or
-  // ...pluginNtnyq.configs.all,
 ]
 ```
 

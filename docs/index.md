@@ -14,7 +14,7 @@
 
 ## :book: Usage
 
-See [User Guide](./user-guide/index.md).
+See [Guide](./guide/index.md).
 
 ## :white_check_mark: Rules
 

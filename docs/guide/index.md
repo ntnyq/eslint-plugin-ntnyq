@@ -1,4 +1,4 @@
-# User Guide
+# Guide
 
 ## Install
 
@@ -28,9 +28,8 @@ Config in `eslint.config.mjs`
 import pluginNtnyq from 'eslint-plugin-ntnyq'
 
 export default [
+  // other configs
   ...pluginNtnyq.configs.recommended,
-  // Or
-  // ...pluginNtnyq.configs.all,
 ]
 ```
 
