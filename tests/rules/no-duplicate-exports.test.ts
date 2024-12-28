@@ -24,24 +24,27 @@ run({
         export type * as Foobar from './foobar'
       `,
       output(output) {
-        expect(output).toMatchSnapshot()
+        expect(output).toMatchSnapshot('output')
       },
       errors(errors) {
-        expect(errors).toMatchSnapshot()
+        expect(errors).toMatchSnapshot('errors')
       },
     },
-    // {
-    //   filename: 'named-export.ts',
-    //   code: $`
-    //     export { foo } from './foobar'
-    //     export { bar } from './foobar'
-    //   `,
-    //   output: $`
-    //     export { foo, bar } from './foobar'
-    //   `,
-    //   errors(errors) {
-    //     expect(errors).toMatchInlineSnapshot()
-    //   },
-    // },
+    {
+      description: 'named-export',
+      filename: 'named-export.ts',
+      code: $`
+        export { foo, bar as baz } from './foobar'
+        export { bar } from './foobar'
+        export { type Bar } from './foobar'
+        export type { Foo } from './foobar'
+      `,
+      output(output) {
+        expect(output).toMatchSnapshot('output')
+      },
+      errors(errors) {
+        expect(errors).toMatchSnapshot('errors')
+      },
+    },
   ],
 })
