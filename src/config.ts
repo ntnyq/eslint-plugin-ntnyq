@@ -17,7 +17,7 @@ export function createRecommendedConfig(options: RecommendedOptions = {}) {
     ...configOptions,
 
     name: configOptions.name || 'ntnyq/recommended',
-    files: configOptions.files || ['**/*.ts'],
+    files: configOptions.files || ['**/*.?([cm])[jt]s?(x)'],
     plugins: {
       ...(configOptions.plugins || {}),
 
