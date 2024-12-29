@@ -1,64 +1,92 @@
+import { globSync } from 'tinyglobby'
+import { version } from '../../../package.json'
+import { resolve } from '../../../scripts/utils'
+import { packageName } from '../meta'
 import type { DefaultTheme } from 'vitepress'
 
-export const themeConfig: DefaultTheme.Config = {
-  search: {
-    provider: 'local',
-  },
+const VERSIONS: DefaultTheme.NavItemWithLink[] = [
+  { text: `v${version} (current)`, link: '/' },
+  { text: `Release Notes`, link: `https://github.com/ntnyq/${packageName}/releases` },
+]
 
-  editLink: {
-    pattern: 'https://github.com/ntnyq/eslint-plugin-ntnyq/edit/main/docs/:path',
-  },
+function ruleToSidebarItem(ruleId: string): DefaultTheme.SidebarItem {
+  return {
+    text: ruleId,
+    link: `/rules/${ruleId}`,
+  }
+}
 
-  socialLinks: [{ icon: 'github', link: 'https://github.com/ntnyq/eslint-plugin-ntnyq' }],
+export function getThemeConfig() {
+  const rules = globSync(resolve('src/rules/*.ts'), {
+    ignore: ['**/index.ts'],
+    onlyFiles: true,
+    cwd: resolve(),
+  })
+    .map(path => path.split('/').pop()!)
+    .map(path => path.replace('.ts', ''))
 
-  nav: [
-    { text: 'Introduction', link: '/' },
-    { text: 'Guide', link: '/guide/' },
-    { text: 'Rules', link: '/rules/' },
-    {
-      text: 'Changelog',
-      link: 'https://github.com/ntnyq/eslint-plugin-ntnyq/releases',
+  const config: DefaultTheme.Config = {
+    search: {
+      provider: 'local',
+      options: {
+        detailedView: true,
+      },
     },
-  ],
 
-  sidebar: {
-    '/rules/': [
+    // logo: {
+    //   light: '/logo-light.svg',
+    //   dark: '/logo-dark.svg',
+    // },
+
+    editLink: {
+      text: 'Suggest changes to this page',
+      pattern: `https://github.com/ntnyq/${packageName}/edit/main/docs/:path`,
+    },
+
+    socialLinks: [
+      { icon: 'x', link: 'https://twitter.com/ntnyq' },
+      { icon: 'npm', link: `https://www.npmjs.com/package/${packageName}` },
+      { icon: 'github', link: `https://github.com/ntnyq/${packageName}` },
+    ],
+
+    nav: [
+      { text: 'Home', link: '/' },
+      { text: 'Guide', link: '/guide/' },
+      { text: 'Rules', link: '/rules/' },
       {
-        text: 'Rules',
-        items: [
-          {
-            text: 'Available Rules',
-            link: '/rules/',
-          },
-        ],
-      },
-      {
-        text: 'Stylistic Issues',
-        items: [
-          {
-            text: 'ntnyq/no-duplicate-exports',
-            link: '/rules/no-duplicate-exports',
-          },
-          {
-            text: 'ntnyq/no-member-accessibility',
-            link: '/rules/no-member-accessibility',
-          },
-        ],
+        text: `v${version}`,
+        items: VERSIONS,
       },
     ],
-    '/': [
-      {
-        text: 'Guide',
-        items: [
-          { text: 'Introduction', link: '/' },
-          { text: 'Guide', link: '/guide/' },
-          { text: 'Rules', link: '/rules/' },
-          {
-            text: 'Changelog',
-            link: 'https://github.com/ntnyq/eslint-plugin-ntnyq/releases',
-          },
-        ],
-      },
-    ],
-  },
+
+    sidebar: {
+      '/rules/': [
+        {
+          text: 'Rules',
+          items: [
+            {
+              text: 'Overview',
+              link: '/rules/',
+            },
+          ],
+        },
+        {
+          text: 'Rules list',
+          items: rules.map(ruleId => ruleToSidebarItem(ruleId)),
+        },
+      ],
+      '/': [
+        {
+          text: 'Guide',
+          items: [
+            { text: 'Home', link: '/' },
+            { text: 'Guide', link: '/guide/' },
+            { text: 'Rules', link: '/rules/' },
+          ],
+        },
+      ],
+    },
+  }
+
+  return config
 }

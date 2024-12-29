@@ -15,6 +15,17 @@
     "javascriptreact",
     "typescriptreact"
   ],
-  "cSpell.words": ["bumpp", "changelogithub", "lcov", "pnpm", "tses", "tsup", "vitepress"],
+  "cSpell.words": [
+    "bumpp",
+    "changelogithub",
+    "iconify",
+    "lcov",
+    "pnpm",
+    "shikijs",
+    "tses",
+    "tsup",
+    "unplugin",
+    "vitepress"
+  ],
   "vscode-dev-helper.enableCodeLens": true
 }

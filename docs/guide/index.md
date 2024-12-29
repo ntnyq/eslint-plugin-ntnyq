@@ -2,31 +2,34 @@
 
 ## Install
 
-**npm**:
+::: code-group
 
-```bash
+```shell [npm]
 npm i eslint-plugin-ntnyq -D
 ```
 
-**yarn**
-
-```bash
+```shell [yarn]
 yarn add eslint-plugin-ntnyq -D
 ```
 
-**pnpm**
-
-```bash
+```shell [pnpm]
 pnpm add eslint-plugin-ntnyq -D
 ```
 
-## Usage
+:::
 
-Config in `eslint.config.mjs`
+## Basic Usage
 
-```js
+Highly recommended to use `eslint.config.mjs` as config file.
+
+```ts [eslint.config.mjs] twoslash
+// @ts-check
+
 import pluginNtnyq from 'eslint-plugin-ntnyq'
 
+/**
+ * @type {import('eslint').Linter.Config[]}
+ */
 export default [
   // other configs
   ...pluginNtnyq.configs.recommended,
@@ -39,30 +42,55 @@ The `recommended` config enables a subset of [the rules](#rules) that should be 
 
 _See [src/configs/recommended.ts](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/configs/recommended.ts) for more details._
 
-### The all preset
-
-The `all` config enables all the [the rules](#rules).
-
-_See [src/configs/all.ts](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/configs/all.ts) for more details._
-
-### Advanced Configuration
+## Advanced Usage
 
 Override/add specific rules configurations.
 
 _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring)_.
 
-```js
-import pluginNtnyq from 'eslint-plugin-ntnyq'
+```ts [eslint.config.mjs] twoslash
+// @noErrors
+// @ts-check
 
+import { createRecommendedConfig } from 'eslint-plugin-ntnyq'
+
+/**
+ * @type {import('eslint').Linter.Config[]}
+ */
 export default [
-  {
-    files: ['**/*.ts'],
-    plugins: {
-      ntnyq: pluginNtnyq,
-    },
+  // other configs
+  createRecommendedConfig({
+    name: 'ntnyq/recommended',
+    files: ['**/*.?([cm])[jt]s?(x)'],
     rules: {
       'ntnyq/no-member-accessibility': 'error',
     },
-  },
+  }),
 ]
 ```
+
+## Options of `createRecommendedConfig`
+
+### name
+
+The name of the config.
+
+- Type: `string`
+- Required: `false`
+- Default: `ntnyq/recommended`
+
+### files
+
+The files to be linted.
+
+- Type: `string[]`
+- Required: `false`
+- Default: `['**/*.?([cm])[jt]s?(x)']`
+
+### rules
+
+Override rules in the `recommended` preset.
+
+- Type: `Record<string, Linter.RuleEntry>`
+- Required: `false`
+- Default: `undefined`

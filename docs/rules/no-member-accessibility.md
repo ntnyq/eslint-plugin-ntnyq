@@ -16,9 +16,9 @@ since: v0.0.1
 
 This rule reports usage of TypeScript member accessibility.
 
-### Good
+::: correct
 
-```ts
+```ts eslint-check
 class Test {
   x: number
 
@@ -44,9 +44,11 @@ class Test {
 }
 ```
 
-### Bad
+:::
 
-```ts
+::: incorrect
+
+```ts eslint-check
 class Test {
   private x: number
 
@@ -71,6 +73,8 @@ class Test {
   }
 }
 ```
+
+:::
 
 ## :wrench: Options
 

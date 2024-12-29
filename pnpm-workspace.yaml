@@ -1,2 +1,4 @@
+catalog:
+  typescript-eslint: ^8.18.2
 packages:
   - docs

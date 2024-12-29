@@ -20,8 +20,10 @@
     "./src/**/*.ts",
     "./scripts/**/*.ts",
     "./tests/**/*.ts",
-    "./docs/.vitepress/**/*.ts",
     "./typings/**/*.d.ts",
+    "./docs/**/*.d.ts",
+    "./docs/.vitepress/**/*.ts",
+    "./docs/.vitepress/**/*.vue",
     "./*.config.ts",
     "eslint.config.mjs"
   ],

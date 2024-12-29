@@ -16,9 +16,9 @@ since: v0.8.1
 
 This rule reports multiple same export all statement.
 
-### Good
+::: correct
 
-```ts
+```ts eslint-check
 export * from './foobar'
 
 export * as foobar from './foobar'
@@ -30,9 +30,11 @@ export type * as Foobar from './foobar'
 export { foo, bar } from './foobar'
 ```
 
-### Bad
+:::
 
-```ts
+::: incorrect
+
+```ts eslint-check
 export * from './foobar'
 export * from './foobar'
 
@@ -48,6 +50,8 @@ export type * as Foobar from './foobar'
 export { foo } from './foobar'
 export { bar } from './foobar'
 ```
+
+:::
 
 ## :wrench: Options
 

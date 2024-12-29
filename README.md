@@ -38,6 +38,9 @@ Config in `eslint.config.mjs`
 ```js
 import pluginNtnyq from 'eslint-plugin-ntnyq'
 
+/**
+ * @type {import('eslint').Linter.Config[]}
+ */
 export default [
   // other configs
   ...pluginNtnyq.configs.recommended,
@@ -50,25 +53,27 @@ The `recommended` config enables a subset of [the rules](#rules) that should be 
 
 _See [src/configs/recommended.ts](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/configs/recommended.ts) for more details._
 
-### Advanced Configuration
+### Advanced Usage
 
 Override/add specific rules configurations.
 
 _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring)_.
 
 ```js
-import pluginNtnyq from 'eslint-plugin-ntnyq'
+import { createRecommendedConfig } from 'eslint-plugin-ntnyq'
 
+/**
+ * @type {import('eslint').Linter.Config[]}
+ */
 export default [
-  {
-    files: ['**/*.ts'],
-    plugins: {
-      ntnyq: pluginNtnyq,
-    },
+  // other configs
+  createRecommendedConfig({
+    name: 'ntnyq/recommended',
+    files: ['**/*.?([cm])[jt]s?(x)'],
     rules: {
       'ntnyq/no-member-accessibility': 'error',
     },
-  },
+  }),
 ]
 ```
 

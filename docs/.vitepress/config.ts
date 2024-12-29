@@ -1,13 +1,85 @@
+import { transformerRenderWhitespace } from '@shikijs/transformers'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import { createRecommendedConfig } from 'eslint-plugin-ntnyq'
+import MarkdownItContainer from 'markdown-it-container'
+import { createTwoslasher } from 'twoslash-eslint'
+import { parser as parserTs } from 'typescript-eslint'
 import { defineConfig } from 'vitepress'
+import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
 import { head } from './config/head'
-import { themeConfig } from './config/theme'
+import { getThemeConfig } from './config/theme'
+import { appDescription, appTitle } from './meta'
 
 export default defineConfig({
-  title: 'eslint-plugin-ntnyq',
-
-  description: 'An opinionated ESLint plugin.',
+  title: appTitle,
+  description: appDescription,
+  lastUpdated: true,
+  cleanUrls: true,
+  ignoreDeadLinks: true,
 
   head,
-  themeConfig,
-  lastUpdated: true,
+  themeConfig: getThemeConfig(),
+  markdown: {
+    config(md) {
+      md.use(groupIconMdPlugin)
+
+      MarkdownItContainer(md, 'correct', {
+        render(tokens: any[], idx: number) {
+          if (tokens[idx].nesting === 1) {
+            const next = tokens[idx + 1]
+            if (next.type === 'fence') {
+              next.info = [next.info, 'eslint-check'].filter(Boolean).join(' ')
+            }
+            return '<CustomWrapper type="correct">'
+          } else {
+            return '</CustomWrapper>\n'
+          }
+        },
+      })
+
+      MarkdownItContainer(md, 'incorrect', {
+        render(tokens: any[], idx: number) {
+          if (tokens[idx].nesting === 1) {
+            const next = tokens[idx + 1]
+            if (next.type === 'fence') {
+              next.info = [next.info, 'eslint-check'].filter(Boolean).join(' ')
+            }
+            return '<CustomWrapper type="incorrect">'
+          } else {
+            return '</CustomWrapper>\n'
+          }
+        },
+      })
+    },
+
+    codeTransformers: [
+      transformerRenderWhitespace({
+        position: 'all',
+      }),
+      transformerTwoslash({
+        explicitTrigger: /\btwoslash\b/,
+      }),
+      transformerTwoslash({
+        errorRendering: 'hover',
+        explicitTrigger: /\beslint-check\b/,
+        twoslasher: createTwoslasher({
+          eslintCodePreprocess: code => {
+            // Remove trailing newline and presentational `⏎` characters
+            return code.replace(/⏎(?=\n)/gu, '').replace(/⏎$/gu, '\n')
+          },
+          eslintConfig: [
+            createRecommendedConfig({
+              languageOptions: {
+                parser: parserTs as unknown as any,
+              },
+              rules: {
+                'ntnyq/no-duplicate-exports': 'error',
+                'ntnyq/no-member-accessibility': 'error',
+              },
+            }),
+          ],
+        }),
+      }),
+    ],
+  },
 })

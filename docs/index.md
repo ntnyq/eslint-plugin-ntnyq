@@ -1,4 +1,19 @@
-# Introduction
+---
+layout: home
+
+hero:
+  name: eslint-plugin-ntnyq
+  text: ntnyq
+  tagline: An opinionated ESLint plugin
+  # image:
+  #   light: /logo-light.svg
+  #   dark: /logo-dark.svg
+  #   alt: ESLint Plugin GitHub Action Logo
+  actions:
+    - theme: brand
+      text: Get Started
+      link: /guide/
+---
 
 [eslint-plugin-ntnyq](https://www.npmjs.com/package/eslint-plugin-ntnyq) is An opinionated ESLint plugin.
 
