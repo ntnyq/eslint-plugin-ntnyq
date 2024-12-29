@@ -38,13 +38,16 @@
   "scripts": {
     "build": "tsup",
     "coverage": "vitest --coverage",
+    "deploy": "run-s build docs:build",
     "dev": "tsup --watch src",
     "docs:build": "pnpm -C docs run build",
     "docs:dev": "pnpm -C docs run dev",
     "lint": "eslint .",
     "prepare": "husky",
-    "prepublish": "pnpm run build",
-    "release": "bumpp && pnpm publish",
+    "prepublishOnly": "pnpm run build",
+    "release": "run-s release:check release:publish",
+    "release:check": "run-s lint typecheck test",
+    "release:publish": "bumpp && pnpm publish",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
@@ -52,6 +55,7 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
+    "@typescript-eslint/parser": "^8.18.2",
     "@typescript-eslint/utils": "^8.18.2"
   },
   "devDependencies": {
@@ -65,6 +69,7 @@
     "eslint-vitest-rule-tester": "^0.7.1",
     "husky": "^9.1.7",
     "nano-staged": "^0.8.0",
+    "npm-run-all2": "^7.0.2",
     "prettier": "^3.4.2",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",

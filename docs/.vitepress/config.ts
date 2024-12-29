@@ -3,7 +3,6 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { createRecommendedConfig } from 'eslint-plugin-ntnyq'
 import MarkdownItContainer from 'markdown-it-container'
 import { createTwoslasher } from 'twoslash-eslint'
-import { parser as parserTs } from 'typescript-eslint'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
 import { head } from './config/head'
@@ -69,9 +68,6 @@ export default defineConfig({
           },
           eslintConfig: [
             createRecommendedConfig({
-              languageOptions: {
-                parser: parserTs as unknown as any,
-              },
               rules: {
                 'ntnyq/no-duplicate-exports': 'error',
                 'ntnyq/no-member-accessibility': 'error',

@@ -1,3 +1,4 @@
+import parseTypeScript from '@typescript-eslint/parser'
 import { plugin } from '.'
 import type { Linter } from 'eslint'
 import type { Rules } from './dts'
@@ -26,6 +27,10 @@ export function createRecommendedConfig(options: RecommendedOptions = {}) {
         return plugin
       },
       /* v8 ignore stop */
+    },
+    languageOptions: {
+      ...options.languageOptions,
+      parser: parseTypeScript,
     },
     rules: {
       ...configOptions.rules,
