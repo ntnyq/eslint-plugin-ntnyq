@@ -59,7 +59,7 @@
     "@typescript-eslint/utils": "^8.18.2"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^3.10.3",
+    "@ntnyq/eslint-config": "^3.10.4",
     "@ntnyq/prettier-config": "^1.22.0",
     "@types/node": "^22.10.2",
     "@vitest/coverage-v8": "^3.0.0-beta.3",
