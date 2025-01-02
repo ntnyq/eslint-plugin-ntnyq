@@ -8,7 +8,7 @@ since: v0.0.1
 
 # ntnyq/no-member-accessibility
 
-- :wrench: The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule.
+- :wrench: The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fix-problems) can automatically fix some of the problems reported by this rule.
 
 > Disallow usage of typescript member accessibility.
 
