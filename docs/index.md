@@ -3,7 +3,6 @@ layout: home
 
 hero:
   name: eslint-plugin-ntnyq
-  text: ntnyq
   tagline: An opinionated ESLint plugin
   # image:
   #   light: /logo-light.svg
@@ -14,8 +13,6 @@ hero:
       text: Get Started
       link: /guide/
 ---
-
-[eslint-plugin-ntnyq](https://www.npmjs.com/package/eslint-plugin-ntnyq) is An opinionated ESLint plugin.
 
 <div id="package_status">
 
@@ -33,11 +30,11 @@ See [Guide](./guide/index.md).
 
 ## :white_check_mark: Rules
 
-See [Available Rules](./rules/index.md).
+See [Rules](./rules/index.md).
 
-## :book: Changelog
+## :book: Releases
 
-See [CHANGELOG](https://github.com/ntnyq/eslint-plugin-ntnyq/releases).
+See [Releases](https://github.com/ntnyq/eslint-plugin-ntnyq/releases).
 
 ## :lock: License
 

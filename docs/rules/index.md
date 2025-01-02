@@ -2,7 +2,7 @@
 sidebarDepth: 0
 ---
 
-# Available Rules
+# Rules
 
 💼 Configurations enabled in.\
 ✅ Set in the `recommended` preset.\
