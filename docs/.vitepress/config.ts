@@ -1,6 +1,6 @@
 import { transformerRenderWhitespace } from '@shikijs/transformers'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-import { createRecommendedConfig } from 'eslint-plugin-ntnyq'
+import { createConfig } from 'eslint-plugin-ntnyq'
 import MarkdownItContainer from 'markdown-it-container'
 import { createTwoslasher } from 'twoslash-eslint'
 import { defineConfig } from 'vitepress'
@@ -67,10 +67,11 @@ export default defineConfig({
             return code.replace(/⏎(?=\n)/gu, '').replace(/⏎$/gu, '\n')
           },
           eslintConfig: [
-            createRecommendedConfig({
+            createConfig({
               rules: {
                 'ntnyq/no-duplicate-exports': 'error',
                 'ntnyq/no-member-accessibility': 'error',
+                'ntnyq/prefer-newline-after-file-header': 'error',
               },
             }),
           ],

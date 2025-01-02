@@ -60,18 +60,19 @@ Override/add specific rules configurations.
 _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring)_.
 
 ```js
-import { createRecommendedConfig } from 'eslint-plugin-ntnyq'
+import { createConfig } from 'eslint-plugin-ntnyq'
 
 /**
  * @type {import('eslint').Linter.Config[]}
  */
 export default [
   // other configs
-  createRecommendedConfig({
+  createConfig({
     name: 'ntnyq/recommended',
     files: ['**/*.?([cm])[jt]s?(x)'],
     rules: {
       'ntnyq/no-member-accessibility': 'error',
+      'ntnyq/prefer-newline-after-file-header': 'error',
     },
   }),
 ]
@@ -84,10 +85,11 @@ export default [
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
 💡 Manually fixable by [editor suggestions](https://eslint.org/docs/developer-guide/working-with-rules#providing-suggestions).
 
-| Name                                                                                          | Description                                       | 💼  | 🔧  | 💡  |
-| :-------------------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: | :-: |
-| [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)       | Disallow duplicate exports statement              |     | 🔧  |     |
-| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html) | Disallow usage of typescript member accessibility |     | 🔧  |     |
+| Name                                                                                                            | Description                                       | 💼  | 🔧  | 💡  |
+| :-------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: | :-: |
+| [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement              |     | 🔧  |     |
+| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility |     | 🔧  |     |
+| [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header               | ✅  | 🔧  |     |
 
 ## License
 

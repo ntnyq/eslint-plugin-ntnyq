@@ -52,14 +52,14 @@ _See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/doc
 // @noErrors
 // @ts-check
 
-import { createRecommendedConfig } from 'eslint-plugin-ntnyq'
+import { createConfig } from 'eslint-plugin-ntnyq'
 
 /**
  * @type {import('eslint').Linter.Config[]}
  */
 export default [
   // other configs
-  createRecommendedConfig({
+  createConfig({
     name: 'ntnyq/recommended',
     files: ['**/*.?([cm])[jt]s?(x)'],
     rules: {
@@ -69,15 +69,9 @@ export default [
 ]
 ```
 
-## Options of `createRecommendedConfig`
+## Options of `createConfig`
 
-### name
-
-The name of the config.
-
-- Type: `string`
-- Required: `false`
-- Default: `ntnyq/recommended`
+All fields of ESLint `Linter.Config` are supported, but bellow fields have default value:
 
 ### files
 
@@ -87,10 +81,18 @@ The files to be linted.
 - Required: `false`
 - Default: `['**/*.?([cm])[jt]s?(x)']`
 
-### rules
+### languageOptions.parser
 
-Override rules in the `recommended` preset.
+The parser to use, this is set by default and can't be overridden.
 
-- Type: `Record<string, Linter.RuleEntry>`
+- Type: `Linter.Parser`
 - Required: `false`
-- Default: `undefined`
+- Default: [@typescript-eslint/parser](https://typescript-eslint.io/packages/parser/)
+
+### plugins
+
+The plugins to use.
+
+- Type: `Record<string, ESLint.Plugin>`
+- Required: `false`
+- Default: key `ntnyq` set to this plugin
