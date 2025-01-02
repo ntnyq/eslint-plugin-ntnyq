@@ -55,7 +55,15 @@ export { bar } from './foobar'
 
 ## :wrench: Options
 
-Nothing.
+```ts
+export type Options = [
+  {
+    style?: 'inline' | 'separate'
+  },
+]
+```
+
+Default to `separate`.
 
 ## :rocket: Version
 

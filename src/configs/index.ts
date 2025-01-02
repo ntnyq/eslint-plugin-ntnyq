@@ -3,7 +3,7 @@ import { plugin } from '..'
 import type { Linter } from 'eslint'
 import type { RulesWithPluginName } from '../dts'
 
-export type CreateConfigOptions<T extends string> = Omit<Linter.Config, 'rules'> & {
+export type CreateConfigOptions<T extends string = 'ntnyq'> = Omit<Linter.Config, 'rules'> & {
   rules?: Partial<RulesWithPluginName<T>>
 }
 

@@ -3,23 +3,29 @@ import { PROGRAM_EXIT, SEPARATOR } from '../constants'
 import { createESLintRule, join } from '../utils'
 import type { Tree } from '../types'
 
-enum ExportStyle {
-  inline = 'inline',
-  separate = 'separate',
-}
-
+const EXPORT_STYLE = {
+  inline: 'inline',
+  separate: 'separate',
+} as const
 const EXPORT_TYPE = 'type'
+
+type AllowedExportStyle = keyof typeof EXPORT_STYLE
 
 export const RULE_NAME = 'no-duplicate-exports'
 export type MessageIds = 'multiSameExportAll' | 'multiSameSourceNamed'
 export type Options = [
   {
-    style: ExportStyle.separate
+    /**
+     * types export style
+     *
+     * @default `separate`
+     */
+    style?: AllowedExportStyle
   },
 ]
 
 const defaultOptions: Options[0] = {
-  style: ExportStyle.separate,
+  style: EXPORT_STYLE.separate,
 }
 
 function getIdentifierOrStringLiteralValue(node: Tree.Identifier | Tree.StringLiteral) {
@@ -89,7 +95,7 @@ export default createESLintRule<Options, MessageIds>({
           style: {
             type: 'string',
             description: 'The expected export kind for type-only exports',
-            enum: [ExportStyle.inline, ExportStyle.separate],
+            enum: [EXPORT_STYLE.inline, EXPORT_STYLE.separate],
           },
         },
         additionalProperties: false,
@@ -103,9 +109,9 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    const { style: namedExportStyle = ExportStyle.separate } =
+    const { style: namedExportStyle = EXPORT_STYLE.separate } =
       context.options?.[0] || defaultOptions
-    const preferSeparateStyle = namedExportStyle === ExportStyle.separate
+    const preferSeparateStyle = namedExportStyle === EXPORT_STYLE.separate
 
     const seenExportAll = new Map<string, Tree.ExportAllDeclaration[]>()
     const seenNamedExport = new Map<string, Tree.ExportNamedDeclarationWithSource[]>()
