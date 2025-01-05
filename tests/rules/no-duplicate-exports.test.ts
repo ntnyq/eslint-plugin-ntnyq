@@ -38,6 +38,7 @@ run({
         export { bar } from './foobar'
         export { type Bar } from './foobar'
         export type { Foo } from './foobar'
+        export { default as 'module.exports' } from './foobar'
       `,
       output(output) {
         expect(output).toMatchSnapshot('output')

@@ -146,7 +146,7 @@ exports[`no-duplicate-exports > invalid > Invalid #1: named-export > errors 1`] 
         0,
         42,
       ],
-      "text": "export { foo, bar as baz, bar, type Bar } from './foobar'",
+      "text": "export { foo, bar as baz, bar, type Bar, default as 'module.exports' } from './foobar'",
     },
     "line": 1,
     "message": "Multiple named export from same source './foobar'",
@@ -191,12 +191,31 @@ exports[`no-duplicate-exports > invalid > Invalid #1: named-export > errors 1`] 
     "ruleId": "no-duplicate-exports",
     "severity": 2,
   },
+  {
+    "column": 1,
+    "endColumn": 55,
+    "endLine": 5,
+    "fix": {
+      "range": [
+        146,
+        200,
+      ],
+      "text": "",
+    },
+    "line": 5,
+    "message": "Multiple named export from same source './foobar'",
+    "messageId": "multiSameSourceNamed",
+    "nodeType": "ExportNamedDeclaration",
+    "ruleId": "no-duplicate-exports",
+    "severity": 2,
+  },
 ]
 `;
 
 exports[`no-duplicate-exports > invalid > Invalid #1: named-export > output 1`] = `
-"export { foo, bar as baz, bar, type Bar } from './foobar'
+"export { foo, bar as baz, bar, type Bar, default as 'module.exports' } from './foobar'
 
 
-export type { Foo } from './foobar'"
+export type { Foo } from './foobar'
+"
 `;

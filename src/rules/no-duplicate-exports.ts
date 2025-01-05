@@ -29,12 +29,12 @@ const defaultOptions: Options[0] = {
 }
 
 function getIdentifierOrStringLiteralValue(node: Tree.Identifier | Tree.StringLiteral) {
-  if (node?.type === AST_NODE_TYPES.Identifier) {
+  if (node.type === AST_NODE_TYPES.Identifier) {
     return node.name
   }
 
-  if (node?.type === AST_NODE_TYPES.Literal) {
-    return node.value
+  if (node.type === AST_NODE_TYPES.Literal) {
+    return node.raw
   }
 
   return ''
