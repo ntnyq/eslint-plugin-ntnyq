@@ -64,3 +64,36 @@ exports[`prefer-newline-after-file-header > invalid > Invalid #1: same-line > ou
 
 export const foobar = 'foobar'"
 `;
+
+exports[`prefer-newline-after-file-header > invalid > Invalid #2: user-defined-jsdoc > errors 1`] = `
+[
+  {
+    "column": 4,
+    "endColumn": 34,
+    "endLine": 3,
+    "fix": {
+      "range": [
+        32,
+        32,
+      ],
+      "text": "
+
+",
+    },
+    "line": 3,
+    "message": "require a newline before",
+    "messageId": "requireNewlineBefore",
+    "nodeType": "ExportNamedDeclaration",
+    "ruleId": "prefer-newline-after-file-header",
+    "severity": 2,
+  },
+]
+`;
+
+exports[`prefer-newline-after-file-header > invalid > Invalid #2: user-defined-jsdoc > output 1`] = `
+"/**
+ * @foobar eslint config
+ */
+
+export const foobar = 'foobar'"
+`;

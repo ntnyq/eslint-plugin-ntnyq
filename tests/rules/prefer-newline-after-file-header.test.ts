@@ -62,6 +62,17 @@ run({
       `,
     },
     {
+      description: 'not-file-header-jsdoc',
+      filename: 'not-file-header-jsdoc.ts',
+      code: $`
+        /**
+         * @foobar eslint config
+         */
+        
+        export const foobar = 'foobar'
+      `,
+    },
+    {
       description: 'multi-newline',
       filename: 'multi-newline.ts',
       code: $`
@@ -98,6 +109,24 @@ run({
       code: $`
         /**
          * @file eslint config
+         */export const foobar = 'foobar'
+      `,
+      output(output) {
+        expect(output).toMatchSnapshot('output')
+      },
+      errors(errors) {
+        expect(errors).toMatchSnapshot('errors')
+      },
+    },
+    {
+      description: 'user-defined-jsdoc',
+      filename: 'user-defined-jsdoc.ts',
+      options: {
+        tags: ['@foobar'],
+      },
+      code: $`
+        /**
+         * @foobar eslint config
          */export const foobar = 'foobar'
       `,
       output(output) {

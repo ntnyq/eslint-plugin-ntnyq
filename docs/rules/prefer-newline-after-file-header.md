@@ -30,6 +30,26 @@ export const foobar = 'foobar'
 
 :::
 
+::: correct
+
+```ts eslint-check
+// @file eslint config
+
+export const foobar = 'foobar'
+```
+
+:::
+
+::: correct
+
+```ts eslint-check
+/**
+ * @file eslint config
+ */
+```
+
+:::
+
 ::: incorrect
 
 ```ts eslint-check
@@ -43,7 +63,31 @@ export const foobar = 'foobar'
 
 ## :wrench: Options
 
-Nothing.
+```ts
+export type Options = [
+  {
+    tags?: string[]
+  },
+]
+```
+
+Default to:
+
+```json
+{
+  "tags": [
+    "@author",
+    "@category",
+    "@copyright",
+    "@date",
+    "@file",
+    "@fileoverview",
+    "@license",
+    "@module",
+    "@overview"
+  ]
+}
+```
 
 ## :rocket: Version
 

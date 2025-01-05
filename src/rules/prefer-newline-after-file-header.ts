@@ -2,9 +2,35 @@ import { AST_TOKEN_TYPES } from '@typescript-eslint/utils'
 import { createESLintRule } from '../utils'
 import type { Tree } from '../types'
 
+// @keep-sorted
+const FILE_HEADER_TAGS = [
+  '@author',
+  '@category',
+  '@copyright',
+  '@date',
+  '@file',
+  '@fileoverview',
+  '@license',
+  '@module',
+  '@overview',
+]
+
 export const RULE_NAME = 'prefer-newline-after-file-header'
 export type MessageIds = 'requireNewlineBefore'
-export type Options = []
+export type Options = [
+  {
+    tags?: string[]
+  },
+]
+
+const defaultOptions: Options[0] = {
+  tags: FILE_HEADER_TAGS,
+}
+
+function isFileHeaderComment(comment: Tree.BlockComment, tags: string[]) {
+  const reFileHeaderTag = new RegExp(`\\*\\s*(${tags.join('|')})`)
+  return reFileHeaderTag.test(comment.value.trim())
+}
 
 /**
  * get first block comment
@@ -30,18 +56,35 @@ export default createESLintRule<Options, MessageIds>({
       description: 'require a newline after file header',
     },
     fixable: 'whitespace',
-    schema: [],
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          tags: {
+            type: 'array',
+            description: 'file header jsdoc tags',
+            items: {
+              type: 'string',
+            },
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
+    defaultOptions: [defaultOptions],
     messages: {
       requireNewlineBefore: 'require a newline before',
     },
   },
-  defaultOptions: [],
+  defaultOptions: [defaultOptions],
   create(context) {
+    const { tags: jsdocTags = [] } = context.options?.[0] || defaultOptions
     return {
       Program(node) {
         const firstBlockComment = getFirstBlockComment(node)
 
-        if (!firstBlockComment) {
+        // no block comment or not a file header comment
+        if (!firstBlockComment || !isFileHeaderComment(firstBlockComment, jsdocTags)) {
           return
         }
 
