@@ -23,11 +23,11 @@ export * from './foobar'
 
 export * as foobar from './foobar'
 
+export { bar, foo } from './foobar'
+
 export type * from './foobar'
 
 export type * as Foobar from './foobar'
-
-export { foo, bar } from './foobar'
 ```
 
 :::
@@ -38,17 +38,17 @@ export { foo, bar } from './foobar'
 export * from './foobar'
 export * from './foobar'
 
-export * as foobar from './foobar'
-export * as foobar from './foobar'
-
-export type * from './foobar'
-export type * from './foobar'
-
-export type * as Foobar from './foobar'
-export type * as Foobar from './foobar'
-
 export { foo } from './foobar'
 export { bar } from './foobar'
+
+export * as foobar from './foobar'
+export * as foobar from './foobar'
+
+export type * from './foobar'
+export type * from './foobar'
+
+export type * as Foobar from './foobar'
+export type * as Foobar from './foobar'
 ```
 
 :::

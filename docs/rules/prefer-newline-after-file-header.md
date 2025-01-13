@@ -34,7 +34,6 @@ export const foobar = 'foobar'
 
 ```ts eslint-check
 // @file eslint config
-
 export const foobar = 'foobar'
 ```
 
@@ -51,6 +50,8 @@ export const foobar = 'foobar'
 :::
 
 ::: incorrect
+
+<!-- eslint-skip -->
 
 ```ts eslint-check
 /**
