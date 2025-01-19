@@ -20,12 +20,11 @@
     "./src/**/*.ts",
     "./scripts/**/*.ts",
     "./tests/**/*.ts",
-    "./typings/**/*.d.ts",
     "./docs/**/*.d.ts",
     "./docs/.vitepress/**/*.ts",
     "./docs/.vitepress/**/*.vue",
     "./*.config.ts",
-    "eslint.config.mjs"
+    "./*.config.mjs"
   ],
   "exclude": ["**/node_modules", "**/dist"]
 }

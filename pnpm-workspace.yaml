@@ -1,4 +1,4 @@
 catalog:
-  typescript-eslint: ^8.19.1
+  typescript-eslint: ^8.20.0
 packages:
   - docs
