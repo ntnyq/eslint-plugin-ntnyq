@@ -28,7 +28,9 @@ const defaultOptions: Options[0] = {
   style: EXPORT_STYLE.separate,
 }
 
-function getIdentifierOrStringLiteralValue(node: Tree.Identifier | Tree.StringLiteral) {
+function getIdentifierOrStringLiteralValue(
+  node: Tree.Identifier | Tree.StringLiteral,
+) {
   if (node.type === AST_NODE_TYPES.Identifier) {
     return node.name
   }
@@ -114,7 +116,10 @@ export default createESLintRule<Options, MessageIds>({
     const preferSeparateStyle = namedExportStyle === EXPORT_STYLE.separate
 
     const seenExportAll = new Map<string, Tree.ExportAllDeclaration[]>()
-    const seenNamedExport = new Map<string, Tree.ExportNamedDeclarationWithSource[]>()
+    const seenNamedExport = new Map<
+      string,
+      Tree.ExportNamedDeclarationWithSource[]
+    >()
 
     function addExportAllNode(node: Tree.ExportAllDeclaration) {
       const key = join(
@@ -212,7 +217,9 @@ export default createESLintRule<Options, MessageIds>({
                   ],
                   { separator: SEPARATOR.whitespace },
                 )
-                return idx === 0 ? fixer.replaceText(node, replaceText) : fixer.remove(node)
+                return idx === 0
+                  ? fixer.replaceText(node, replaceText)
+                  : fixer.remove(node)
               },
             })
           })

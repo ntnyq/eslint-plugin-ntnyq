@@ -7,7 +7,10 @@ const TEST_CWD = resolve('tests/fixtures/integrations/eslint-plugin')
 describe('Integration test', () => {
   it('should lint without errors', async () => {
     const eslint = new ESLint({ cwd: TEST_CWD })
-    const results: ESLint.LintResult[] = await eslint.lintFiles(['valid.ts', 'invalid.ts'])
+    const results: ESLint.LintResult[] = await eslint.lintFiles([
+      'valid.ts',
+      'invalid.ts',
+    ])
 
     expect(results.length).toBe(2)
     expect(results[0].messages.map(v => v.ruleId)).toMatchInlineSnapshot('[]')

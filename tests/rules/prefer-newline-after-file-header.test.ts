@@ -1,5 +1,7 @@
 import { expect } from 'vitest'
-import rule, { RULE_NAME } from '../../src/rules/prefer-newline-after-file-header'
+import rule, {
+  RULE_NAME,
+} from '../../src/rules/prefer-newline-after-file-header'
 import { $, run } from '../internal'
 
 run({

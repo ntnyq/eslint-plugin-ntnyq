@@ -55,12 +55,12 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
-    "@typescript-eslint/parser": "^8.23.0",
-    "@typescript-eslint/utils": "^8.23.0"
+    "@typescript-eslint/parser": "catalog:",
+    "@typescript-eslint/utils": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^3.12.3",
-    "@ntnyq/prettier-config": "^1.22.1",
+    "@ntnyq/eslint-config": "^4.0.0-beta.3",
+    "@ntnyq/prettier-config": "^2.0.0-beta.2",
     "@types/node": "^22.13.1",
     "@vitest/coverage-v8": "^3.0.5",
     "bumpp": "^10.0.2",
@@ -80,7 +80,13 @@
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
   "nano-staged": {
-    "*.{js,ts,cjs,mjs,vue,md,yml,yaml,json}": "eslint --fix"
+    "*.{js,ts,cjs,mjs,vue,md,yml,yaml,json}": "eslint --fix",
+    "*.{css,scss,html}": "prettier -uw"
   }
 }

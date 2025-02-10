@@ -1,4 +1,6 @@
 catalog:
-  typescript-eslint: ^8.23.0
+  '@typescript-eslint/parser': ^8.24.0
+  '@typescript-eslint/utils': ^8.24.0
+  typescript-eslint: ^8.24.0
 packages:
   - docs

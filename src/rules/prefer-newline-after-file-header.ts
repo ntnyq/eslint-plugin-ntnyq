@@ -84,12 +84,18 @@ export default createESLintRule<Options, MessageIds>({
         const firstBlockComment = getFirstBlockComment(node)
 
         // no block comment or not a file header comment
-        if (!firstBlockComment || !isFileHeaderComment(firstBlockComment, jsdocTags)) {
+        if (
+          !firstBlockComment
+          || !isFileHeaderComment(firstBlockComment, jsdocTags)
+        ) {
           return
         }
 
         // file header should be at the start of first line
-        if (firstBlockComment.loc.start.line !== 1 || firstBlockComment.range[0] !== 0) {
+        if (
+          firstBlockComment.loc.start.line !== 1
+          || firstBlockComment.range[0] !== 0
+        ) {
           return
         }
 
@@ -99,7 +105,8 @@ export default createESLintRule<Options, MessageIds>({
           return
         }
 
-        const lineDelta = firstNode.loc.start.line - firstBlockComment.loc.end.line
+        const lineDelta =
+          firstNode.loc.start.line - firstBlockComment.loc.end.line
 
         if (lineDelta > 1) {
           return
@@ -108,7 +115,11 @@ export default createESLintRule<Options, MessageIds>({
         context.report({
           node: firstNode,
           messageId: 'requireNewlineBefore',
-          fix: fixer => fixer.insertTextAfter(firstBlockComment, '\n'.repeat(2 - lineDelta)),
+          fix: fixer =>
+            fixer.insertTextAfter(
+              firstBlockComment,
+              '\n'.repeat(2 - lineDelta),
+            ),
         })
       },
     }

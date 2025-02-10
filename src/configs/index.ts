@@ -3,11 +3,16 @@ import { plugin } from '..'
 import type { Linter } from 'eslint'
 import type { RulesWithPluginName } from '../dts'
 
-export type CreateConfigOptions<T extends string = 'ntnyq'> = Omit<Linter.Config, 'rules'> & {
+export type CreateConfigOptions<T extends string = 'ntnyq'> = Omit<
+  Linter.Config,
+  'rules'
+> & {
   rules?: Partial<RulesWithPluginName<T>>
 }
 
-export function createConfig<T extends string = 'ntnyq'>(options: CreateConfigOptions<T> = {}) {
+export function createConfig<T extends string = 'ntnyq'>(
+  options: CreateConfigOptions<T> = {},
+) {
   const config: Linter.Config = {
     ...options,
     files: options.files || ['**/*.?([cm])[jt]s?(x)'],

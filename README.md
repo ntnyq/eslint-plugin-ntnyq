@@ -15,19 +15,19 @@
 
 **npm**:
 
-```bash
+```shell
 npm i eslint-plugin-ntnyq -D
 ```
 
 **yarn**
 
-```bash
+```shell
 yarn add eslint-plugin-ntnyq -D
 ```
 
 **pnpm**
 
-```bash
+```shell
 pnpm add eslint-plugin-ntnyq -D
 ```
 
