@@ -11,8 +11,6 @@ import type {
   RuleWithMetaAndName,
 } from '../types'
 
-const docsUrl = 'https://eslint-plugin.ntnyq.com/rules/'
-
 export interface ESLintRuleModule<TOptions extends readonly unknown[]>
   extends Rule.RuleModule {
   defaultOptions: TOptions
@@ -97,5 +95,5 @@ export const createESLintRule: <
 }: Readonly<
   RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>
 >) => ESLintRuleModule<TOptions> = RuleCreator(
-  ruleName => `${docsUrl}${ruleName}.html`,
+  ruleName => `https://eslint-plugin.ntnyq.com/rules/${ruleName}.html`,
 )

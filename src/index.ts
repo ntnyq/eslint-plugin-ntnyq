@@ -1,7 +1,7 @@
 import { configs } from './configs'
 import { meta } from './meta'
 import { rules } from './rules'
-import type { ESLint, Rule } from 'eslint'
+import type { ESLint } from 'eslint'
 
 /**
  * eslint-plugin-ntnyq
@@ -13,8 +13,7 @@ import type { ESLint, Rule } from 'eslint'
 export const plugin = {
   configs,
   meta,
-  // FIXME: type not match
-  rules: rules as unknown as Record<string, Rule.RuleModule>,
+  rules,
 } satisfies ESLint.Plugin
 
 export * from './dts'

@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.9.2",
-  "packageManager": "pnpm@10.2.1",
+  "packageManager": "pnpm@10.4.0",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -59,23 +59,23 @@
     "@typescript-eslint/utils": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^4.0.0-beta.3",
+    "@ntnyq/eslint-config": "^4.0.0-beta.4",
     "@ntnyq/prettier-config": "^2.0.0-beta.2",
     "@types/node": "^22.13.1",
-    "@vitest/coverage-v8": "^3.0.5",
-    "bumpp": "^10.0.2",
-    "eslint": "^9.20.0",
+    "@vitest/coverage-v8": "catalog:",
+    "bumpp": "^10.0.3",
+    "eslint": "^9.20.1",
     "eslint-plugin-eslint-plugin": "^6.4.0",
     "eslint-vitest-rule-tester": "^1.1.0",
     "husky": "^9.1.7",
     "nano-staged": "^0.8.0",
     "npm-run-all2": "^7.0.2",
-    "prettier": "^3.5.0",
+    "prettier": "^3.5.1",
     "tsup": "^8.3.6",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "catalog:",
-    "vitest": "^3.0.5"
+    "vitest": "catalog:"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
@@ -83,7 +83,10 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
-    ]
+    ],
+    "overrides": {
+      "esbuild": "^0.25.0"
+    }
   },
   "nano-staged": {
     "*.{js,ts,cjs,mjs,vue,md,yml,yaml,json}": "eslint --fix",

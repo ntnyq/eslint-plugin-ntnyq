@@ -31,7 +31,8 @@
     "tses",
     "tsup",
     "unplugin",
-    "vitepress"
+    "vitepress",
+    "vitest"
   ],
   "vscode-dev-helper.enableCodeLens": true
 }
