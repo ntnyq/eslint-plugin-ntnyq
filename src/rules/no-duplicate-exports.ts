@@ -1,6 +1,6 @@
-import { AST_NODE_TYPES } from '@typescript-eslint/utils'
-import { PROGRAM_EXIT, SEPARATOR } from '../constants'
-import { createESLintRule, join } from '../utils'
+import { PROGRAM_EXIT, SPECIAL_CHAR } from '../constants'
+import { AST_NODE_TYPES } from '../types'
+import { createESLintRule, join, resolveOptions } from '../utils'
 import type { Tree } from '../types'
 
 const EXPORT_STYLE = {
@@ -34,16 +34,12 @@ function getIdentifierOrStringLiteralValue(
   if (node.type === AST_NODE_TYPES.Identifier) {
     return node.name
   }
-
-  if (node.type === AST_NODE_TYPES.Literal) {
-    return node.raw
-  }
-
-  return ''
+  // AST_NODE_TYPES.StringLiteral
+  return node.raw
 }
 
 function toExportAllStatement(key: string) {
-  const [source, kind, name = ''] = key.split(SEPARATOR.colon)
+  const [source, kind, name = ''] = key.split(SPECIAL_CHAR.colon)
 
   return join(
     [
@@ -55,7 +51,7 @@ function toExportAllStatement(key: string) {
       `"${source}"`,
     ],
     {
-      separator: SEPARATOR.whitespace,
+      separator: SPECIAL_CHAR.whitespace,
     },
   )
 }
@@ -73,12 +69,14 @@ function toNamedExportNames(nodes: Tree.ExportNamedDeclarationWithSource[]) {
             localName,
             ...(localName === exportedName ? [] : ['as', exportedName]),
           ],
-          { separator: SEPARATOR.whitespace },
+          { separator: SPECIAL_CHAR.whitespace },
         )
       }),
     ]
   }, [])
-  return join(allNames, { separator: SEPARATOR.comma + SEPARATOR.whitespace })
+  return join(allNames, {
+    separator: SPECIAL_CHAR.comma + SPECIAL_CHAR.whitespace,
+  })
 }
 
 export default createESLintRule<Options, MessageIds>({
@@ -111,8 +109,11 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    const { style: namedExportStyle = EXPORT_STYLE.separate } =
-      context.options?.[0] || defaultOptions
+    const { style: namedExportStyle = EXPORT_STYLE.separate } = resolveOptions(
+      context.options,
+      defaultOptions,
+    )
+
     const preferSeparateStyle = namedExportStyle === EXPORT_STYLE.separate
 
     const seenExportAll = new Map<string, Tree.ExportAllDeclaration[]>()
@@ -132,7 +133,7 @@ export default createESLintRule<Options, MessageIds>({
           node.exported?.name,
         ],
         {
-          separator: SEPARATOR.colon,
+          separator: SPECIAL_CHAR.colon,
         },
       )
 
@@ -152,7 +153,7 @@ export default createESLintRule<Options, MessageIds>({
           preferSeparateStyle ? node.exportKind : '',
         ],
         {
-          separator: SEPARATOR.colon,
+          separator: SPECIAL_CHAR.colon,
         },
       )
 
@@ -174,7 +175,7 @@ export default createESLintRule<Options, MessageIds>({
 
       [PROGRAM_EXIT]() {
         for (const [key, nodes] of seenExportAll) {
-          if (nodes.length === 0 || nodes.length === 1) {
+          if (nodes.length <= 1) {
             continue
           }
 
@@ -185,7 +186,7 @@ export default createESLintRule<Options, MessageIds>({
               data: {
                 statement: toExportAllStatement(key),
               },
-              fix: fixer => {
+              fix(fixer) {
                 return idx === 0 ? null : fixer.remove(node)
               },
             })
@@ -193,7 +194,7 @@ export default createESLintRule<Options, MessageIds>({
         }
 
         for (const [key, nodes] of seenNamedExport) {
-          if (nodes.length === 0 || nodes.length === 1) {
+          if (nodes.length <= 1) {
             continue
           }
 
@@ -204,7 +205,7 @@ export default createESLintRule<Options, MessageIds>({
               data: {
                 source: node.source.value,
               },
-              fix: fixer => {
+              fix(fixer) {
                 const replaceText = join(
                   [
                     'export',
@@ -215,7 +216,7 @@ export default createESLintRule<Options, MessageIds>({
                     'from',
                     `'${node.source.value}'`,
                   ],
-                  { separator: SEPARATOR.whitespace },
+                  { separator: SPECIAL_CHAR.whitespace },
                 )
                 return idx === 0
                   ? fixer.replaceText(node, replaceText)

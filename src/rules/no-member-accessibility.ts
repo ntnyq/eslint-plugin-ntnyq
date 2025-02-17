@@ -1,39 +1,10 @@
-import { AST_TOKEN_TYPES } from '@typescript-eslint/utils'
+import { AST_TOKEN_TYPES } from '../types'
 import { createESLintRule } from '../utils'
-import type { RuleContext, RuleFixer, Tree } from '../types'
+import type { Tree } from '../types'
 
 export const RULE_NAME = 'no-member-accessibility'
 export type MessageIds = 'noMemberAccessibility'
 export type Options = []
-
-type MemberAccessibilityNode =
-  | Tree.MethodDefinition
-  | Tree.PropertyDefinition
-  | Tree.TSAbstractMethodDefinition
-  | Tree.TSAbstractPropertyDefinition
-  | Tree.TSParameterProperty
-
-function fixRemoveMemberAccessibility(
-  node: MemberAccessibilityNode,
-  context: Readonly<RuleContext<MessageIds, Options>>,
-  fixer: RuleFixer,
-) {
-  const sourceCode = context.sourceCode
-  const tokens = sourceCode.getTokens(node)
-  let rangeToRemove: Tree.Range
-  for (let i = 0; i < tokens.length; i++) {
-    const token = tokens[i]
-    if (
-      token.type === AST_TOKEN_TYPES.Keyword
-      && ['public', 'private', 'protected'].includes(token.value)
-    ) {
-      rangeToRemove = [token.range[0], tokens[i + 1].range[0]]
-      break
-    }
-  }
-
-  return fixer.removeRange(rangeToRemove!)
-}
 
 export default createESLintRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -52,8 +23,16 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [],
   create(context) {
-    const handleMemberAccessibility = (node: MemberAccessibilityNode) => {
+    function handleMemberAccessibility(
+      node:
+        | Tree.MethodDefinition
+        | Tree.PropertyDefinition
+        | Tree.TSAbstractMethodDefinition
+        | Tree.TSAbstractPropertyDefinition
+        | Tree.TSParameterProperty,
+    ) {
       if (!node.accessibility) return
+
       context.report({
         node,
         messageId: 'noMemberAccessibility',
@@ -64,9 +43,27 @@ export default createESLintRule<Options, MessageIds>({
             column: node.loc.start.column + node.accessibility.length,
           },
         },
-        fix: fixer => fixRemoveMemberAccessibility(node, context, fixer),
+        fix(fixer) {
+          const sourceCode = context.sourceCode
+          const tokens = sourceCode.getTokens(node)
+          let rangeToRemove: Tree.Range
+
+          for (let i = 0; i < tokens.length; i++) {
+            const token = tokens[i]
+            if (
+              token.type === AST_TOKEN_TYPES.Keyword
+              && ['public', 'private', 'protected'].includes(token.value)
+            ) {
+              rangeToRemove = [token.range[0], tokens[i + 1].range[0]]
+              break
+            }
+          }
+
+          return fixer.removeRange(rangeToRemove!)
+        },
       })
     }
+
     return {
       MethodDefinition: handleMemberAccessibility,
       TSAbstractMethodDefinition: handleMemberAccessibility,

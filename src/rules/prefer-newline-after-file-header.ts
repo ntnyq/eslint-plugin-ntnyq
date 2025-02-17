@@ -1,5 +1,6 @@
-import { AST_TOKEN_TYPES } from '@typescript-eslint/utils'
-import { createESLintRule } from '../utils'
+import { SPECIAL_CHAR } from '../constants'
+import { AST_TOKEN_TYPES } from '../types'
+import { createESLintRule, resolveOptions } from '../utils'
 import type { Tree } from '../types'
 
 // @keep-sorted
@@ -78,7 +79,11 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    const { tags: jsdocTags = [] } = context.options?.[0] || defaultOptions
+    const { tags: jsdocTags = [] } = resolveOptions(
+      context.options,
+      defaultOptions,
+    )
+
     return {
       Program(node) {
         const firstBlockComment = getFirstBlockComment(node)
@@ -115,11 +120,12 @@ export default createESLintRule<Options, MessageIds>({
         context.report({
           node: firstNode,
           messageId: 'requireNewlineBefore',
-          fix: fixer =>
-            fixer.insertTextAfter(
+          fix(fixer) {
+            return fixer.insertTextAfter(
               firstBlockComment,
-              '\n'.repeat(2 - lineDelta),
-            ),
+              SPECIAL_CHAR.newline.repeat(2 - lineDelta),
+            )
+          },
         })
       },
     }
