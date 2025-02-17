@@ -1,6 +1,6 @@
 import { ESLint } from 'eslint'
 import { describe, expect, it } from 'vitest'
-import { resolve } from './internal'
+import { resolve } from '../scripts/utils'
 
 const TEST_CWD = resolve('tests/fixtures/integrations/eslint-plugin')
 

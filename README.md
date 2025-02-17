@@ -43,53 +43,28 @@ import pluginNtnyq from 'eslint-plugin-ntnyq'
  */
 export default [
   // other configs
-  ...pluginNtnyq.configs.recommended,
-]
-```
-
-### The recommended preset
-
-The `recommended` config enables a subset of [the rules](#rules) that should be most useful to most users.
-
-_See [src/configs/recommended.ts](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/configs/recommended.ts) for more details._
-
-### Advanced Usage
-
-Override/add specific rules configurations.
-
-_See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring)_.
-
-```js
-import { createConfig } from 'eslint-plugin-ntnyq'
-
-/**
- * @type {import('eslint').Linter.Config[]}
- */
-export default [
-  // other configs
-  createConfig({
-    name: 'ntnyq/recommended',
-    files: ['**/*.?([cm])[jt]s?(x)'],
-    rules: {
-      'ntnyq/no-member-accessibility': 'error',
-      'ntnyq/prefer-newline-after-file-header': 'error',
+  {
+    name: 'ntnyq',
+    plugins: {
+      ntnyq: pluginNtnyq,
     },
-  }),
+    rules: {
+      'ntnyq/no-duplicate-exports': 'error',
+    },
+  },
 ]
 ```
 
 ## Rules
 
-💼 Configurations enabled in.\
-✅ Set in the `recommended` preset.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
 💡 Manually fixable by [editor suggestions](https://eslint.org/docs/developer-guide/working-with-rules#providing-suggestions).
 
-| Name                                                                                                            | Description                                       | 💼  | 🔧  | 💡  |
-| :-------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: | :-: |
-| [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement              |     | 🔧  |     |
-| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility |     | 🔧  |     |
-| [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header               | ✅  | 🔧  |     |
+| Name                                                                                                            | Description                                       | 🔧  | 💡  |
+| :-------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: |
+| [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement              | 🔧  |     |
+| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility | 🔧  |     |
+| [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header               | 🔧  |     |
 
 ## License
 

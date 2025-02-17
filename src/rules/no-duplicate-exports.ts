@@ -86,7 +86,7 @@ export default createESLintRule<Options, MessageIds>({
   meta: {
     type: 'problem',
     docs: {
-      recommended: false,
+      recommended: true,
       description: 'disallow duplicate exports statement',
     },
     fixable: 'code',

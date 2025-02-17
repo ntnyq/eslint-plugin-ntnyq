@@ -10,8 +10,6 @@ since: v0.9.0
 
 > Require a newline after file header.
 
-- 💼 This rule is enabled in the ✅ `recommended` [config](https://eslint-plugin.ntnyq.com/guide/#the-recommended-preset).
-
 - :wrench: The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fix-problems) can automatically fix some of the problems reported by this rule.
 
 ## :book: Rule Details
