@@ -11,6 +11,7 @@
   },
   "eslint.validate": [
     "vue",
+    "toml",
     "yaml",
     "json",
     "jsonc",
@@ -21,6 +22,8 @@
     "javascriptreact",
     "typescriptreact"
   ],
+  "cSpell.allowCompoundWords": true,
+  "cSpell.useGitignore": true,
   "cSpell.words": [
     "bumpp",
     "changelogithub",
@@ -34,6 +37,5 @@
     "unplugin",
     "vitepress",
     "vitest"
-  ],
-  "vscode-dev-helper.enableCodeLens": true
+  ]
 }

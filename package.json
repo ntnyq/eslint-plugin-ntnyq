@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.9.2",
-  "packageManager": "pnpm@10.5.0",
+  "packageManager": "pnpm@10.5.2",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -42,7 +42,7 @@
     "dev": "tsup --watch src",
     "docs:build": "pnpm -C docs run build",
     "docs:dev": "pnpm -C docs run dev",
-    "lint": "eslint .",
+    "lint": "eslint",
     "prepare": "husky",
     "prepublishOnly": "pnpm run build",
     "release": "run-s release:check release:publish",
@@ -61,7 +61,7 @@
   "devDependencies": {
     "@ntnyq/eslint-config": "^4.0.0-beta.8",
     "@ntnyq/prettier-config": "^2.0.0",
-    "@types/node": "^22.13.5",
+    "@types/node": "^22.13.7",
     "@vitest/coverage-v8": "catalog:",
     "bumpp": "^10.0.3",
     "eslint": "^9.21.0",
@@ -71,8 +71,8 @@
     "nano-staged": "^0.8.0",
     "npm-run-all2": "^7.0.2",
     "prettier": "^3.5.2",
-    "tsup": "^8.3.6",
-    "typescript": "^5.7.3",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
     "typescript-eslint": "catalog:",
     "vitest": "catalog:"
   },
@@ -85,13 +85,13 @@
     ]
   },
   "resolutions": {
-    "@shikijs/core": "^3.0.0",
-    "@shikijs/markdown-it": "^3.0.0",
-    "@shikijs/rehype": "^3.0.0",
-    "@shikijs/transformers": "^3.0.0",
-    "@shikijs/types": "^3.0.0",
+    "@shikijs/core": "^3.1.0",
+    "@shikijs/markdown-it": "^3.1.0",
+    "@shikijs/rehype": "^3.1.0",
+    "@shikijs/transformers": "^3.1.0",
+    "@shikijs/types": "^3.1.0",
     "esbuild": "^0.25.0",
-    "shiki": "^3.0.0"
+    "shiki": "^3.1.0"
   },
   "nano-staged": {
     "*.{js,ts,cjs,mjs,vue,md,yml,yaml,json}": "eslint --fix",
