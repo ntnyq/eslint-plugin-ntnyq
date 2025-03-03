@@ -59,9 +59,9 @@
     "@typescript-eslint/utils": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^4.0.0-beta.8",
+    "@ntnyq/eslint-config": "^4.0.0-beta.9",
     "@ntnyq/prettier-config": "^2.0.0",
-    "@types/node": "^22.13.8",
+    "@types/node": "^22.13.9",
     "@vitest/coverage-v8": "catalog:",
     "bumpp": "^10.0.3",
     "eslint": "^9.21.0",
