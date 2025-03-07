@@ -7,7 +7,7 @@ import type {
 
 export { unindent as $ } from 'eslint-vitest-rule-tester'
 
-export function run(options: TestCasesOptions & RuleTesterInitOptions) {
+export function run(options: RuleTesterInitOptions & TestCasesOptions) {
   return _run({
     languageOptions: {
       parser: parserTypeScript,

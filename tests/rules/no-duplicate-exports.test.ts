@@ -23,11 +23,11 @@ run({
         export type * as Foobar from './foobar'
         export type * as Foobar from './foobar'
       `,
-      output(output) {
-        expect(output).toMatchSnapshot('output')
-      },
       errors(errors) {
         expect(errors).toMatchSnapshot('errors')
+      },
+      output(output) {
+        expect(output).toMatchSnapshot('output')
       },
     },
     {
@@ -40,11 +40,11 @@ run({
         export type { Foo } from './foobar'
         export { default as 'module.exports' } from './foobar'
       `,
-      output(output) {
-        expect(output).toMatchSnapshot('output')
-      },
       errors(errors) {
         expect(errors).toMatchSnapshot('errors')
+      },
+      output(output) {
+        expect(output).toMatchSnapshot('output')
       },
     },
   ],

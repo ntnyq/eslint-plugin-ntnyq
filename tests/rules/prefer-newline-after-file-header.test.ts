@@ -98,11 +98,11 @@ run({
          */
         export const foobar = 'foobar'
       `,
-      output(output) {
-        expect(output).toMatchSnapshot('output')
-      },
       errors(errors) {
         expect(errors).toMatchSnapshot('errors')
+      },
+      output(output) {
+        expect(output).toMatchSnapshot('output')
       },
     },
     {
@@ -113,29 +113,29 @@ run({
          * @file eslint config
          */export const foobar = 'foobar'
       `,
-      output(output) {
-        expect(output).toMatchSnapshot('output')
-      },
       errors(errors) {
         expect(errors).toMatchSnapshot('errors')
+      },
+      output(output) {
+        expect(output).toMatchSnapshot('output')
       },
     },
     {
       description: 'user-defined-jsdoc',
       filename: 'user-defined-jsdoc.ts',
-      options: {
-        tags: ['@foobar'],
-      },
       code: $`
         /**
          * @foobar eslint config
          */export const foobar = 'foobar'
       `,
-      output(output) {
-        expect(output).toMatchSnapshot('output')
+      options: {
+        tags: ['@foobar'],
       },
       errors(errors) {
         expect(errors).toMatchSnapshot('errors')
+      },
+      output(output) {
+        expect(output).toMatchSnapshot('output')
       },
     },
   ],

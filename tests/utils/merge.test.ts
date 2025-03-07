@@ -10,11 +10,11 @@ describe('deepMerge', () => {
     },
   }
   const OBJECT_SHALLOW = {
+    f: 5,
     b: {
       c: 3,
       e: 4,
     },
-    f: 5,
   }
   const OBJECT_ARRAY = {
     b: [3, 4, 5],

@@ -1,14 +1,6 @@
 type ObjectLike<T = unknown> = Record<string, T>
 
 /**
- * Check if the variable contains an object strictly rejecting arrays
- * @returns `true` if obj is an object
- */
-export function isObjectNotArray(obj: unknown): obj is ObjectLike {
-  return typeof obj === 'object' && obj != null && !Array.isArray(obj)
-}
-
-/**
  * Pure function - doesn't mutate either parameter!
  * Merges two objects together deeply, overwriting the properties in first with the properties in second
  * @param first - The first object
@@ -44,4 +36,12 @@ export function deepMerge(
 
     return acc
   }, {})
+}
+
+/**
+ * Check if the variable contains an object strictly rejecting arrays
+ * @returns `true` if obj is an object
+ */
+export function isObjectNotArray(obj: unknown): obj is ObjectLike {
+  return typeof obj === 'object' && obj != null && !Array.isArray(obj)
 }

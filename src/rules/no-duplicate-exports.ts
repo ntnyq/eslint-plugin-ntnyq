@@ -1,6 +1,7 @@
+import { join } from '@ntnyq/utils'
 import { PROGRAM_EXIT, SPECIAL_CHAR } from '../constants'
 import { AST_NODE_TYPES } from '../types'
-import { createESLintRule, join, resolveOptions } from '../utils'
+import { createESLintRule, resolveOptions } from '../utils'
 import type { Tree } from '../types'
 
 const EXPORT_STYLE = {

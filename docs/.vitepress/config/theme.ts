@@ -5,35 +5,27 @@ import { packageName } from '../meta'
 import type { DefaultTheme } from 'vitepress'
 
 const VERSIONS: DefaultTheme.NavItemWithLink[] = [
-  { text: `v${version} (current)`, link: '/' },
+  { link: '/', text: `v${version} (current)` },
   {
-    text: `Release Notes`,
     link: `https://github.com/ntnyq/${packageName}/releases`,
+    text: 'Release Notes',
   },
 ]
 
-function ruleToSidebarItem(ruleId: string): DefaultTheme.SidebarItem {
-  return {
-    text: ruleId,
-    link: `/rules/${ruleId}`,
-  }
-}
-
 export function getThemeConfig() {
   const rules = globSync(resolve('src/rules/*.ts'), {
+    cwd: resolve(),
     ignore: ['**/index.ts'],
     onlyFiles: true,
-    cwd: resolve(),
+    expandDirectories: false,
   })
     .map(path => path.split('/').pop()!)
     .map(path => path.replace('.ts', ''))
 
   const config: DefaultTheme.Config = {
-    search: {
-      provider: 'local',
-      options: {
-        detailedView: true,
-      },
+    editLink: {
+      pattern: `https://github.com/ntnyq/${packageName}/edit/main/docs/:path`,
+      text: 'Suggest changes to this page',
     },
 
     // logo: {
@@ -41,9 +33,49 @@ export function getThemeConfig() {
     //   dark: '/logo-dark.svg',
     // },
 
-    editLink: {
-      text: 'Suggest changes to this page',
-      pattern: `https://github.com/ntnyq/${packageName}/edit/main/docs/:path`,
+    nav: [
+      { link: '/', text: 'Home' },
+      { link: '/guide/', text: 'Guide' },
+      { link: '/rules/', text: 'Rules' },
+      {
+        items: VERSIONS,
+        text: `v${version}`,
+      },
+    ],
+
+    search: {
+      provider: 'local',
+      options: {
+        detailedView: true,
+      },
+    },
+
+    sidebar: {
+      '/': [
+        {
+          text: 'Guide',
+          items: [
+            { link: '/', text: 'Home' },
+            { link: '/guide/', text: 'Guide' },
+            { link: '/rules/', text: 'Rules' },
+          ],
+        },
+      ],
+      '/rules/': [
+        {
+          text: 'Rules',
+          items: [
+            {
+              link: '/rules/',
+              text: 'Overview',
+            },
+          ],
+        },
+        {
+          items: rules.map(ruleId => ruleToSidebarItem(ruleId)),
+          text: 'Rules list',
+        },
+      ],
     },
 
     socialLinks: [
@@ -51,45 +83,14 @@ export function getThemeConfig() {
       { icon: 'npm', link: `https://www.npmjs.com/package/${packageName}` },
       { icon: 'github', link: `https://github.com/ntnyq/${packageName}` },
     ],
-
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Guide', link: '/guide/' },
-      { text: 'Rules', link: '/rules/' },
-      {
-        text: `v${version}`,
-        items: VERSIONS,
-      },
-    ],
-
-    sidebar: {
-      '/rules/': [
-        {
-          text: 'Rules',
-          items: [
-            {
-              text: 'Overview',
-              link: '/rules/',
-            },
-          ],
-        },
-        {
-          text: 'Rules list',
-          items: rules.map(ruleId => ruleToSidebarItem(ruleId)),
-        },
-      ],
-      '/': [
-        {
-          text: 'Guide',
-          items: [
-            { text: 'Home', link: '/' },
-            { text: 'Guide', link: '/guide/' },
-            { text: 'Rules', link: '/rules/' },
-          ],
-        },
-      ],
-    },
   }
 
   return config
+}
+
+function ruleToSidebarItem(ruleId: string): DefaultTheme.SidebarItem {
+  return {
+    link: `/rules/${ruleId}`,
+    text: ruleId,
+  }
 }

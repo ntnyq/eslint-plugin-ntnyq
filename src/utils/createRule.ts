@@ -31,6 +31,7 @@ function createRule<
   RuleWithMeta<TOptions, TMessageIds, PluginDocs>
 >): ESLintRuleModule<TOptions> {
   return {
+    defaultOptions,
     create: ((
       context: Readonly<RuleContext<TMessageIds, TOptions>>,
     ): RuleListener => {
@@ -54,7 +55,6 @@ function createRule<
       ) as unknown as TOptions
       return create(context, optionsWithDefault)
     }) as any,
-    defaultOptions,
     meta: {
       ...meta,
       defaultOptions: defaultOptions as unknown as unknown[],
@@ -67,8 +67,8 @@ function RuleCreator(urlCreator: (name: string) => string) {
     TOptions extends readonly unknown[],
     TMessageIds extends string,
   >({
-    name,
     meta,
+    name,
     ...rule
   }: Readonly<
     RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>
@@ -89,8 +89,8 @@ export const createESLintRule: <
   TOptions extends readonly unknown[],
   TMessageIds extends string,
 >({
-  name,
   meta,
+  name,
   ...rule
 }: Readonly<
   RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>

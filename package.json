@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.10.0",
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.6.1",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -16,6 +16,9 @@
   },
   "homepage": "https://eslint-plugin.ntnyq.com",
   "repository": "ntnyq/eslint-plugin-ntnyq",
+  "bugs": {
+    "url": "https://github.com/ntnyq/eslint-plugin-ntnyq/issues"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -45,9 +48,10 @@
     "lint": "eslint",
     "prepare": "husky",
     "prepublishOnly": "pnpm run build",
-    "release": "run-s release:check release:publish",
+    "release": "run-s release:check release:version release:publish",
     "release:check": "run-s lint typecheck test",
-    "release:publish": "bumpp && pnpm publish",
+    "release:publish": "pnpm publish",
+    "release:version": "bumpp",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
@@ -55,11 +59,12 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
+    "@ntnyq/utils": "^0.6.1",
     "@typescript-eslint/parser": "catalog:",
     "@typescript-eslint/utils": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^4.0.0-beta.9",
+    "@ntnyq/eslint-config": "^4.0.0-beta.11",
     "@ntnyq/prettier-config": "^2.0.0",
     "@types/node": "^22.13.9",
     "@vitest/coverage-v8": "catalog:",
@@ -78,11 +83,6 @@
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
   },
   "resolutions": {
     "@shikijs/core": "^3.1.0",

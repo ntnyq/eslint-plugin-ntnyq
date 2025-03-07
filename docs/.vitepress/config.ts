@@ -1,3 +1,4 @@
+import { join } from '@ntnyq/utils'
 import { transformerRenderWhitespace } from '@shikijs/transformers'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import parserTypeScript from '@typescript-eslint/parser'
@@ -10,48 +11,21 @@ import { head } from './config/head'
 import { getThemeConfig } from './config/theme'
 import { appDescription, appTitle } from './meta'
 
+const SPECIAL_CHAR = {
+  whitespace: ' ',
+  newline: '\n',
+}
+
 export default defineConfig({
-  title: appTitle,
-  description: appDescription,
-  lastUpdated: true,
   cleanUrls: true,
-  ignoreDeadLinks: true,
-
+  description: appDescription,
   head,
+  ignoreDeadLinks: true,
+  lastUpdated: true,
+
   themeConfig: getThemeConfig(),
+  title: appTitle,
   markdown: {
-    config(md) {
-      md.use(groupIconMdPlugin)
-
-      MarkdownItContainer(md, 'correct', {
-        render(tokens: any[], idx: number) {
-          if (tokens[idx].nesting === 1) {
-            const next = tokens[idx + 1]
-            if (next.type === 'fence') {
-              next.info = [next.info, 'eslint-check'].filter(Boolean).join(' ')
-            }
-            return '<CustomWrapper type="correct">'
-          } else {
-            return '</CustomWrapper>\n'
-          }
-        },
-      })
-
-      MarkdownItContainer(md, 'incorrect', {
-        render(tokens: any[], idx: number) {
-          if (tokens[idx].nesting === 1) {
-            const next = tokens[idx + 1]
-            if (next.type === 'fence') {
-              next.info = [next.info, 'eslint-check'].filter(Boolean).join(' ')
-            }
-            return '<CustomWrapper type="incorrect">'
-          } else {
-            return '</CustomWrapper>\n'
-          }
-        },
-      })
-    },
-
     codeTransformers: [
       transformerRenderWhitespace({
         position: 'all',
@@ -63,18 +37,14 @@ export default defineConfig({
         errorRendering: 'hover',
         explicitTrigger: /\beslint-check\b/,
         twoslasher: createTwoslasher({
-          eslintCodePreprocess: code => {
-            // Remove trailing newline and presentational `⏎` characters
-            return code.replace(/⏎(?=\n)/gu, '').replace(/⏎$/gu, '\n')
-          },
           eslintConfig: [
             {
               files: ['**/*.?([cm])[jt]s?(x)'],
-              plugins: {
-                ntnyq: pluginNtnyq,
-              },
               languageOptions: {
                 parser: parserTypeScript,
+              },
+              plugins: {
+                ntnyq: pluginNtnyq,
               },
               rules: {
                 'ntnyq/no-duplicate-exports': 'error',
@@ -83,8 +53,50 @@ export default defineConfig({
               },
             },
           ],
+          eslintCodePreprocess: code => {
+            // Remove trailing newline and presentational `⏎` characters
+            return code
+              .replace(/⏎(?=\n)/gu, '')
+              .replace(/⏎$/gu, SPECIAL_CHAR.newline)
+          },
         }),
       }),
     ],
+
+    config(md) {
+      md.use(groupIconMdPlugin)
+
+      MarkdownItContainer(md, 'correct', {
+        render(tokens: any[], idx: number) {
+          if (tokens[idx].nesting === 1) {
+            const next = tokens[idx + 1]
+            if (next.type === 'fence') {
+              next.info = join([next.info, 'eslint-check'], {
+                separator: SPECIAL_CHAR.whitespace,
+              })
+            }
+            return '<CustomWrapper type="correct">'
+          } else {
+            return `</CustomWrapper>${SPECIAL_CHAR.newline}`
+          }
+        },
+      })
+
+      MarkdownItContainer(md, 'incorrect', {
+        render(tokens: any[], idx: number) {
+          if (tokens[idx].nesting === 1) {
+            const next = tokens[idx + 1]
+            if (next.type === 'fence') {
+              next.info = join([next.info, 'eslint-check'], {
+                separator: SPECIAL_CHAR.whitespace,
+              })
+            }
+            return '<CustomWrapper type="incorrect">'
+          } else {
+            return `</CustomWrapper>${SPECIAL_CHAR.newline}`
+          }
+        },
+      })
+    },
   },
 })
