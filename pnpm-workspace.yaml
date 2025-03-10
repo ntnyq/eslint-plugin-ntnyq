@@ -1,3 +1,6 @@
+packages:
+  - .
+  - docs
 catalog:
   '@shikijs/transformers': ^3.1.0
   '@shikijs/vitepress-twoslash': ^3.1.0
@@ -10,6 +13,3 @@ catalog:
   vitest: ^3.0.8
 onlyBuiltDependencies:
   - esbuild
-packages:
-  - .
-  - docs
