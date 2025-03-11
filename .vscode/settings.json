@@ -31,6 +31,7 @@
     "iconify",
     "lcov",
     "pnpm",
+    "rehype",
     "shiki",
     "shikijs",
     "tses",

@@ -36,12 +36,10 @@ pnpm add eslint-plugin-ntnyq -D
 Config in `eslint.config.mjs`
 
 ```js
+import { defineConfig } from 'eslint/config'
 import pluginNtnyq from 'eslint-plugin-ntnyq'
 
-/**
- * @type {import('eslint').Linter.Config[]}
- */
-export default [
+export default defineConfig([
   // other configs
   {
     name: 'ntnyq',
@@ -52,7 +50,7 @@ export default [
       'ntnyq/no-duplicate-exports': 'error',
     },
   },
-]
+])
 ```
 
 ## Rules

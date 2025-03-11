@@ -25,12 +25,10 @@ Highly recommended to use `eslint.config.mjs` as config file.
 ```ts [eslint.config.mjs] twoslash
 // @ts-check
 
+import { defineConfig } from 'eslint/config'
 import pluginNtnyq from 'eslint-plugin-ntnyq'
 
-/**
- * @type {import('eslint').Linter.Config[]}
- */
-export default [
+export default defineConfig([
   // other configs
   {
     name: 'ntnyq',
@@ -41,5 +39,5 @@ export default [
       'ntnyq/no-duplicate-exports': 'error',
     },
   },
-]
+])
 ```

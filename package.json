@@ -64,7 +64,7 @@
     "@typescript-eslint/utils": "catalog:"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^4.0.0",
+    "@ntnyq/eslint-config": "^4.0.1",
     "@ntnyq/prettier-config": "^2.0.0",
     "@types/node": "^22.13.10",
     "@vitest/coverage-v8": "catalog:",
@@ -83,15 +83,6 @@
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
-  },
-  "resolutions": {
-    "@shikijs/core": "^3.1.0",
-    "@shikijs/markdown-it": "^3.1.0",
-    "@shikijs/rehype": "^3.1.0",
-    "@shikijs/transformers": "^3.1.0",
-    "@shikijs/types": "^3.1.0",
-    "esbuild": "^0.25.0",
-    "shiki": "^3.1.0"
   },
   "nano-staged": {
     "*.{js,ts,cjs,mjs,vue,md,yml,yaml,json}": "eslint --fix",
