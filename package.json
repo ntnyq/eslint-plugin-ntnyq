@@ -22,27 +22,20 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     }
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "unbuild",
     "coverage": "vitest --coverage",
     "deploy": "run-s build docs:build",
-    "dev": "tsup --watch src",
+    "dev": "unbuild --watch",
     "docs:build": "pnpm -C docs run build",
     "docs:dev": "pnpm -C docs run dev",
     "lint": "eslint",
@@ -76,9 +69,9 @@
     "nano-staged": "^0.8.0",
     "npm-run-all2": "^7.0.2",
     "prettier": "^3.5.3",
-    "tsup": "^8.4.0",
     "typescript": "^5.8.2",
     "typescript-eslint": "catalog:",
+    "unbuild": "^3.5.0",
     "vitest": "catalog:"
   },
   "engines": {
