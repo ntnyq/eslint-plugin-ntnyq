@@ -87,4 +87,4 @@ This rule was introduced in eslint-plugin-ntnyq v0.0.1
 ## :mag: Implementation
 
 - [Rule source](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/rules/no-member-accessibility.ts)
-- [Test source](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/rules/no-member-accessibility.test.ts)
+- [Test source](https://github.com/ntnyq/eslint-plugin-ntnyq/tree/main/tests/rules/no-member-accessibility.test.ts)

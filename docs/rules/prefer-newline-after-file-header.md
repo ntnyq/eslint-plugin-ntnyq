@@ -95,4 +95,4 @@ This rule was introduced in eslint-plugin-ntnyq v0.9.0
 ## :mag: Implementation
 
 - [Rule source](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/rules/prefer-newline-after-file-header.ts)
-- [Test source](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/rules/prefer-newline-after-file-header.test.ts)
+- [Test source](https://github.com/ntnyq/eslint-plugin-ntnyq/tree/main/tests/rules/prefer-newline-after-file-header.test.ts)

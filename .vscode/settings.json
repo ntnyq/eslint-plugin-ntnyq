@@ -36,6 +36,7 @@
     "shikijs",
     "tses",
     "unplugin",
+    "vite",
     "vitepress",
     "vitest"
   ]
