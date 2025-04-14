@@ -9,7 +9,7 @@ catalog:
   '@shikijs/transformers': ^3.2.2
   '@shikijs/vitepress-twoslash': ^3.2.2
   '@types/markdown-it-container': ^2.0.10
-  '@types/node': ^22.14.0
+  '@types/node': ^22.14.1
   '@typescript-eslint/parser': ^8.29.1
   '@typescript-eslint/utils': ^8.29.1
   '@vitest/coverage-v8': ^3.1.1
@@ -27,11 +27,11 @@ catalog:
   typescript: ^5.8.3
   typescript-eslint: ^8.29.1
   unbuild: ^3.5.0
-  unocss: ^66.1.0-beta.10
+  unocss: ^66.1.0-beta.11
   unplugin-vue-components: ^28.4.1
   vite: ^6.2.6
   vitepress: ^2.0.0-alpha.4
-  vitepress-plugin-group-icons: ^1.4.1
+  vitepress-plugin-group-icons: ^1.5.1
   vitest: ^3.1.1
   vue: ^3.5.13
 overrides:
