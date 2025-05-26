@@ -34,8 +34,8 @@ exports[`no-duplicate-exports > invalid > Invalid #0: export-all > errors 1`] = 
   {
     "column": 1,
     "endColumn": 35,
-    "endLine": 4,
-    "line": 4,
+    "endLine": 3,
+    "line": 3,
     "message": "Multiple same export all statement 'export * as foobar from "./foobar"'",
     "messageId": "multiSameExportAll",
     "nodeType": "ExportAllDeclaration",
@@ -45,15 +45,15 @@ exports[`no-duplicate-exports > invalid > Invalid #0: export-all > errors 1`] = 
   {
     "column": 1,
     "endColumn": 35,
-    "endLine": 5,
+    "endLine": 4,
     "fix": {
       "range": [
-        86,
-        120,
+        85,
+        119,
       ],
       "text": "",
     },
-    "line": 5,
+    "line": 4,
     "message": "Multiple same export all statement 'export * as foobar from "./foobar"'",
     "messageId": "multiSameExportAll",
     "nodeType": "ExportAllDeclaration",
@@ -63,8 +63,8 @@ exports[`no-duplicate-exports > invalid > Invalid #0: export-all > errors 1`] = 
   {
     "column": 1,
     "endColumn": 30,
-    "endLine": 7,
-    "line": 7,
+    "endLine": 5,
+    "line": 5,
     "message": "Multiple same export all statement 'export type * from "./foobar"'",
     "messageId": "multiSameExportAll",
     "nodeType": "ExportAllDeclaration",
@@ -74,15 +74,15 @@ exports[`no-duplicate-exports > invalid > Invalid #0: export-all > errors 1`] = 
   {
     "column": 1,
     "endColumn": 30,
-    "endLine": 8,
+    "endLine": 6,
     "fix": {
       "range": [
-        152,
-        181,
+        150,
+        179,
       ],
       "text": "",
     },
-    "line": 8,
+    "line": 6,
     "message": "Multiple same export all statement 'export type * from "./foobar"'",
     "messageId": "multiSameExportAll",
     "nodeType": "ExportAllDeclaration",
@@ -92,8 +92,8 @@ exports[`no-duplicate-exports > invalid > Invalid #0: export-all > errors 1`] = 
   {
     "column": 1,
     "endColumn": 40,
-    "endLine": 10,
-    "line": 10,
+    "endLine": 7,
+    "line": 7,
     "message": "Multiple same export all statement 'export type * as Foobar from "./foobar"'",
     "messageId": "multiSameExportAll",
     "nodeType": "ExportAllDeclaration",
@@ -103,15 +103,15 @@ exports[`no-duplicate-exports > invalid > Invalid #0: export-all > errors 1`] = 
   {
     "column": 1,
     "endColumn": 40,
-    "endLine": 11,
+    "endLine": 8,
     "fix": {
       "range": [
-        223,
-        262,
+        220,
+        259,
       ],
       "text": "",
     },
-    "line": 11,
+    "line": 8,
     "message": "Multiple same export all statement 'export type * as Foobar from "./foobar"'",
     "messageId": "multiSameExportAll",
     "nodeType": "ExportAllDeclaration",
@@ -124,12 +124,9 @@ exports[`no-duplicate-exports > invalid > Invalid #0: export-all > errors 1`] = 
 exports[`no-duplicate-exports > invalid > Invalid #0: export-all > output 1`] = `
 "export * from './foobar'
 
-
 export * as foobar from './foobar'
 
-
 export type * from './foobar'
-
 
 export type * as Foobar from './foobar'
 "

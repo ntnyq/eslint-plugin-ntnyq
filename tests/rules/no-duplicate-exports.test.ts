@@ -1,8 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/no-duplicate-exports'
 import { $, run } from '../internal'
+import type { Options } from '../../src/rules/no-duplicate-exports'
 
-run({
+run<Options>({
   name: RULE_NAME,
   rule,
   valid: [],
@@ -13,13 +14,10 @@ run({
       code: $`
         export * from './foobar'
         export * from './foobar'
-        
         export * as foobar from './foobar'
         export * as foobar from './foobar'
-        
         export type * from './foobar'
         export type * from './foobar'
-        
         export type * as Foobar from './foobar'
         export type * as Foobar from './foobar'
       `,

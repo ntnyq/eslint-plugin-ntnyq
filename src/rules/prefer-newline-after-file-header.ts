@@ -40,10 +40,14 @@ function getFirstBlockComment(node: Tree.Program) {
   const firstComment = node.comments?.[0]
 
   // no comments
-  if (!firstComment) return
+  if (!firstComment) {
+    return
+  }
 
   // not a block comment
-  if (firstComment.type !== AST_TOKEN_TYPES.Block) return
+  if (firstComment.type !== AST_TOKEN_TYPES.Block) {
+    return
+  }
 
   return firstComment
 }

@@ -31,7 +31,9 @@ export default createESLintRule<Options, MessageIds>({
         | Tree.TSAbstractPropertyDefinition
         | Tree.TSParameterProperty,
     ) {
-      if (!node.accessibility) return
+      if (!node.accessibility) {
+        return
+      }
 
       context.report({
         node,

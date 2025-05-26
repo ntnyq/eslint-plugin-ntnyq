@@ -166,7 +166,9 @@ export default createESLintRule<Options, MessageIds>({
 
     return {
       ExportNamedDeclaration(node) {
-        if (!node.source) return
+        if (!node.source) {
+          return
+        }
         addNamedExportNode(node)
       },
 
