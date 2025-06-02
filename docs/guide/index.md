@@ -24,6 +24,7 @@ Highly recommended to use `eslint.config.mjs` as config file.
 
 ```ts [eslint.config.mjs] twoslash
 // @ts-check
+// @errors: 2322
 
 import { defineConfig } from 'eslint/config'
 import pluginNtnyq from 'eslint-plugin-ntnyq'
