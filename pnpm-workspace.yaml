@@ -8,3 +8,6 @@ overrides:
 onlyBuiltDependencies:
   - esbuild
   - unrs-resolver
+
+patchedDependencies:
+  '@es-joy/jsdoccomment@0.51.1': patches/@es-joy__jsdoccomment@0.51.1.patch
