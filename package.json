@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.11.0",
-  "packageManager": "pnpm@10.12.4",
+  "packageManager": "pnpm@10.13.1",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -51,16 +51,16 @@
     "eslint": "^9.5.0"
   },
   "dependencies": {
-    "@ntnyq/utils": "^0.8.0",
-    "@typescript-eslint/parser": "^8.35.1",
-    "@typescript-eslint/utils": "^8.35.1"
+    "@ntnyq/utils": "^0.8.1",
+    "@typescript-eslint/parser": "^8.36.0",
+    "@typescript-eslint/utils": "^8.36.0"
   },
   "devDependencies": {
     "@ntnyq/eslint-config": "^5.0.0",
     "@ntnyq/prettier-config": "^3.0.1",
-    "@types/node": "^24.0.10",
+    "@types/node": "^24.0.13",
     "bumpp": "^10.2.0",
-    "eslint": "^9.30.1",
+    "eslint": "^9.31.0",
     "eslint-plugin-eslint-plugin": "^6.5.0",
     "eslint-vitest-rule-tester": "^2.2.0",
     "husky": "^9.1.7",
@@ -70,7 +70,7 @@
     "tinyglobby": "^0.2.14",
     "tsdown": "^0.12.9",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.35.1",
+    "typescript-eslint": "^8.36.0",
     "vitest": "^3.2.4"
   },
   "nano-staged": {
