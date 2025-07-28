@@ -52,15 +52,15 @@
   },
   "dependencies": {
     "@ntnyq/utils": "^0.8.1",
-    "@typescript-eslint/parser": "^8.37.0",
-    "@typescript-eslint/utils": "^8.37.0"
+    "@typescript-eslint/parser": "^8.38.0",
+    "@typescript-eslint/utils": "^8.38.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^5.1.0",
+    "@ntnyq/eslint-config": "^5.2.0",
     "@ntnyq/prettier-config": "^3.0.1",
-    "@types/node": "^24.0.15",
+    "@types/node": "^24.1.0",
     "bumpp": "^10.2.0",
-    "eslint": "^9.31.0",
+    "eslint": "^9.32.0",
     "eslint-plugin-eslint-plugin": "^6.5.0",
     "eslint-vitest-rule-tester": "^2.2.0",
     "husky": "^9.1.7",
@@ -68,9 +68,9 @@
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.6.2",
     "tinyglobby": "^0.2.14",
-    "tsdown": "^0.12.9",
+    "tsdown": "^0.13.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.37.0",
+    "typescript-eslint": "^8.38.0",
     "vitest": "^3.2.4"
   },
   "nano-staged": {
