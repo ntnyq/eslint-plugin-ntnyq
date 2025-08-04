@@ -61,6 +61,7 @@ export default defineConfig([
 | :-------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: |
 | [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement              | 🔧  |     |
 | [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility | 🔧  |     |
+| [no-only-tests](https://eslint-plugin.ntnyq.com/rules/no-only-tests.html)                                       | Disallow `.only` blocks in tests                  | 🔧  |     |
 | [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header               | 🔧  |     |
 
 ## License

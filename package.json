@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.12.0",
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.15.1",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -40,9 +40,8 @@
     "lint": "eslint",
     "prepare": "husky",
     "prepublishOnly": "pnpm run build",
-    "release": "run-s release:check release:version release:publish",
+    "release": "run-s release:check release:version",
     "release:check": "run-s lint typecheck test",
-    "release:publish": "pnpm publish",
     "release:version": "bumpp",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
@@ -52,25 +51,25 @@
   },
   "dependencies": {
     "@ntnyq/utils": "^0.9.1",
-    "@typescript-eslint/parser": "^8.41.0",
-    "@typescript-eslint/utils": "^8.41.0"
+    "@typescript-eslint/parser": "^8.43.0",
+    "@typescript-eslint/utils": "^8.43.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^5.4.1",
+    "@ntnyq/eslint-config": "^5.5.0",
     "@ntnyq/prettier-config": "^3.0.1",
-    "@types/node": "^24.3.0",
+    "@types/node": "^24.3.1",
     "bumpp": "^10.2.3",
-    "eslint": "^9.34.0",
+    "eslint": "^9.35.0",
     "eslint-plugin-eslint-plugin": "^7.0.0",
     "eslint-vitest-rule-tester": "^2.2.1",
     "husky": "^9.1.7",
     "nano-staged": "^0.8.0",
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.6.2",
-    "tinyglobby": "^0.2.14",
+    "tinyglobby": "^0.2.15",
     "tsdown": "^0.14.2",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.41.0",
+    "typescript-eslint": "^8.43.0",
     "vitest": "^3.2.4"
   },
   "nano-staged": {
