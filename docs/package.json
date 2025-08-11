@@ -16,11 +16,11 @@
     "markdown-it-container": "^4.0.0",
     "twoslash": "^0.3.3",
     "twoslash-eslint": "^0.3.3",
-    "unocss": "^66.4.1",
+    "unocss": "^66.4.2",
     "unplugin-vue-components": "^28.8.0",
-    "vite": "^7.0.6",
+    "vite": "^7.1.1",
     "vitepress": "^2.0.0-alpha.9",
-    "vitepress-plugin-group-icons": "^1.6.1",
+    "vitepress-plugin-group-icons": "^1.6.2",
     "vue": "^3.5.18"
   }
 }
