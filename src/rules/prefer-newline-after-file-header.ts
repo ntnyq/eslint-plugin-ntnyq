@@ -83,7 +83,7 @@ export default createESLintRule<Options, MessageIds>({
   },
   defaultOptions: [defaultOptions],
   create(context) {
-    const { tags: jsdocTags = [] } = resolveOptions(
+    const { tags: jsdocTags = FILE_HEADER_TAGS } = resolveOptions(
       context.options,
       defaultOptions,
     )
@@ -91,33 +91,23 @@ export default createESLintRule<Options, MessageIds>({
     return {
       Program(node) {
         const firstBlockComment = getFirstBlockComment(node)
-
-        // no block comment or not a file header comment
         if (
           !firstBlockComment
           || !isFileHeaderComment(firstBlockComment, jsdocTags)
-        ) {
-          return
-        }
-
-        // file header should be at the start of first line
-        if (
-          firstBlockComment.loc.start.line !== 1
+          || firstBlockComment.loc.start.line !== 1
           || firstBlockComment.range[0] !== 0
         ) {
           return
         }
 
         const firstNode = node.body[0]
-
         if (!firstNode) {
           return
         }
 
-        const lineDelta =
+        const linesBetween =
           firstNode.loc.start.line - firstBlockComment.loc.end.line
-
-        if (lineDelta > 1) {
+        if (linesBetween > 1) {
           return
         }
 
@@ -127,7 +117,7 @@ export default createESLintRule<Options, MessageIds>({
           fix(fixer) {
             return fixer.insertTextAfter(
               firstBlockComment,
-              SPECIAL_CHAR.newline.repeat(2 - lineDelta),
+              SPECIAL_CHAR.newline.repeat(2 - linesBetween),
             )
           },
         })

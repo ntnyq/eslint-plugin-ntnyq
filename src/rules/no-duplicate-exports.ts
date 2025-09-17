@@ -114,74 +114,56 @@ export default createESLintRule<Options, MessageIds>({
       context.options,
       defaultOptions,
     )
-
     const preferSeparateStyle = namedExportStyle === EXPORT_STYLE.separate
 
-    const seenExportAll = new Map<string, Tree.ExportAllDeclaration[]>()
-    const seenNamedExport = new Map<
-      string,
-      Tree.ExportNamedDeclarationWithSource[]
-    >()
-
-    function addExportAllNode(node: Tree.ExportAllDeclaration) {
-      const key = join(
-        [
-          // from module
-          node.source.value,
-          // type or value
-          node.exportKind,
-          // as name
-          node.exported?.name,
-        ],
-        {
-          separator: SPECIAL_CHAR.colon,
-        },
-      )
-
-      if (!seenExportAll.has(key)) {
-        seenExportAll.set(key, [])
-      }
-      seenExportAll.set(key, [...(seenExportAll.get(key) || []), node])
+    function groupNodesByKey<T>(
+      nodes: T[],
+      getKey: (item: T) => string,
+    ): Map<string, T[]> {
+      return nodes.reduce((map, item) => {
+        const key = getKey(item)
+        if (!map.has(key)) {
+          map.set(key, [])
+        }
+        map.get(key)?.push(item)
+        return map
+      }, new Map<string, T[]>())
     }
 
-    function addNamedExportNode(node: Tree.ExportNamedDeclarationWithSource) {
-      const key = join(
-        [
-          // from module
-          node.source.value,
-
-          // type or value when prefer separate
-          preferSeparateStyle ? node.exportKind : '',
-        ],
-        {
-          separator: SPECIAL_CHAR.colon,
-        },
-      )
-
-      if (!seenNamedExport.has(key)) {
-        seenNamedExport.set(key, [])
-      }
-      seenNamedExport.set(key, [...(seenNamedExport.get(key) || []), node])
-    }
+    // Collect all export nodes
+    const exportAllNodes: Tree.ExportAllDeclaration[] = []
+    const namedExportNodes: Tree.ExportNamedDeclarationWithSource[] = []
 
     return {
       ExportNamedDeclaration(node) {
-        if (!node.source) {
-          return
+        if (node.source) {
+          namedExportNodes.push(node)
         }
-        addNamedExportNode(node)
       },
-
       ExportAllDeclaration(node) {
-        addExportAllNode(node)
+        exportAllNodes.push(node)
       },
-
       [PROGRAM_EXIT]() {
-        for (const [key, nodes] of seenExportAll) {
-          if (nodes.length <= 1) {
-            continue
-          }
+        const exportAllKey = (node: Tree.ExportAllDeclaration) =>
+          join([node.source.value, node.exportKind, node.exported?.name], {
+            separator: SPECIAL_CHAR.colon,
+          })
+        const namedExportKey = (node: Tree.ExportNamedDeclarationWithSource) =>
+          join(
+            [node.source.value, preferSeparateStyle ? node.exportKind : ''],
+            { separator: SPECIAL_CHAR.colon },
+          )
 
+        const seenExportAll = groupNodesByKey(exportAllNodes, exportAllKey)
+        const seenNamedExport = groupNodesByKey(
+          namedExportNodes,
+          namedExportKey,
+        )
+
+        seenExportAll.forEach((nodes, key) => {
+          if (nodes.length <= 1) {
+            return
+          }
           nodes.forEach((node, idx) => {
             context.report({
               messageId: 'multiSameExportAll',
@@ -189,18 +171,15 @@ export default createESLintRule<Options, MessageIds>({
               data: {
                 statement: toExportAllStatement(key),
               },
-              fix(fixer) {
-                return idx === 0 ? null : fixer.remove(node)
-              },
+              fix: idx === 0 ? undefined : fixer => fixer.remove(node),
             })
           })
-        }
+        })
 
-        for (const [key, nodes] of seenNamedExport) {
+        seenNamedExport.forEach((nodes, key) => {
           if (nodes.length <= 1) {
-            continue
+            return
           }
-
           nodes.forEach((node, idx) => {
             context.report({
               messageId: 'multiSameSourceNamed',
@@ -208,26 +187,27 @@ export default createESLintRule<Options, MessageIds>({
               data: {
                 source: node.source.value,
               },
-              fix(fixer) {
-                const replaceText = join(
-                  [
-                    'export',
-                    key.endsWith(EXPORT_TYPE) ? EXPORT_TYPE : '',
-                    '{',
-                    toNamedExportNames(nodes),
-                    '}',
-                    'from',
-                    `'${node.source.value}'`,
-                  ],
-                  { separator: SPECIAL_CHAR.whitespace },
-                )
-                return idx === 0
-                  ? fixer.replaceText(node, replaceText)
-                  : fixer.remove(node)
-              },
+              fix: fixer =>
+                idx === 0
+                  ? fixer.replaceText(
+                      node,
+                      join(
+                        [
+                          'export',
+                          key.endsWith(EXPORT_TYPE) ? EXPORT_TYPE : '',
+                          '{',
+                          toNamedExportNames(nodes),
+                          '}',
+                          'from',
+                          `'${node.source.value}'`,
+                        ],
+                        { separator: SPECIAL_CHAR.whitespace },
+                      ),
+                    )
+                  : fixer.remove(node),
             })
           })
-        }
+        })
       },
     }
   },
