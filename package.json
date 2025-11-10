@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.12.0",
-  "packageManager": "pnpm@10.19.0",
+  "packageManager": "pnpm@10.20.0",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -57,9 +57,9 @@
   "devDependencies": {
     "@ntnyq/eslint-config": "^5.7.0",
     "@ntnyq/prettier-config": "^3.0.1",
-    "@types/node": "^24.9.1",
+    "@types/node": "^24.10.0",
     "bumpp": "^10.3.1",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.0",
     "eslint-plugin-eslint-plugin": "^7.2.0",
     "eslint-vitest-rule-tester": "^3.0.0",
     "husky": "^9.1.7",
@@ -67,7 +67,7 @@
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.6.2",
     "tinyglobby": "^0.2.15",
-    "tsdown": "^0.15.10",
+    "tsdown": "^0.15.12",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",
     "vitest": "^3.2.4"
