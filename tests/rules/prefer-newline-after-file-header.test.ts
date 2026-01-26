@@ -5,7 +5,7 @@ import rule, {
 import { $, run } from '../internal'
 import type { Options } from '../../src/rules/prefer-newline-after-file-header'
 
-run<Options>({
+await run<Options>({
   name: RULE_NAME,
   rule,
   valid: [

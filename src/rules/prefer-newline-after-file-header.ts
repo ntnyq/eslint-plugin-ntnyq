@@ -92,10 +92,10 @@ export default createESLintRule<Options, MessageIds>({
       Program(node) {
         const firstBlockComment = getFirstBlockComment(node)
         if (
-          !firstBlockComment
-          || !isFileHeaderComment(firstBlockComment, jsdocTags)
-          || firstBlockComment.loc.start.line !== 1
-          || firstBlockComment.range[0] !== 0
+          !firstBlockComment ||
+          !isFileHeaderComment(firstBlockComment, jsdocTags) ||
+          firstBlockComment.loc.start.line !== 1 ||
+          firstBlockComment.range[0] !== 0
         ) {
           return
         }

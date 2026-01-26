@@ -3,7 +3,7 @@ import rule, { RULE_NAME } from '../../src/rules/no-member-accessibility'
 import { $, run } from '../internal'
 import type { Options } from '../../src/rules/no-member-accessibility'
 
-run<Options>({
+await run<Options>({
   name: RULE_NAME,
   rule,
   valid: [

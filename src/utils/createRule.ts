@@ -2,6 +2,7 @@
  * @copyright {@link https://github.com/eslint-stylistic/eslint-stylistic}
  */
 
+import { toArray } from '@ntnyq/utils'
 import { deepMerge, isObjectNotArray } from './merge'
 import type { Rule } from 'eslint'
 import type {
@@ -30,34 +31,35 @@ function createRule<
 }: Readonly<
   RuleWithMeta<TOptions, TMessageIds, PluginDocs>
 >): ESLintRuleModule<TOptions> {
+  const resolvedDefaultOptions = toArray(defaultOptions) as unknown as TOptions
   return {
-    defaultOptions,
+    defaultOptions: resolvedDefaultOptions,
     create: ((
       context: Readonly<RuleContext<TMessageIds, TOptions>>,
     ): RuleListener => {
       const optionsCount = Math.max(
         context.options.length,
-        defaultOptions.length,
+        resolvedDefaultOptions.length,
       )
       const optionsWithDefault = Array.from(
         { length: optionsCount },
         (_, i) => {
           /* v8 ignore start */
           if (
-            isObjectNotArray(context.options[i])
-            && isObjectNotArray(defaultOptions[i])
+            isObjectNotArray(context.options[i]) &&
+            isObjectNotArray(resolvedDefaultOptions[i])
           ) {
-            return deepMerge(defaultOptions[i], context.options[i])
+            return deepMerge(resolvedDefaultOptions[i], context.options[i])
           }
-          return context.options[i] ?? defaultOptions[i]
+          return context.options[i] ?? resolvedDefaultOptions[i]
           /* v8 ignore stop */
         },
       ) as unknown as TOptions
       return create(context, optionsWithDefault)
-    }) as any,
+    }) as unknown as Rule.RuleModule['create'],
     meta: {
       ...meta,
-      defaultOptions: defaultOptions as unknown as unknown[],
+      defaultOptions: resolvedDefaultOptions as unknown as unknown[],
     },
   }
 }

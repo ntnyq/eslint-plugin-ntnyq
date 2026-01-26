@@ -11,4 +11,7 @@ export default defineESLintConfig({
       'vitest/no-standalone-expect': 'off',
     },
   },
+  typescript: {
+    tsconfigPath: './tsconfig.json',
+  },
 })

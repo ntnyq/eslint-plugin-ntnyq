@@ -53,8 +53,8 @@ export default createESLintRule<Options, MessageIds>({
           for (let i = 0; i < tokens.length; i++) {
             const token = tokens[i]
             if (
-              token.type === AST_TOKEN_TYPES.Keyword
-              && ['public', 'private', 'protected'].includes(token.value)
+              token.type === AST_TOKEN_TYPES.Keyword &&
+              ['public', 'private', 'protected'].includes(token.value)
             ) {
               rangeToRemove = [token.range[0], tokens[i + 1].range[0]]
               break
