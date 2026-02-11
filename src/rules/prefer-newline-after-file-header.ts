@@ -81,7 +81,6 @@ export default createESLintRule<Options, MessageIds>({
       requireNewlineBefore: 'require a newline before',
     },
   },
-  defaultOptions: [defaultOptions],
   create(context) {
     const { tags: jsdocTags = FILE_HEADER_TAGS } = resolveOptions(
       context.options,

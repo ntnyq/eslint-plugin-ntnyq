@@ -15,7 +15,6 @@ export const plugin = {
   rules,
 } satisfies ESLint.Plugin
 
-export * from './dts'
 export * from './meta'
 export * from './rules'
 

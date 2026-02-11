@@ -21,7 +21,6 @@ export default createESLintRule<Options, MessageIds>({
         'Disallow usage of typescript member accessibility',
     },
   },
-  defaultOptions: [],
   create(context) {
     function handleMemberAccessibility(
       node:

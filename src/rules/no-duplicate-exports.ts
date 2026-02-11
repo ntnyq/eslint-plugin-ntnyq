@@ -108,7 +108,6 @@ export default createESLintRule<Options, MessageIds>({
       multiSameSourceNamed: `Multiple named export from same source '{{source}}'`,
     },
   },
-  defaultOptions: [defaultOptions],
   create(context) {
     const { style: namedExportStyle = EXPORT_STYLE.separate } = resolveOptions(
       context.options,

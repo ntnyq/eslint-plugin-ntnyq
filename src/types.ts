@@ -12,14 +12,7 @@ export type {
   RuleWithMetaAndName,
 } from '@typescript-eslint/utils/eslint-utils'
 export type {
-  EcmaVersion,
-  ReportDescriptor,
-  ReportFixFunction,
   RuleContext,
-  RuleFixer,
-  RuleFunction,
   RuleListener,
   RuleModule,
-  Scope,
-  SourceCode,
 } from '@typescript-eslint/utils/ts-eslint'

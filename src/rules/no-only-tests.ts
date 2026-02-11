@@ -69,7 +69,6 @@ export default createESLintRule<Options, MessageIds>({
       unexpected: 'Unexpected {{type}} block',
     },
   },
-  defaultOptions: [defaultOptions],
   create(context) {
     const {
       block = [],

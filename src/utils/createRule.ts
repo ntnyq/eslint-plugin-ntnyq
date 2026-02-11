@@ -12,11 +12,6 @@ import type {
   RuleWithMetaAndName,
 } from '../types'
 
-export interface ESLintRuleModule<TOptions extends readonly unknown[]>
-  extends Rule.RuleModule {
-  defaultOptions: TOptions
-}
-
 export interface PluginDocs {
   recommended?: boolean
 }
@@ -26,14 +21,10 @@ function createRule<
   TMessageIds extends string,
 >({
   create,
-  defaultOptions,
   meta,
-}: Readonly<
-  RuleWithMeta<TOptions, TMessageIds, PluginDocs>
->): ESLintRuleModule<TOptions> {
-  const resolvedDefaultOptions = toArray(defaultOptions) as unknown as TOptions
+}: Readonly<RuleWithMeta<TOptions, TMessageIds, PluginDocs>>): Rule.RuleModule {
+  const resolvedDefaultOptions = toArray(meta.defaultOptions)
   return {
-    defaultOptions: resolvedDefaultOptions,
     create: ((
       context: Readonly<RuleContext<TMessageIds, TOptions>>,
     ): RuleListener => {
@@ -59,7 +50,7 @@ function createRule<
     }) as unknown as Rule.RuleModule['create'],
     meta: {
       ...meta,
-      defaultOptions: resolvedDefaultOptions as unknown as unknown[],
+      defaultOptions: resolvedDefaultOptions,
     },
   }
 }
@@ -74,7 +65,7 @@ function RuleCreator(urlCreator: (name: string) => string) {
     ...rule
   }: Readonly<
     RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>
-  >): ESLintRuleModule<TOptions> {
+  >): Rule.RuleModule {
     return createRule<TOptions, TMessageIds>({
       meta: {
         ...meta,
@@ -96,6 +87,6 @@ export const createESLintRule: <
   ...rule
 }: Readonly<
   RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>
->) => ESLintRuleModule<TOptions> = RuleCreator(
+>) => Rule.RuleModule = RuleCreator(
   ruleName => `https://eslint-plugin.ntnyq.com/rules/${ruleName}.html`,
 )
