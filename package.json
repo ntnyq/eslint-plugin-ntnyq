@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.13.0",
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@10.33.0",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -52,26 +52,26 @@
     "eslint": "^9.5.0 || ^10.0.0"
   },
   "dependencies": {
-    "@ntnyq/utils": "^0.11.0",
-    "@typescript-eslint/parser": "^8.57.0",
-    "@typescript-eslint/utils": "^8.57.0"
+    "@ntnyq/utils": "^0.11.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "@typescript-eslint/utils": "^8.57.2"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^6.0.0-beta.13",
+    "@ntnyq/eslint-config": "^6.0.0-beta.15",
     "@types/node": "^25.5.0",
-    "@typescript/native-preview": "^7.0.0-dev.20260315.1",
-    "bumpp": "^11.0.0",
-    "eslint": "^10.0.3",
+    "@typescript/native-preview": "^7.0.0-dev.20260329.1",
+    "bumpp": "^11.0.1",
+    "eslint": "^10.1.0",
     "eslint-plugin-eslint-plugin": "^7.3.2",
     "eslint-vitest-rule-tester": "^3.1.0",
     "husky": "^9.1.7",
     "nano-staged": "^0.9.0",
     "npm-run-all2": "^8.0.4",
-    "oxfmt": "^0.40.0",
+    "oxfmt": "^0.42.0",
     "tinyglobby": "^0.2.15",
-    "tsdown": "^0.21.3",
-    "typescript": "^5.9.3",
-    "vitest": "^4.1.0"
+    "tsdown": "^0.21.7",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
   },
   "nano-staged": {
     "*.{js,ts,mjs,tsx,vue,md,yml,yaml,json}": "eslint --fix",

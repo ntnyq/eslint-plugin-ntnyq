@@ -8,11 +8,11 @@
   "experimentalSortPackageJson": false,
   "htmlWhitespaceSensitivity": "css",
   "ignorePatterns": [
-    "**/node_modules/**",
-    "**/dist/**",
     "pnpm-lock.yaml",
     "**/*.min.*",
-    "**/tests/fixtures/**"
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/fixtures/**"
   ],
   "insertFinalNewline": true,
   "jsxSingleQuote": true,
