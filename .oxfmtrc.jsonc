@@ -12,7 +12,7 @@
     "**/*.min.*",
     "**/node_modules/**",
     "**/dist/**",
-    "**/fixtures/**"
+    "**/fixtures/**",
   ],
   "insertFinalNewline": true,
   "jsxSingleQuote": true,
@@ -21,15 +21,15 @@
     {
       "files": ["**/*.{css,scss}"],
       "options": {
-        "singleQuote": false
-      }
+        "singleQuote": false,
+      },
     },
     {
       "files": ["**/*.html"],
       "options": {
-        "singleAttributePerLine": false
-      }
-    }
+        "singleAttributePerLine": false,
+      },
+    },
   ],
   "printWidth": 80,
   "proseWrap": "preserve",
@@ -40,5 +40,5 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "useTabs": false,
-  "vueIndentScriptAndStyle": false
+  "vueIndentScriptAndStyle": false,
 }
