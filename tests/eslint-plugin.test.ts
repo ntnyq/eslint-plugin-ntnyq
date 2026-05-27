@@ -22,6 +22,7 @@ describe('Integration test', () => {
         "ntnyq/no-member-accessibility",
         "ntnyq/no-member-accessibility",
         "ntnyq/no-member-accessibility",
+        "ntnyq/no-only-tests",
       ]
     `)
   })

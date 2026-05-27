@@ -47,7 +47,7 @@ export default createESLintRule<Options, MessageIds>({
         fix(fixer) {
           const sourceCode = context.sourceCode
           const tokens = sourceCode.getTokens(node)
-          let rangeToRemove: Tree.Range
+          let rangeToRemove: Tree.Range | null = null
 
           for (let i = 0; i < tokens.length; i++) {
             const token = tokens[i]
@@ -55,12 +55,20 @@ export default createESLintRule<Options, MessageIds>({
               token.type === AST_TOKEN_TYPES.Keyword &&
               ['public', 'private', 'protected'].includes(token.value)
             ) {
-              rangeToRemove = [token.range[0], tokens[i + 1].range[0]]
+              const nextToken = tokens[i + 1]
+              if (!nextToken) {
+                break
+              }
+              rangeToRemove = [token.range[0], nextToken.range[0]]
               break
             }
           }
 
-          return fixer.removeRange(rangeToRemove!)
+          if (!rangeToRemove) {
+            return null
+          }
+
+          return fixer.removeRange(rangeToRemove)
         },
       })
     }

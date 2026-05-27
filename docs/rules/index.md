@@ -11,4 +11,5 @@ sidebarDepth: 0
 | :------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: |
 | [no-duplicate-exports](/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement              | 🔧  |     |
 | [no-member-accessibility](/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility | 🔧  |     |
+| [no-only-tests](/rules/no-only-tests.html)                                       | Disallow `.only` blocks in tests                  | 🔧  |     |
 | [prefer-newline-after-file-header](/rules/prefer-newline-after-file-header.html) | Require a newline after file header               | 🔧  |     |

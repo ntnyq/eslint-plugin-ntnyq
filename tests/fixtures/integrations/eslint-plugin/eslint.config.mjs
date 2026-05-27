@@ -17,6 +17,7 @@ export default defineConfig(
     },
     rules: {
       'ntnyq/no-member-accessibility': 'error',
+      'ntnyq/no-only-tests': 'error',
     },
   },
 )

@@ -229,6 +229,26 @@ await run<Options>({
       },
     },
     {
+      filename: 'generic-public-method.ts',
+      code: $`
+        class Test {
+          public wrap<T>(value: T): T {
+            return value
+          }
+        }
+      `,
+      output: $`
+        class Test {
+          wrap<T>(value: T): T {
+            return value
+          }
+        }
+      `,
+      errors(errors) {
+        expect(errors.map(v => v.messageId)).toEqual(['noMemberAccessibility'])
+      },
+    },
+    {
       filename: 'protected-method.ts',
       code: $`
         class Test {
@@ -306,6 +326,139 @@ await run<Options>({
             },
           ]
         `)
+      },
+    },
+    {
+      filename: 'parameter-property.ts',
+      code: $`
+        class Test {
+          constructor(private readonly value: number) {}
+        }
+      `,
+      output: $`
+        class Test {
+          constructor(readonly value: number) {}
+        }
+      `,
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 15,
+              "endColumn": 22,
+              "endLine": 2,
+              "fix": {
+                "range": [
+                  27,
+                  35,
+                ],
+                "text": "",
+              },
+              "line": 2,
+              "message": "Disallow usage of typescript member accessibility",
+              "messageId": "noMemberAccessibility",
+              "ruleId": "no-member-accessibility",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
+    },
+    {
+      filename: 'abstract-method.ts',
+      code: $`
+        abstract class Test {
+          protected abstract half(): number
+        }
+      `,
+      output: $`
+        abstract class Test {
+          abstract half(): number
+        }
+      `,
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 12,
+              "endLine": 2,
+              "fix": {
+                "range": [
+                  24,
+                  34,
+                ],
+                "text": "",
+              },
+              "line": 2,
+              "message": "Disallow usage of typescript member accessibility",
+              "messageId": "noMemberAccessibility",
+              "ruleId": "no-member-accessibility",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
+    },
+    {
+      filename: 'abstract-property.ts',
+      code: $`
+        abstract class Test {
+          public abstract value: number
+        }
+      `,
+      output: $`
+        abstract class Test {
+          abstract value: number
+        }
+      `,
+      errors(errors) {
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "column": 3,
+              "endColumn": 9,
+              "endLine": 2,
+              "fix": {
+                "range": [
+                  24,
+                  31,
+                ],
+                "text": "",
+              },
+              "line": 2,
+              "message": "Disallow usage of typescript member accessibility",
+              "messageId": "noMemberAccessibility",
+              "ruleId": "no-member-accessibility",
+              "severity": 2,
+            },
+          ]
+        `)
+      },
+    },
+    {
+      filename: 'modifier-combo.ts',
+      code: $`
+        class Test {
+          public readonly value: number = 1
+          protected static half(): number {
+            return 1 / 2
+          }
+        }
+      `,
+      output: $`
+        class Test {
+          readonly value: number = 1
+          static half(): number {
+            return 1 / 2
+          }
+        }
+      `,
+      errors(errors) {
+        expect(errors.map(v => v.messageId)).toEqual([
+          'noMemberAccessibility',
+          'noMemberAccessibility',
+        ])
       },
     },
   ],

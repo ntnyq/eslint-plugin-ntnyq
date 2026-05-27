@@ -3,7 +3,7 @@ pageClass: rule-details
 sidebarDepth: 0
 title: ntnyq/no-only-tests
 description: Disallow use `.only` blocks in tests.
-since: v0.0.1
+since: v0.15.0
 ---
 
 # ntnyq/no-only-tests
@@ -19,29 +19,9 @@ This rule reports while using `.only` blocks in tests.
 ::: correct
 
 ```ts eslint-check
-class Test {
-  x: number
-
-  constructor(x: number) {
-    this.x = x
-  }
-
-  get internalValue() {
-    return this.x
-  }
-
-  set internalValue(value: number) {
-    this.x = value
-  }
-
-  square(): number {
-    return this.x * this.x
-  }
-
-  half(): number {
-    return this.x / 2
-  }
-}
+describe('some describe block', () => {})
+it('some assertion', () => {})
+other.only('this is allowed by default', () => {})
 ```
 
 :::
@@ -49,42 +29,69 @@ class Test {
 ::: incorrect
 
 ```ts eslint-check
-class Test {
-  private x: number
-
-  public constructor(x: number) {
-    this.x = x
-  }
-
-  protected get internalValue() {
-    return this.x
-  }
-
-  protected set internalValue(value: number) {
-    this.x = value
-  }
-
-  public square(): number {
-    return this.x * this.x
-  }
-
-  private half(): number {
-    return this.x / 2
-  }
-}
+describe.only('focused suite', () => {})
+it.only('focused case', () => {})
+test.only('focused test', () => {})
 ```
 
 :::
 
 ## :wrench: Options
 
-Nothing.
+```ts
+export type Options = [
+  {
+    block?: string[]
+    focus?: string[]
+    functions?: string[]
+    fix?: boolean
+  },
+]
+```
+
+Defaults:
+
+- `block`: `['describe', 'it', 'context', 'test', 'tape', 'fixture', 'serial', 'Feature', 'Scenario', 'Given', 'And', 'When', 'Then']`
+- `focus`: `['only']`
+- `functions`: `[]`
+- `fix`: `false`
+
+### `block`
+
+List of block names that should not be focused. Wildcard suffix `*` is supported.
+
+```ts eslint-check
+// options: [{ block: ['test*'] }]
+testResource.only('resource test', () => {})
+```
+
+### `focus`
+
+List of focus method names.
+
+```ts eslint-check
+// options: [{ focus: ['focus'] }]
+test.focus('focused test', () => {})
+```
+
+### `functions`
+
+List of direct function names to disallow.
+
+```ts eslint-check
+// options: [{ functions: ['fit', 'xit'] }]
+xit('skipped test', () => {})
+```
+
+### `fix`
+
+When `true`, the rule removes focus method usage such as `.only` or `.focus`.
 
 ## :rocket: Version
 
-This rule was introduced in eslint-plugin-ntnyq v0.12.0
+This rule was introduced in eslint-plugin-ntnyq v0.15.0
 
 ## :mag: Implementation
 
 - [Rule source](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/rules/no-only-tests.ts)
-- [Test source](https://github.com/ntnyq/eslint-plugin-ntnyq/tree/main/tests/rules/no-only-tests.test.ts)
+- [Test source](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/tests/rules/no-only-tests.test.ts)

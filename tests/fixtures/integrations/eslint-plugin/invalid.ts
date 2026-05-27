@@ -1,3 +1,7 @@
+declare const test: {
+  only: (name: string, fn: () => void) => void
+}
+
 export class Test {
   private x: number
 
@@ -21,3 +25,5 @@ export class Test {
     return this.x / 2
   }
 }
+
+test.only('focused test should fail', () => {})
