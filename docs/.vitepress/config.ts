@@ -1,4 +1,4 @@
-import { join } from '@ntnyq/utils'
+import { joinNonEmptyValues } from '@ntnyq/utils'
 import { transformerRenderWhitespace } from '@shikijs/transformers'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import parserTypeScript from '@typescript-eslint/parser'
@@ -49,6 +49,7 @@ export default defineConfig({
               rules: {
                 'ntnyq/no-duplicate-exports': 'error',
                 'ntnyq/no-member-accessibility': 'error',
+                'ntnyq/no-only-tests': 'error',
                 'ntnyq/prefer-newline-after-file-header': 'error',
               },
             },
@@ -57,7 +58,7 @@ export default defineConfig({
             // Remove trailing newline and presentational `⏎` characters
             return code
               .replace(/⏎(?=\n)/gu, '')
-              .replace(/⏎$/gu, SPECIAL_CHAR.newline)
+              .replace(/⏎$/gu, () => SPECIAL_CHAR.newline)
           },
         }),
       }),
@@ -73,14 +74,13 @@ export default defineConfig({
           if (tokens[idx].nesting === 1) {
             const next = tokens[idx + 1]
             if (next.type === 'fence') {
-              next.info = join([next.info, 'eslint-check'], {
+              next.info = joinNonEmptyValues([next.info, 'eslint-check'], {
                 separator: SPECIAL_CHAR.whitespace,
               })
             }
             return '<CustomWrapper type="correct">'
-          } else {
-            return `</CustomWrapper>${SPECIAL_CHAR.newline}`
           }
+          return `</CustomWrapper>${SPECIAL_CHAR.newline}`
         },
       })
 
@@ -89,14 +89,13 @@ export default defineConfig({
           if (tokens[idx].nesting === 1) {
             const next = tokens[idx + 1]
             if (next.type === 'fence') {
-              next.info = join([next.info, 'eslint-check'], {
+              next.info = joinNonEmptyValues([next.info, 'eslint-check'], {
                 separator: SPECIAL_CHAR.whitespace,
               })
             }
             return '<CustomWrapper type="incorrect">'
-          } else {
-            return `</CustomWrapper>${SPECIAL_CHAR.newline}`
           }
+          return `</CustomWrapper>${SPECIAL_CHAR.newline}`
         },
       })
     },

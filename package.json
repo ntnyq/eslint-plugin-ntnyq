@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.14.0",
-  "packageManager": "pnpm@11.6.0",
+  "packageManager": "pnpm@11.24.0",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -15,7 +15,10 @@
     "email": "ntnyq13@gmail.com"
   },
   "homepage": "https://eslint-plugin.ntnyq.com",
-  "repository": "ntnyq/eslint-plugin-ntnyq",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ntnyq/eslint-plugin-ntnyq"
+  },
   "bugs": {
     "url": "https://github.com/ntnyq/eslint-plugin-ntnyq/issues"
   },
@@ -52,26 +55,26 @@
     "eslint": "^9.5.0 || ^10.0.0"
   },
   "dependencies": {
-    "@ntnyq/utils": "^0.15.0",
-    "@typescript-eslint/parser": "^8.61.0",
-    "@typescript-eslint/utils": "^8.61.0"
+    "@ntnyq/utils": "^0.21.1",
+    "@typescript-eslint/utils": "^8.68.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^6.1.5",
-    "@types/node": "^25.9.3",
-    "@typescript/native-preview": "^7.0.0-dev.20260614.1",
-    "bumpp": "^12.0.0",
-    "eslint": "^10.5.0",
-    "eslint-plugin-eslint-plugin": "^7.4.0",
+    "@ntnyq/eslint-config": "^7.0.0-beta.17",
+    "@types/node": "^26.4.0",
+    "@typescript-eslint/parser": "^8.68.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260707.2",
+    "bumpp": "^12.2.2",
+    "eslint": "^10.9.1",
+    "eslint-plugin-eslint-plugin": "^7.6.2",
     "eslint-vitest-rule-tester": "^3.1.0",
     "husky": "^9.1.7",
     "nano-staged": "^1.0.2",
-    "npm-run-all2": "^9.0.2",
-    "oxfmt": "^0.54.0",
+    "npm-run-all2": "^9.0.3",
+    "oxfmt": "^0.65.0",
     "tinyglobby": "^0.2.17",
-    "tsdown": "^0.22.2",
+    "tsdown": "^0.22.14",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.11"
   },
   "nano-staged": {
     "*.{js,ts,mjs,tsx,vue,md,yml,yaml,json}": "eslint --fix",

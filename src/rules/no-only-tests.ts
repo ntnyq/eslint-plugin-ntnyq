@@ -135,17 +135,23 @@ export default createESLintRule<Options, MessageIds>({
     } = resolveOptions(context.options, defaultOptions)
 
     return {
-      Identifier(node) {
-        if (functions.length && functions.includes(node.name)) {
-          context.report({
-            node,
-            messageId: 'unexpected',
-            data: {
-              type: node.name,
-            },
-          })
+      CallExpression(node) {
+        if (
+          node.callee.type !== 'Identifier' ||
+          !functions.includes(node.callee.name)
+        ) {
+          return
         }
 
+        context.report({
+          node: node.callee,
+          messageId: 'unexpected',
+          data: {
+            type: node.callee.name,
+          },
+        })
+      },
+      Identifier(node) {
         const parent = node.parent
         if (!parent || !isMemberExpression(parent)) {
           return
@@ -158,7 +164,7 @@ export default createESLintRule<Options, MessageIds>({
         }
 
         const callPath = getCallPath(parent).join('.')
-        const matchBlock = block.find(item => {
+        const matchBlock = block.some(item => {
           if (item.endsWith('*')) {
             return callPath.startsWith(item.replace(/\*$/, ''))
           }
@@ -168,8 +174,8 @@ export default createESLintRule<Options, MessageIds>({
           return
         }
 
-        const rangeStart = node.range?.[0]
-        const rangeEnd = node.range?.[1]
+        const accessToken = context.sourceCode.getTokenBefore(node)
+        const canFix = accessToken?.value === '.' || accessToken?.value === '?.'
 
         context.report({
           node,
@@ -178,8 +184,8 @@ export default createESLintRule<Options, MessageIds>({
             type: callPath,
           },
           fix:
-            fix && rangeStart != null && rangeEnd != null
-              ? fixer => fixer.removeRange([rangeStart - 1, rangeEnd])
+            fix && canFix
+              ? fixer => [fixer.remove(accessToken), fixer.remove(node)]
               : undefined,
         })
       },

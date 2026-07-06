@@ -49,17 +49,18 @@ export default createESLintRule<Options, MessageIds>({
           const tokens = sourceCode.getTokens(node)
           let rangeToRemove: Tree.Range | null = null
 
-          for (let i = 0; i < tokens.length; i++) {
-            const token = tokens[i]
+          for (const token of tokens) {
             if (
               token.type === AST_TOKEN_TYPES.Keyword &&
-              ['public', 'private', 'protected'].includes(token.value)
+              token.value === node.accessibility
             ) {
-              const nextToken = tokens[i + 1]
-              if (!nextToken) {
-                break
-              }
-              rangeToRemove = [token.range[0], nextToken.range[0]]
+              const trailingWhitespaceLength =
+                sourceCode.text.slice(token.range[1]).match(/^[\t ]+/u)?.[0]
+                  .length ?? 0
+              rangeToRemove = [
+                token.range[0],
+                token.range[1] + trailingWhitespaceLength,
+              ]
               break
             }
           }

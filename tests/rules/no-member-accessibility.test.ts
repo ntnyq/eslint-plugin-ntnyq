@@ -461,5 +461,19 @@ await run<Options>({
         ])
       },
     },
+    {
+      filename: 'preserve-comment.ts',
+      code: $`
+        class Test {
+          public /* keep */ value = 1
+        }
+      `,
+      output: $`
+        class Test {
+          /* keep */ value = 1
+        }
+      `,
+      errors: ['noMemberAccessibility'],
+    },
   ],
 })

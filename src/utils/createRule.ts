@@ -16,10 +16,7 @@ export interface PluginDocs {
   recommended?: boolean
 }
 
-function createRule<
-  TOptions extends readonly unknown[],
-  TMessageIds extends string,
->({
+function createRule<TOptions extends unknown[], TMessageIds extends string>({
   create,
   meta,
 }: Readonly<RuleWithMeta<TOptions, TMessageIds, PluginDocs>>): Rule.RuleModule {
@@ -57,7 +54,7 @@ function createRule<
 
 function RuleCreator(urlCreator: (name: string) => string) {
   return function createNamedRule<
-    TOptions extends readonly unknown[],
+    TOptions extends unknown[],
     TMessageIds extends string,
   >({
     meta,
@@ -79,7 +76,7 @@ function RuleCreator(urlCreator: (name: string) => string) {
   }
 }
 export const createESLintRule: <
-  TOptions extends readonly unknown[],
+  TOptions extends unknown[],
   TMessageIds extends string,
 >({
   meta,

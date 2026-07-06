@@ -2,17 +2,12 @@
  * @file meta.ts
  */
 
-import { name, repository, version } from '../../package.json'
+import { name, version } from '../../package.json'
 
 /**
  * npm package name, it's unique
  */
 export const packageName = name
-
-/**
- * repository slug
- */
-export const repositorySlug: string = repository
 
 /**
  * Shared meta info

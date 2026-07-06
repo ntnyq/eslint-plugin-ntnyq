@@ -88,6 +88,16 @@ await run<Options>({
         export const foobar = 'foobar'
       `,
     },
+    {
+      description: 'empty-tags',
+      filename: 'empty-tags.ts',
+      code: $`
+        /** plain header */export const foobar = 'foobar'
+      `,
+      options: {
+        tags: [],
+      },
+    },
   ],
   invalid: [
     {
@@ -137,6 +147,24 @@ await run<Options>({
       },
       output(output) {
         expect(output).toMatchSnapshot('output')
+      },
+    },
+    {
+      description: 'regex-character-in-tag',
+      filename: 'regex-character-in-tag.ts',
+      code: $`
+        /**
+         * [ custom header
+         */export const foobar = 'foobar'
+      `,
+      options: {
+        tags: ['['],
+      },
+      errors: ['requireNewlineBefore'],
+      output(output) {
+        expect(output).toBe(
+          `/**\n * [ custom header\n */\n\nexport const foobar = 'foobar'`,
+        )
       },
     },
   ],

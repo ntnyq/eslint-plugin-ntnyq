@@ -22,10 +22,13 @@ jobs:
           node-version: lts/*
           cache: pnpm
 
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - run: pnpm run release:check
+
       - run: pnpm dlx changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - run: pnpm install --frozen-lockfile
       - run: npm install -g npm@latest
       - run: pnpm publish --no-git-checks

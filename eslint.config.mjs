@@ -3,13 +3,20 @@
 import { defineESLintConfig } from '@ntnyq/eslint-config'
 
 export default defineESLintConfig({
-  eslintPlugin: true,
   ignores: ['tests/fixtures/**'],
   svgo: true,
+  eslintPlugin: {
+    overrides: {
+      // https://github.com/typescript-eslint/typescript-eslint/pull/12663
+      'eslint-plugin/require-meta-languages': 'off',
+    },
+  },
   test: {
-    overridesVitestRules: {
-      // in favor of eslint-vitest-rule-tester
-      'vitest/no-standalone-expect': 'off',
+    vitest: {
+      overrides: {
+        // in favor of eslint-vitest-rule-tester
+        'vitest/no-standalone-expect': 'off',
+      },
     },
   },
   typescript: {

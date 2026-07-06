@@ -57,7 +57,10 @@ function toExportAllStatement(key: string) {
   )
 }
 
-function toNamedExportNames(nodes: Tree.ExportNamedDeclarationWithSource[]) {
+function toNamedExportNames(
+  nodes: Tree.ExportNamedDeclarationWithSource[],
+  outputExportKind: string,
+) {
   const allNames = nodes.reduce<string[]>((names, node) => {
     return [
       ...names,
@@ -66,7 +69,10 @@ function toNamedExportNames(nodes: Tree.ExportNamedDeclarationWithSource[]) {
         const exportedName = getIdentifierOrStringLiteralValue(s.exported)
         return join(
           [
-            s.exportKind === 'type' ? 'type' : '',
+            outputExportKind !== EXPORT_TYPE &&
+            (node.exportKind === EXPORT_TYPE || s.exportKind === EXPORT_TYPE)
+              ? EXPORT_TYPE
+              : '',
             localName,
             ...(localName === exportedName ? [] : ['as', exportedName]),
           ],
@@ -115,6 +121,15 @@ export default createESLintRule<Options, MessageIds>({
     )
     const preferSeparateStyle = namedExportStyle === EXPORT_STYLE.separate
 
+    function getSourceSuffix(
+      node: Tree.ExportNamedDeclarationWithSource,
+    ): string {
+      return context.sourceCode.text
+        .slice(node.source.range[1], node.range[1])
+        .replace(/;\s*$/u, '')
+        .trim()
+    }
+
     function groupNodesByKey<T>(
       nodes: T[],
       getKey: (item: T) => string,
@@ -148,10 +163,11 @@ export default createESLintRule<Options, MessageIds>({
             separator: SPECIAL_CHAR.colon,
           })
         const namedExportKey = (node: Tree.ExportNamedDeclarationWithSource) =>
-          join(
-            [node.source.value, preferSeparateStyle ? node.exportKind : ''],
-            { separator: SPECIAL_CHAR.colon },
-          )
+          JSON.stringify([
+            node.source.value,
+            preferSeparateStyle ? node.exportKind : '',
+            getSourceSuffix(node),
+          ])
 
         const seenExportAll = groupNodesByKey(exportAllNodes, exportAllKey)
         const seenNamedExport = groupNodesByKey(
@@ -175,35 +191,46 @@ export default createESLintRule<Options, MessageIds>({
           })
         })
 
-        seenNamedExport.forEach((nodes, key) => {
+        seenNamedExport.forEach(nodes => {
           if (nodes.length <= 1) {
             return
           }
+          const canFix = nodes.every(
+            node => context.sourceCode.getCommentsInside(node).length === 0,
+          )
           nodes.forEach((node, idx) => {
+            const outputExportKind =
+              preferSeparateStyle && node.exportKind === EXPORT_TYPE
+                ? EXPORT_TYPE
+                : ''
+            const sourceSuffix = getSourceSuffix(node)
             context.report({
               messageId: 'multiSameSourceNamed',
               node,
               data: {
                 source: node.source.value,
               },
-              fix: fixer =>
-                idx === 0
-                  ? fixer.replaceText(
-                      node,
-                      join(
-                        [
-                          'export',
-                          key.endsWith(EXPORT_TYPE) ? EXPORT_TYPE : '',
-                          '{',
-                          toNamedExportNames(nodes),
-                          '}',
-                          'from',
-                          `'${node.source.value}'`,
-                        ],
-                        { separator: SPECIAL_CHAR.whitespace },
-                      ),
-                    )
-                  : fixer.remove(node),
+              fix: canFix
+                ? fixer =>
+                    idx === 0
+                      ? fixer.replaceText(
+                          node,
+                          join(
+                            [
+                              'export',
+                              outputExportKind,
+                              '{',
+                              toNamedExportNames(nodes, outputExportKind),
+                              '}',
+                              'from',
+                              context.sourceCode.getText(node.source),
+                              sourceSuffix,
+                            ],
+                            { separator: SPECIAL_CHAR.whitespace },
+                          ),
+                        )
+                      : fixer.remove(node)
+                : undefined,
             })
           })
         })

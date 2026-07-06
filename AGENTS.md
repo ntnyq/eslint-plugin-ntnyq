@@ -1,46 +1,54 @@
-# AGENTS
+# Repository Guidelines
 
-This repository is an ESM ESLint plugin with a docs workspace.
+## Project Structure & Module Organization
 
-## Runbook
+Core plugin code lives in `src/`. ESLint rules are in `src/rules/`, shared
+helpers in `src/utils/`, and the public plugin entry point is `src/index.ts`.
+Tests mirror this layout under `tests/`; rule tests belong in `tests/rules/`,
+while reusable test setup lives in `tests/internal.ts`. Rule documentation is
+kept in `docs/rules/`, and the VitePress site configuration is under
+`docs/.vitepress/`. Static site assets belong in `docs/public/`. Build output is
+generated in `dist/` and should not be edited directly.
 
-- Install: `pnpm install`
-- Build plugin: `pnpm run build`
-- Test rules: `pnpm run test`
-- Typecheck: `pnpm run typecheck`
-- Lint: `pnpm run lint`
-- Format: `pnpm run format` (uses oxfmt)
-- Docs dev: `pnpm run docs:dev`
-- Docs build: `pnpm run docs:build`
-- Release gate: `pnpm run release:check`
+## Build, Test, and Development Commands
 
-## Project Map
+Use pnpm 11 (declared in `package.json`).
 
-- Plugin entry: [src/index.ts](src/index.ts)
-- Rule registry: [src/rules/index.ts](src/rules/index.ts)
-- Rule implementations: [src/rules](src/rules)
-- Rule helpers: [src/utils/createRule.ts](src/utils/createRule.ts), [src/utils/merge.ts](src/utils/merge.ts), [src/utils/resolveOptions.ts](src/utils/resolveOptions.ts)
-- Test helpers: [tests/internal.ts](tests/internal.ts)
-- Rule tests: [tests/rules](tests/rules)
-- Integration fixtures: [tests/fixtures/integrations/eslint-plugin](tests/fixtures/integrations/eslint-plugin)
-- User docs: [README.md](README.md), [docs/guide/index.md](docs/guide/index.md), [docs/rules/index.md](docs/rules/index.md)
+- `pnpm install --frozen-lockfile` installs the exact locked dependencies.
+- `pnpm dev` rebuilds the plugin in watch mode.
+- `pnpm build` creates ESM output and declarations with tsdown.
+- `pnpm test` runs the Vitest suite once.
+- `pnpm lint` checks the repository with ESLint.
+- `pnpm typecheck` runs strict TypeScript checks without emitting files.
+- `pnpm format:check` verifies oxfmt formatting; `pnpm format` applies it.
+- `pnpm docs:dev` starts the documentation site locally.
+- `pnpm run release:check` runs the full pre-release validation suite.
 
-## Conventions For Changes
+## Coding Style & Naming Conventions
 
-- Follow the existing rule shape: export `RULE_NAME`, `Options`, `MessageIds`, and default rule module.
-- Register new rules in [src/rules/index.ts](src/rules/index.ts) and plugin exports in [src/index.ts](src/index.ts).
-- Use [tests/internal.ts](tests/internal.ts) `run()` helper for rule tests; parser setup is centralized there.
-- Keep import/export order stable where `@keep-sorted` markers exist.
-- Prefer editing source under [src](src) and regenerate [dist](dist) with build; do not hand-edit generated output.
+Follow `.editorconfig` and `.oxfmtrc.jsonc`: two-space indentation, LF endings,
+single quotes, no semicolons, trailing commas, and an 80-column target. Keep
+TypeScript ESM-compatible and preserve strict typing; use `import type` for
+type-only imports. Rule files and rule IDs use kebab-case, for example
+`no-only-tests.ts` and `RULE_NAME = 'no-only-tests'`. Use camelCase for
+functions and variables and PascalCase for types. Export new rules through
+`src/rules/index.ts` and add matching documentation.
 
-## Gotchas
+## Testing Guidelines
 
-- Formatting is oxfmt, not Prettier. Run `pnpm run format` when in doubt.
-- Docs is a separate workspace package under [docs](docs); use root scripts or `pnpm -C docs ...`.
+Vitest and `eslint-vitest-rule-tester` drive the tests. Name files
+`*.test.ts`, mirror the source area, and cover both `valid` and `invalid` rule
+cases, including diagnostics and fixer output where applicable. Update
+snapshots only when the changed output is intentional. There is no configured
+coverage threshold, but every behavior change should include a regression
+test. CI tests supported Node.js versions 22, 24, and 26.
 
-## Quick Agent Checklist
+## Commit & Pull Request Guidelines
 
-1. Run `pnpm run test` and `pnpm run typecheck` before making rule changes.
-2. Add or update tests in [tests/rules](tests/rules) for every rule behavior change.
-3. Run `pnpm run release:check` before finalizing substantial changes.
-4. If rule behavior changes, update docs under [docs/rules](docs/rules).
+Recent history uses Conventional Commit-style subjects such as
+`feat: implement rule no-only-tests`, `docs: ...`, and `chore(deps): ...`. Keep
+subjects imperative and narrowly scoped. Pull requests should explain the
+behavioral change, link related issues when available, and list validation
+performed. Include tests and rule documentation for user-visible rule changes;
+attach screenshots only for documentation UI changes. Ensure build, format,
+lint, typecheck, and tests pass before requesting review.

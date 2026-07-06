@@ -29,7 +29,14 @@ const defaultOptions: Options[0] = {
 }
 
 function isFileHeaderComment(comment: Tree.BlockComment, tags: string[]) {
-  const reFileHeaderTag = new RegExp(`\\*\\s*(${tags.join('|')})`)
+  if (!tags.length) {
+    return false
+  }
+
+  const escapedTags = tags.map(tag =>
+    tag.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&'),
+  )
+  const reFileHeaderTag = new RegExp(`\\*\\s*(${escapedTags.join('|')})`, 'u')
   return reFileHeaderTag.test(comment.value.trim())
 }
 

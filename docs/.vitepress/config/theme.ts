@@ -1,12 +1,12 @@
 import { globSync } from 'tinyglobby'
 import { resolve } from '../../../scripts/utils'
-import { appVersion, packageName, repositorySlug } from '../meta'
+import { appVersion, packageName } from '../meta'
 import type { DefaultTheme } from 'vitepress'
 
 const VERSIONS: DefaultTheme.NavItemWithLink[] = [
   { link: '/', text: `v${appVersion} (current)` },
   {
-    link: `https://github.com/${repositorySlug}}/releases`,
+    link: `https://github.com/ntnyq/${packageName}/releases`,
     text: 'Release Notes',
   },
 ]
@@ -80,7 +80,7 @@ export function getThemeConfig() {
     socialLinks: [
       { icon: 'x', link: 'https://twitter.com/ntnyq' },
       { icon: 'npm', link: `https://www.npmjs.com/package/${packageName}` },
-      { icon: 'github', link: `https://github.com/${repositorySlug}` },
+      { icon: 'github', link: `https://github.com/ntnyq/${packageName}` },
     ],
   }
 

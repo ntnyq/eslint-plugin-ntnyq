@@ -60,6 +60,18 @@ await run<Options>({
         functions: ['fit', 'xit'],
       },
     },
+    {
+      description: 'allow-non-call-function-identifiers',
+      filename: 'allow-non-call-function-identifiers.ts',
+      code: $`
+        const xit = 1
+        const options = { xit: true }
+        type xit = string
+      `,
+      options: {
+        functions: ['xit'],
+      },
+    },
   ],
   invalid: [
     {
@@ -150,6 +162,34 @@ await run<Options>({
           `it.default.before(console.log)('some describe block', () => {})`,
         )
       },
+    },
+    {
+      description: 'fix-optional-chain',
+      filename: 'fix-optional-chain.ts',
+      code: $`
+        it?.only('some assertion', () => {})
+      `,
+      options: {
+        fix: true,
+      },
+      errors: ['unexpected'],
+      output: $`
+        it('some assertion', () => {})
+      `,
+    },
+    {
+      description: 'fix-preserves-comment',
+      filename: 'fix-preserves-comment.ts',
+      code: $`
+        it. /* keep */ only('some assertion', () => {})
+      `,
+      options: {
+        fix: true,
+      },
+      errors: ['unexpected'],
+      output: $`
+        it /* keep */ ('some assertion', () => {})
+      `,
     },
   ],
 })
