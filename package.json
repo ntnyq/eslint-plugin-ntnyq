@@ -60,7 +60,7 @@
     "@ntnyq/eslint-config": "^6.1.5",
     "@types/node": "^25.9.3",
     "@typescript/native-preview": "^7.0.0-dev.20260614.1",
-    "bumpp": "^11.1.0",
+    "bumpp": "^12.0.0",
     "eslint": "^10.5.0",
     "eslint-plugin-eslint-plugin": "^7.4.0",
     "eslint-vitest-rule-tester": "^3.1.0",
