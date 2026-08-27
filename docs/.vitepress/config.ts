@@ -51,6 +51,7 @@ export default defineConfig({
                 'ntnyq/no-member-accessibility': 'error',
                 'ntnyq/no-only-tests': 'error',
                 'ntnyq/prefer-newline-after-file-header': 'error',
+                'ntnyq/prefer-object-method-syntax': 'error',
               },
             },
           ],
