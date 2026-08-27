@@ -116,7 +116,7 @@ const object = {
 ```ts
 export type Options = [
   {
-    allowArrowFunctions?: boolean
+    allowArrowFunctions?: boolean | 'singleLineOnly'
     allowedPropertyNames?: string[]
     fix?: boolean
   },
@@ -131,7 +131,15 @@ Defaults:
 
 ### `allowArrowFunctions`
 
-When `true`, arrow functions are allowed as object property values. Function expressions are still reported.
+This option controls which arrow functions are allowed as object property
+values:
+
+- `false` reports all arrow functions;
+- `true` allows all arrow functions;
+- `'singleLineOnly'` allows single-line arrow functions but still reports
+  multi-line arrow functions.
+
+Function expressions are still reported for every option value.
 
 ```ts eslint-check
 // options: [{ allowArrowFunctions: true }]
@@ -139,6 +147,30 @@ const object = {
   allowed: () => {},
   reported: function () {},
 }
+```
+
+With `'singleLineOnly'`, multi-line arrow functions can be automatically fixed
+when `fix` is also enabled and the conversion is safe:
+
+```ts eslint-check
+// options: [{ allowArrowFunctions: 'singleLineOnly', fix: true }]
+const name = computed({
+  get: () => model.value.name,
+  set: value => {
+    model.value = { ...model.value, name: value }
+  },
+})
+```
+
+With `--fix`, the multi-line `set` property becomes:
+
+```ts
+const name = computed({
+  get: () => model.value.name,
+  set(value) {
+    model.value = { ...model.value, name: value }
+  },
+})
 ```
 
 ### `allowedPropertyNames`

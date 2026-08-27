@@ -11,11 +11,12 @@ export type MessageIds =
 export type Options = [
   {
     /**
-     * Whether arrow functions are allowed as object property values.
+     * Which arrow functions are allowed as object property values. Use
+     * `singleLineOnly` to allow only single-line arrow functions.
      *
      * @default false
      */
-    allowArrowFunctions?: boolean
+    allowArrowFunctions?: boolean | 'singleLineOnly'
     /**
      * Static property names excluded from this rule.
      *
@@ -53,9 +54,17 @@ export default createESLintRule<Options, MessageIds>({
         type: 'object',
         properties: {
           allowArrowFunctions: {
-            type: 'boolean',
+            anyOf: [
+              {
+                type: 'boolean',
+              },
+              {
+                type: 'string',
+                enum: ['singleLineOnly'],
+              },
+            ],
             description:
-              'Whether arrow functions are allowed as object property values',
+              'Whether all or only single-line arrow functions are allowed as object property values',
           },
           allowedPropertyNames: {
             type: 'array',
@@ -333,7 +342,12 @@ export default createESLintRule<Options, MessageIds>({
       ) {
         return
       }
-      if (value.type === 'ArrowFunctionExpression' && allowArrowFunctions) {
+      if (
+        value.type === 'ArrowFunctionExpression' &&
+        (allowArrowFunctions === true ||
+          (allowArrowFunctions === 'singleLineOnly' &&
+            value.loc.start.line === value.loc.end.line))
+      ) {
         return
       }
 

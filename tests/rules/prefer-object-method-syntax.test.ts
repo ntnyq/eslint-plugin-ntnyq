@@ -38,6 +38,16 @@ await run<Options>({
     {
       code: $`
         const object = {
+          dispose: () => {},
+        }
+      `,
+      options: {
+        allowArrowFunctions: 'singleLineOnly',
+      },
+    },
+    {
+      code: $`
+        const object = {
           computed: () => value,
           get: function () {},
           ['set']: function () {},
@@ -128,6 +138,29 @@ await run<Options>({
             cleanup(force)
           },
         }
+      `,
+    },
+    {
+      code: $`
+        const name = computed({
+          get: () => model.value.name,
+          set: value => {
+            model.value = { ...model.value, name: value }
+          },
+        })
+      `,
+      options: {
+        allowArrowFunctions: 'singleLineOnly',
+        fix: true,
+      },
+      errors: ['preferMethodSyntax'],
+      output: $`
+        const name = computed({
+          get: () => model.value.name,
+          set(value) {
+            model.value = { ...model.value, name: value }
+          },
+        })
       `,
     },
     {
