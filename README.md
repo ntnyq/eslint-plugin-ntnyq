@@ -63,6 +63,7 @@ export default defineConfig([
 | [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility | 🔧  |     |
 | [no-only-tests](https://eslint-plugin.ntnyq.com/rules/no-only-tests.html)                                       | Disallow `.only` blocks in tests                  | 🔧  |     |
 | [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header               | 🔧  |     |
+| [prefer-object-method-syntax](https://eslint-plugin.ntnyq.com/rules/prefer-object-method-syntax.html)           | Prefer method syntax for inline object functions  | 🔧  | 💡  |
 
 ## License
 

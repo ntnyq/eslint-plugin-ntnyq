@@ -13,3 +13,4 @@ sidebarDepth: 0
 | [no-member-accessibility](/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility | 🔧  |     |
 | [no-only-tests](/rules/no-only-tests.html)                                       | Disallow `.only` blocks in tests                  | 🔧  |     |
 | [prefer-newline-after-file-header](/rules/prefer-newline-after-file-header.html) | Require a newline after file header               | 🔧  |     |
+| [prefer-object-method-syntax](/rules/prefer-object-method-syntax.html)           | Prefer method syntax for inline object functions  | 🔧  | 💡  |
