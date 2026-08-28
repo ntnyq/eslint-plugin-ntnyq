@@ -197,10 +197,12 @@ export default createESLintRule<Options, MessageIds>({
         return
       }
 
-      // Synthesizing an explicit return is outside the safe-fix boundary.
+      // Single-line expression arrows stay unchanged. Multi-line expressions
+      // can be converted by introducing an explicit return statement.
       if (
         value.type === 'ArrowFunctionExpression' &&
-        value.body.type !== 'BlockStatement'
+        value.body.type !== 'BlockStatement' &&
+        value.loc.start.line === value.loc.end.line
       ) {
         return
       }
@@ -315,7 +317,47 @@ export default createESLintRule<Options, MessageIds>({
         arrowToken.range[1],
         value.range[1],
       )
-      return methodPrefix + normalizedParameterText + bodyText
+      if (value.body.type === 'BlockStatement') {
+        return methodPrefix + normalizedParameterText + bodyText
+      }
+
+      const firstTokenAfterValue = sourceCode.getTokenAfter(value, {
+        includeComments: true,
+      })
+      const firstCodeTokenAfterValue = sourceCode.getTokenAfter(value)
+
+      // Adding the method's closing brace would relocate a trailing comment.
+      if (firstTokenAfterValue !== firstCodeTokenAfterValue) {
+        return
+      }
+
+      const textBeforeExpression = sourceCode.text.slice(
+        arrowToken.range[1],
+        value.body.range[0],
+      )
+      const expressionText = sourceCode.text.slice(
+        value.body.range[0],
+        value.range[1],
+      )
+      const linebreak = textBeforeExpression.match(/\r\n|[\n\r]/u)?.[0]
+
+      if (!linebreak) {
+        return `${methodPrefix}${normalizedParameterText} {${
+          textBeforeExpression || ' '
+        }return ${expressionText} }`
+      }
+
+      const propertyLineStart =
+        firstKeyToken.range[0] - firstKeyToken.loc.start.column
+      const propertyLinePrefix = sourceCode.text.slice(
+        propertyLineStart,
+        firstKeyToken.range[0],
+      )
+      const propertyIndent = /^\s*$/u.test(propertyLinePrefix)
+        ? propertyLinePrefix
+        : ' '.repeat(firstKeyToken.loc.start.column)
+
+      return `${methodPrefix}${normalizedParameterText} {${textBeforeExpression}return ${expressionText}${linebreak}${propertyIndent}}`
     }
 
     /**

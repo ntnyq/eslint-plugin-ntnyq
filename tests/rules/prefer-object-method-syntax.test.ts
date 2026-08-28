@@ -144,6 +144,12 @@ await run<Options>({
       code: $`
         const name = computed({
           get: () => model.value.name,
+          read: () =>
+            // Keep this expression comment.
+            model.value.name,
+          format: (
+            value: string,
+          ) => value.trim(),
           set: value => {
             model.value = { ...model.value, name: value }
           },
@@ -153,10 +159,21 @@ await run<Options>({
         allowArrowFunctions: 'singleLineOnly',
         fix: true,
       },
-      errors: ['preferMethodSyntax'],
+      errors: [
+        'preferMethodSyntax',
+        'preferMethodSyntax',
+        'preferMethodSyntax',
+      ],
       output: $`
         const name = computed({
           get: () => model.value.name,
+          read() {
+            // Keep this expression comment.
+            return model.value.name
+          },
+          format(
+            value: string,
+          ) { return value.trim() },
           set(value) {
             model.value = { ...model.value, name: value }
           },
@@ -326,12 +343,18 @@ await run<Options>({
         const object = {
           dispose: /* keep this comment */ () => {},
           update: value /* keep this comment too */ => {},
+          read: () =>
+            result /* keep this trailing comment */,
         }
       `,
       options: {
         fix: true,
       },
-      errors: ['preferMethodSyntax', 'preferMethodSyntax'],
+      errors: [
+        'preferMethodSyntax',
+        'preferMethodSyntax',
+        'preferMethodSyntax',
+      ],
       output: null,
     },
   ],

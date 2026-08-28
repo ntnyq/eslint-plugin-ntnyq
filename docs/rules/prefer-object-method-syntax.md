@@ -156,6 +156,9 @@ when `fix` is also enabled and the conversion is safe:
 // options: [{ allowArrowFunctions: 'singleLineOnly', fix: true }]
 const name = computed({
   get: () => model.value.name,
+  read: () =>
+    // Keep this expression comment.
+    model.value.name,
   set: value => {
     model.value = { ...model.value, name: value }
   },
@@ -167,6 +170,10 @@ With `--fix`, the multi-line `set` property becomes:
 ```ts
 const name = computed({
   get: () => model.value.name,
+  read() {
+    // Keep this expression comment.
+    return model.value.name
+  },
   set(value) {
     model.value = { ...model.value, name: value }
   },
@@ -201,7 +208,13 @@ When `true`, the rule automatically fixes only conversions that preserve the rel
 The rule can automatically convert:
 
 - anonymous async, generator, and async-generator function expressions;
-- block-bodied arrow functions that do not depend on lexical bindings.
+- block-bodied arrow functions that do not depend on lexical bindings;
+- multi-line expression-bodied arrow functions that do not depend on lexical
+  bindings.
+
+The fixer introduces an explicit `return` when converting a multi-line
+expression-bodied arrow. Comments before the returned expression stay above
+the generated `return` statement.
 
 ```ts
 const before = {
@@ -225,7 +238,7 @@ The rule does not automatically fix:
 
 - ordinary function expressions, because methods are not constructible and do not have the same `prototype` property;
 - named function expressions, because their inner name binding would be removed;
-- expression-bodied arrows, because conversion requires introducing an explicit `return`;
+- single-line expression-bodied arrows;
 - arrows that use lexical `this`, `arguments`, `super`, or `new.target`;
 - arrows containing direct `eval(...)`, which can access lexical bindings dynamically;
 - conversions that would remove or relocate comments.
