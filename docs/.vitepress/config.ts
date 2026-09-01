@@ -48,6 +48,7 @@ export default defineConfig({
               },
               rules: {
                 'ntnyq/no-duplicate-exports': 'error',
+                'ntnyq/no-explicit-void-return-type': 'error',
                 'ntnyq/no-member-accessibility': 'error',
                 'ntnyq/no-only-tests': 'error',
                 'ntnyq/prefer-newline-after-file-header': 'error',
@@ -55,7 +56,7 @@ export default defineConfig({
               },
             },
           ],
-          eslintCodePreprocess: code => {
+          eslintCodePreprocess(code) {
             // Remove trailing newline and presentational `⏎` characters
             return code
               .replace(/⏎(?=\n)/gu, '')

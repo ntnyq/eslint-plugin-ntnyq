@@ -151,6 +151,16 @@ export default createESLintRule<Options, MessageIds>({
     }
 
     /**
+     * Stops tracking an arrow after its body has been traversed.
+     *
+     * @param node - The arrow function being exited
+     * @remarks Returns no value
+     */
+    function exitArrowFunction(node: Tree.ArrowFunctionExpression) {
+      lexicalScopeStack[0]?.delete(node)
+    }
+
+    /**
      * Marks every active arrow in the current lexical scope as unsafe to
      * convert to a method.
      *
@@ -482,15 +492,7 @@ export default createESLintRule<Options, MessageIds>({
         lexicalScopeStack[0]?.add(node)
       },
 
-      /**
-       * Stops tracking an arrow after its body has been traversed.
-       *
-       * @param node - The arrow function being exited
-       * @remarks Returns no value
-       */
-      'ArrowFunctionExpression:exit': node => {
-        lexicalScopeStack[0]?.delete(node)
-      },
+      'ArrowFunctionExpression:exit': exitArrowFunction,
       ThisExpression: markLexicalBinding,
       Super: markLexicalBinding,
 

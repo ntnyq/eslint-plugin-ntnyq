@@ -10,6 +10,7 @@ sidebarDepth: 0
 | Name                                                                             | Description                                       | 🔧  | 💡  |
 | :------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: |
 | [no-duplicate-exports](/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement              | 🔧  |     |
+| [no-explicit-void-return-type](/rules/no-explicit-void-return-type.html)         | Disallow explicit void return types               | 🔧  | 💡  |
 | [no-member-accessibility](/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility | 🔧  |     |
 | [no-only-tests](/rules/no-only-tests.html)                                       | Disallow `.only` blocks in tests                  | 🔧  |     |
 | [prefer-newline-after-file-header](/rules/prefer-newline-after-file-header.html) | Require a newline after file header               | 🔧  |     |
