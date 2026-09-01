@@ -1,3 +1,4 @@
+import indentUnindent from './indent-unindent'
 import noDuplicateExports from './no-duplicate-exports'
 import noExplicitVoidReturnType from './no-explicit-void-return-type'
 import noMemberAccessibility from './no-member-accessibility'
@@ -7,6 +8,7 @@ import preferObjectMethodSyntax from './prefer-object-method-syntax'
 
 // @keep-sorted
 export const rules = {
+  'indent-unindent': indentUnindent,
   'no-duplicate-exports': noDuplicateExports,
   'no-explicit-void-return-type': noExplicitVoidReturnType,
   'no-member-accessibility': noMemberAccessibility,

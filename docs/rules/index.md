@@ -9,6 +9,7 @@ sidebarDepth: 0
 
 | Name                                                                             | Description                                       | 🔧  | 💡  |
 | :------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: |
+| [indent-unindent](/rules/indent-unindent.html)                                   | Enforce stable unindent template indentation      | 🔧  |     |
 | [no-duplicate-exports](/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement              | 🔧  |     |
 | [no-explicit-void-return-type](/rules/no-explicit-void-return-type.html)         | Disallow explicit void return types               | 🔧  | 💡  |
 | [no-member-accessibility](/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility | 🔧  |     |

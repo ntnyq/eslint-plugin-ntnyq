@@ -47,6 +47,7 @@ export default defineConfig({
                 ntnyq: pluginNtnyq,
               },
               rules: {
+                'ntnyq/indent-unindent': 'error',
                 'ntnyq/no-duplicate-exports': 'error',
                 'ntnyq/no-explicit-void-return-type': 'error',
                 'ntnyq/no-member-accessibility': 'error',

@@ -2,7 +2,7 @@
   "name": "eslint-plugin-ntnyq",
   "type": "module",
   "version": "0.15.1",
-  "packageManager": "pnpm@11.24.0",
+  "packageManager": "pnpm@11.25.0",
   "description": "An opinionated ESLint plugin.",
   "keywords": [
     "eslint",
@@ -17,7 +17,7 @@
   "homepage": "https://eslint-plugin.ntnyq.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ntnyq/eslint-plugin-ntnyq"
+    "url": "git+https://github.com/ntnyq/eslint-plugin-ntnyq.git"
   },
   "bugs": {
     "url": "https://github.com/ntnyq/eslint-plugin-ntnyq/issues"
@@ -55,13 +55,13 @@
     "eslint": "^9.5.0 || ^10.0.0"
   },
   "dependencies": {
-    "@ntnyq/utils": "^0.21.1",
-    "@typescript-eslint/utils": "^8.68.0"
+    "@ntnyq/utils": "^0.22.0",
+    "@typescript-eslint/utils": "^8.69.0"
   },
   "devDependencies": {
-    "@ntnyq/eslint-config": "^7.0.0-beta.17",
+    "@ntnyq/eslint-config": "^7.0.0-beta.19",
     "@types/node": "^26.4.0",
-    "@typescript-eslint/parser": "^8.68.0",
+    "@typescript-eslint/parser": "^8.69.0",
     "@typescript/native-preview": "^7.0.0-dev.20260707.2",
     "bumpp": "^12.2.2",
     "eslint": "^10.9.1",
