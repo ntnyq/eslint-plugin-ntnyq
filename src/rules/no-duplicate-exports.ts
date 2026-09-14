@@ -1,4 +1,4 @@
-import { join } from '@ntnyq/utils'
+import { joinNonEmptyValues } from '@ntnyq/utils'
 import { PROGRAM_EXIT, SPECIAL_CHAR } from '../constants'
 import { AST_NODE_TYPES } from '../types'
 import { createESLintRule, resolveOptions } from '../utils'
@@ -42,7 +42,7 @@ function getIdentifierOrStringLiteralValue(
 function toExportAllStatement(key: string) {
   const [source, kind, name = ''] = key.split(SPECIAL_CHAR.colon)
 
-  return join(
+  return joinNonEmptyValues(
     [
       'export',
       kind === EXPORT_TYPE ? EXPORT_TYPE : '',
@@ -67,7 +67,7 @@ function toNamedExportNames(
       ...node.specifiers.map(s => {
         const localName = getIdentifierOrStringLiteralValue(s.local)
         const exportedName = getIdentifierOrStringLiteralValue(s.exported)
-        return join(
+        return joinNonEmptyValues(
           [
             outputExportKind !== EXPORT_TYPE &&
             (node.exportKind === EXPORT_TYPE || s.exportKind === EXPORT_TYPE)
@@ -81,7 +81,7 @@ function toNamedExportNames(
       }),
     ]
   }, [])
-  return join(allNames, {
+  return joinNonEmptyValues(allNames, {
     separator: SPECIAL_CHAR.comma + SPECIAL_CHAR.whitespace,
   })
 }
@@ -159,9 +159,12 @@ export default createESLintRule<Options, MessageIds>({
       },
       [PROGRAM_EXIT]() {
         const exportAllKey = (node: Tree.ExportAllDeclaration) =>
-          join([node.source.value, node.exportKind, node.exported?.name], {
-            separator: SPECIAL_CHAR.colon,
-          })
+          joinNonEmptyValues(
+            [node.source.value, node.exportKind, node.exported?.name],
+            {
+              separator: SPECIAL_CHAR.colon,
+            },
+          )
         const namedExportKey = (node: Tree.ExportNamedDeclarationWithSource) =>
           JSON.stringify([
             node.source.value,
@@ -215,7 +218,7 @@ export default createESLintRule<Options, MessageIds>({
                     idx === 0
                       ? fixer.replaceText(
                           node,
-                          join(
+                          joinNonEmptyValues(
                             [
                               'export',
                               outputExportKind,
