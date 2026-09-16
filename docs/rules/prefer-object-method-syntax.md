@@ -118,6 +118,7 @@ export type Options = [
   {
     allowArrowFunctions?: boolean | 'singleLineOnly'
     allowedPropertyNames?: string[]
+    avoidQuotes?: boolean
     fix?: boolean
   },
 ]
@@ -127,6 +128,7 @@ Defaults:
 
 - `allowArrowFunctions`: `false`
 - `allowedPropertyNames`: `[]`
+- `avoidQuotes`: `false`
 - `fix`: `false`
 
 ### `allowArrowFunctions`
@@ -200,6 +202,49 @@ const object = {
   [methodName]: () => {},
 }
 ```
+
+### `avoidQuotes`
+
+When `true`, string literal property keys are ignored for both function
+expressions and arrow functions. No diagnostics, fixes, or suggestions are
+produced for these properties. This includes computed string literals such as
+`['Program:exit']`, matching the core `object-shorthand` option.
+
+Enable this option when using `object-shorthand` with `avoidQuotes: true`.
+Otherwise, the core rule can turn a quoted method back into a function
+expression after this rule fixes it, leaving a `preferMethodSyntax` error.
+
+```ts
+export default [
+  {
+    rules: {
+      'object-shorthand': ['error', 'always', { avoidQuotes: true }],
+      'ntnyq/prefer-object-method-syntax': [
+        'error',
+        {
+          allowArrowFunctions: 'singleLineOnly',
+          avoidQuotes: true,
+          fix: true,
+        },
+      ],
+    },
+  },
+]
+```
+
+For example, an ESLint listener can keep its quoted selector and arrow:
+
+```ts eslint-check
+// options: [{ allowArrowFunctions: 'singleLineOnly', avoidQuotes: true, fix: true }]
+const listeners = {
+  'Program > YAMLPair': node => {
+    report(node)
+  },
+}
+```
+
+Identifier keys, numeric keys, and dynamic computed keys are still checked.
+The default is `false`, preserving checks and safe conversions for quoted keys.
 
 ### `fix`
 

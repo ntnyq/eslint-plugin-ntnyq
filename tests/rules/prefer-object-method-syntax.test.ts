@@ -1,4 +1,6 @@
-import { expect } from 'vitest'
+import parserTypeScript from '@typescript-eslint/parser'
+import { Linter } from 'eslint'
+import { expect, it } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/prefer-object-method-syntax'
 import { $, run } from '../internal'
 import type { Options } from '../../src/rules/prefer-object-method-syntax'
@@ -7,6 +9,26 @@ await run<Options>({
   name: RULE_NAME,
   rule,
   valid: [
+    {
+      code: $`
+        const object = {
+          'Program > YAMLPair': (node: unknown) => {
+            report(node)
+          },
+          'Program:exit': function () {},
+          'quoted': async function () {},
+          ['computed']: function* () {},
+          'lexical': () => {
+            return this.value
+          },
+        }
+      `,
+      options: {
+        allowArrowFunctions: 'singleLineOnly',
+        avoidQuotes: true,
+        fix: true,
+      },
+    },
     {
       code: $`
         const dispose = () => {}
@@ -73,6 +95,55 @@ await run<Options>({
     },
   ],
   invalid: [
+    {
+      code: $`
+        const object = {
+          'Program:exit': () => {
+            cleanup()
+          },
+          ['quoted']: async function () {},
+        }
+      `,
+      options: {
+        fix: true,
+      },
+      errors: ['preferMethodSyntax', 'preferMethodSyntax'],
+      output: $`
+        const object = {
+          'Program:exit'() {
+            cleanup()
+          },
+          async ['quoted']() {},
+        }
+      `,
+    },
+    {
+      code: $`
+        const object = {
+          'Program:exit': () => {},
+          dispose: () => {},
+          1: async function () {},
+          [methodName]: async function () {},
+        }
+      `,
+      options: {
+        avoidQuotes: true,
+        fix: true,
+      },
+      errors: [
+        'preferMethodSyntax',
+        'preferMethodSyntax',
+        'preferMethodSyntax',
+      ],
+      output: $`
+        const object = {
+          'Program:exit': () => {},
+          dispose() {},
+          async 1() {},
+          async [methodName]() {},
+        }
+      `,
+    },
     {
       code: $`
         const object = {
@@ -358,4 +429,52 @@ await run<Options>({
       output: null,
     },
   ],
+})
+
+it.each([
+  $`
+    'Program > YAMLPair': (node: unknown) => {
+      report(node)
+    }
+  `,
+  $`
+    'Program > YAMLPair': function (node: unknown) {
+      report(node)
+    }
+  `,
+  $`
+    ['Program > YAMLPair']: async function (node: unknown) {
+      report(node)
+    }
+  `,
+])('should coexist with object-shorthand avoidQuotes: %s', property => {
+  const linter = new Linter()
+  const code = `const listeners = { ${property} }`
+  const result = linter.verifyAndFix(code, {
+    languageOptions: {
+      parser: parserTypeScript,
+    },
+    plugins: {
+      ntnyq: {
+        rules: {
+          [RULE_NAME]: rule,
+        },
+      },
+    },
+    rules: {
+      'object-shorthand': ['error', 'always', { avoidQuotes: true }],
+      [`ntnyq/${RULE_NAME}`]: [
+        'error',
+        {
+          allowArrowFunctions: 'singleLineOnly',
+          avoidQuotes: true,
+          fix: true,
+        },
+      ],
+    },
+  })
+
+  expect(result.messages).toEqual([])
+  expect(result.fixed).toBe(false)
+  expect(result.output).toBe(code)
 })

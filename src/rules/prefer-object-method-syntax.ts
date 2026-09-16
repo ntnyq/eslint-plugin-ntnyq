@@ -24,6 +24,13 @@ export type Options = [
      */
     allowedPropertyNames?: string[]
     /**
+     * Ignore string literal property keys, matching `object-shorthand`'s
+     * `avoidQuotes` option.
+     *
+     * @default false
+     */
+    avoidQuotes?: boolean
+    /**
      * Whether safe automatic fixes are enabled.
      *
      * @default false
@@ -35,6 +42,7 @@ export type Options = [
 const defaultOptions: Options[0] = {
   allowArrowFunctions: false,
   allowedPropertyNames: [],
+  avoidQuotes: false,
   fix: false,
 }
 
@@ -74,6 +82,10 @@ export default createESLintRule<Options, MessageIds>({
             uniqueItems: true,
             description: 'Static property names excluded from this rule',
           },
+          avoidQuotes: {
+            type: 'boolean',
+            description: 'Whether string literal property keys are ignored',
+          },
           fix: {
             type: 'boolean',
             description: 'Whether safe automatic fixes are enabled',
@@ -96,6 +108,7 @@ export default createESLintRule<Options, MessageIds>({
     const {
       allowArrowFunctions = false,
       allowedPropertyNames = [],
+      avoidQuotes = false,
       fix = false,
     } = resolveOptions(context.options, defaultOptions)
     const sourceCode = context.sourceCode
@@ -399,6 +412,15 @@ export default createESLintRule<Options, MessageIds>({
         (allowArrowFunctions === true ||
           (allowArrowFunctions === 'singleLineOnly' &&
             value.loc.start.line === value.loc.end.line))
+      ) {
+        return
+      }
+
+      // Match `object-shorthand` so its `avoidQuotes` fixer cannot undo ours.
+      if (
+        avoidQuotes &&
+        node.key.type === 'Literal' &&
+        typeof node.key.value === 'string'
       ) {
         return
       }
