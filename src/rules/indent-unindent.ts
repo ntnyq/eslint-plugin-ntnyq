@@ -9,6 +9,7 @@ const DEFAULT_TAGS = ['$', 'unindent', 'unIndent']
 const RE_FULL_WHITESPACE = /^\s*$/u
 
 export const RULE_NAME = 'indent-unindent'
+
 export type MessageIds = 'indentUnindent'
 export type Options = [
   {
@@ -99,10 +100,11 @@ export default createESLintRule<Options, MessageIds>({
 
     return {
       TaggedTemplateExpression(node) {
-        if (node.tag.type !== 'Identifier' || !tags.includes(node.tag.name)) {
-          return
-        }
-        if (node.quasi.quasis.length !== 1) {
+        if (
+          node.tag.type !== 'Identifier' ||
+          !tags.includes(node.tag.name) ||
+          node.quasi.quasis.length !== 1
+        ) {
           return
         }
 

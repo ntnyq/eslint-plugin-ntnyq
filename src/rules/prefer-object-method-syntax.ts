@@ -3,6 +3,7 @@ import { createESLintRule, resolveOptions } from '../utils'
 import type { Tree } from '../types'
 
 export const RULE_NAME = 'prefer-object-method-syntax'
+
 export type MessageIds =
   | 'convertToMethod'
   | 'convertToMethodUnconstructible'

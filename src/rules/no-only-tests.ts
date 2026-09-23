@@ -2,6 +2,7 @@ import { createESLintRule, resolveOptions } from '../utils'
 import type { Tree } from '../types'
 
 export const RULE_NAME = 'no-only-tests'
+
 export type MessageIds = 'unexpected'
 export type Options = [
   {
@@ -153,13 +154,13 @@ export default createESLintRule<Options, MessageIds>({
       },
       Identifier(node) {
         const parent = node.parent
-        if (!parent || !isMemberExpression(parent)) {
-          return
-        }
-        if (parent.computed || parent.property !== node) {
-          return
-        }
-        if (!focus.includes(node.name)) {
+        if (
+          !parent ||
+          !isMemberExpression(parent) ||
+          parent.computed ||
+          parent.property !== node ||
+          !focus.includes(node.name)
+        ) {
           return
         }
 
@@ -183,10 +184,12 @@ export default createESLintRule<Options, MessageIds>({
           data: {
             type: callPath,
           },
-          fix:
-            fix && canFix
-              ? fixer => [fixer.remove(accessToken), fixer.remove(node)]
-              : undefined,
+          fix(fixer) {
+            if (fix && canFix) {
+              return [fixer.remove(accessToken), fixer.remove(node)]
+            }
+            return null
+          },
         })
       },
     }

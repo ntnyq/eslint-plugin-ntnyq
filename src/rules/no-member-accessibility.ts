@@ -3,6 +3,7 @@ import { createESLintRule } from '../utils'
 import type { Tree } from '../types'
 
 export const RULE_NAME = 'no-member-accessibility'
+
 export type MessageIds = 'noMemberAccessibility'
 export type Options = []
 

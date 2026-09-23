@@ -3,10 +3,6 @@ import { createESLintRule } from '../utils'
 import type { CodePath } from '@typescript-eslint/utils/ts-eslint'
 import type { RuleListener, Tree } from '../types'
 
-export const RULE_NAME = 'no-explicit-void-return-type'
-export type MessageIds = 'noExplicitVoidReturnType' | 'removeReturnType'
-export type Options = []
-
 type FunctionNode =
   | Tree.ArrowFunctionExpression
   | Tree.FunctionDeclaration
@@ -18,6 +14,11 @@ interface FunctionState {
   hasValueReturn: boolean
   node: FunctionNode
 }
+
+export const RULE_NAME = 'no-explicit-void-return-type'
+
+export type MessageIds = 'noExplicitVoidReturnType' | 'removeReturnType'
+export type Options = []
 
 export default createESLintRule<Options, MessageIds>({
   name: RULE_NAME,

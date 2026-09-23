@@ -13,6 +13,7 @@ const EXPORT_TYPE = 'type'
 type AllowedExportStyle = keyof typeof EXPORT_STYLE
 
 export const RULE_NAME = 'no-duplicate-exports'
+
 export type MessageIds = 'multiSameExportAll' | 'multiSameSourceNamed'
 export type Options = [
   {

@@ -57,13 +57,14 @@ export default defineConfig([
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
 💡 Manually fixable by [editor suggestions](https://eslint.org/docs/developer-guide/working-with-rules#providing-suggestions).
 
-| Name                                                                                                            | Description                                       | 🔧  | 💡  |
-| :-------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :-: | :-: |
-| [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement              | 🔧  |     |
-| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility | 🔧  |     |
-| [no-only-tests](https://eslint-plugin.ntnyq.com/rules/no-only-tests.html)                                       | Disallow `.only` blocks in tests                  | 🔧  |     |
-| [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header               | 🔧  |     |
-| [prefer-object-method-syntax](https://eslint-plugin.ntnyq.com/rules/prefer-object-method-syntax.html)           | Prefer method syntax for inline object functions  | 🔧  | 💡  |
+| Name                                                                                                            | Description                                                     | 🔧  | 💡  |
+| :-------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------- | :-: | :-: |
+| [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement                            | 🔧  |     |
+| [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility               | 🔧  |     |
+| [no-only-tests](https://eslint-plugin.ntnyq.com/rules/no-only-tests.html)                                       | Disallow `.only` blocks in tests                                | 🔧  |     |
+| [no-restricted-bindings](https://eslint-plugin.ntnyq.com/rules/no-restricted-bindings.html)                     | Disallow specified binding names in selected regions and scopes |     |     |
+| [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header                             | 🔧  |     |
+| [prefer-object-method-syntax](https://eslint-plugin.ntnyq.com/rules/prefer-object-method-syntax.html)           | Prefer method syntax for inline object functions                | 🔧  | 💡  |
 
 ## License
 

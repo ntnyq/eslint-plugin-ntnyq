@@ -17,6 +17,7 @@ const FILE_HEADER_TAGS = [
 ]
 
 export const RULE_NAME = 'prefer-newline-after-file-header'
+
 export type MessageIds = 'requireNewlineBefore'
 export type Options = [
   {
