@@ -97,6 +97,26 @@ await run<Options>({
   invalid: [
     {
       code: $`
+        const config = {
+          vite: () => ({
+            css: { devSourcemap: true },
+          }),
+        }
+      `,
+      options: {
+        fix: true,
+      },
+      errors: ['preferMethodSyntax'],
+      output: $`
+        const config = {
+          vite() { return ({
+            css: { devSourcemap: true },
+          }) },
+        }
+      `,
+    },
+    {
+      code: $`
         const object = {
           'Program:exit': () => {
             cleanup()
@@ -429,6 +449,46 @@ await run<Options>({
       output: null,
     },
   ],
+})
+
+it.each([
+  '({\n  enabled: true,\n})',
+  '(({\n  enabled: true,\n}))',
+  '(\n  first(),\n  second()\n)',
+  '(/* keep this comment */\n  value\n)',
+  '(// keep this comment\n  value\n)',
+])('should preserve parenthesized arrow expressions: %s', expression => {
+  const linter = new Linter()
+  const config = {
+    languageOptions: {
+      parser: parserTypeScript,
+    },
+    plugins: {
+      ntnyq: {
+        rules: {
+          [RULE_NAME]: rule,
+        },
+      },
+    },
+    rules: {
+      [`ntnyq/${RULE_NAME}`]: ['error', { fix: true }],
+    },
+  } satisfies Linter.Config
+  const result = linter.verifyAndFix(
+    `const config = { vite: () => ${expression} }`,
+    config,
+  )
+
+  expect(result.fixed).toBe(true)
+  expect(result.messages).toEqual([])
+  expect(result.output).toBe(
+    `const config = { vite() { return ${expression} } }`,
+  )
+  expect(linter.verifyAndFix(result.output, config)).toEqual({
+    fixed: false,
+    messages: [],
+    output: result.output,
+  })
 })
 
 it.each([

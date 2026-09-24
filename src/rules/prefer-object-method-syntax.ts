@@ -355,12 +355,18 @@ export default createESLintRule<Options, MessageIds>({
         return
       }
 
+      // Expression node ranges omit wrapping parentheses. Keep those with the
+      // expression so `return` precedes the opening parenthesis.
+      const firstExpressionToken = sourceCode.getTokenAfter(arrowToken)
+      if (!firstExpressionToken) {
+        return
+      }
       const textBeforeExpression = sourceCode.text.slice(
         arrowToken.range[1],
-        value.body.range[0],
+        firstExpressionToken.range[0],
       )
       const expressionText = sourceCode.text.slice(
-        value.body.range[0],
+        firstExpressionToken.range[0],
         value.range[1],
       )
       const linebreak = textBeforeExpression.match(/\r\n|[\n\r]/u)?.[0]

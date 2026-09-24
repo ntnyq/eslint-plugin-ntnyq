@@ -260,6 +260,9 @@ The rule can automatically convert:
 The fixer introduces an explicit `return` when converting a multi-line
 expression-bodied arrow. Comments before the returned expression stay above
 the generated `return` statement.
+Wrapping parentheses stay with the returned expression, so an arrow such as
+`vite: () => ({ ... })` becomes `vite() { return ({ ... }) }` when its body
+spans multiple lines.
 
 ```ts
 const before = {
