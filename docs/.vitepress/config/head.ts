@@ -1,10 +1,10 @@
-import { appDescription, appTitle, appUrl } from '../meta'
+import { appDescription, appTitle, appUrl } from '../meta.ts'
 import type { HeadConfig } from 'vitepress'
 
 export const head: HeadConfig[] = [
   ['link', { href: '/favicon.ico', rel: 'icon' }],
   ['link', { href: '/apple-touch-icon.png', rel: 'apple-touch-icon' }],
-  ['meta', { href: '#ffffff', name: 'theme-color' }],
+  ['meta', { content: '#ffffff', name: 'theme-color' }],
   ['meta', { content: 'website', property: 'og:type' }],
   ['meta', { content: appTitle, property: 'og:title' }],
   ['meta', { content: appUrl, property: 'og:url' }],

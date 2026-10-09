@@ -1,6 +1,6 @@
 import { globSync } from 'tinyglobby'
-import { resolve } from '../../../scripts/utils'
-import { appVersion, packageName } from '../meta'
+import { resolve } from '../../../scripts/utils.ts'
+import { appVersion, packageName } from '../meta.ts'
 import type { DefaultTheme } from 'vitepress'
 
 const VERSIONS: DefaultTheme.NavItemWithLink[] = [
