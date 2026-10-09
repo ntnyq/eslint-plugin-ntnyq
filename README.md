@@ -65,6 +65,7 @@ export default defineConfig([
 | [no-restricted-bindings](https://eslint-plugin.ntnyq.com/rules/no-restricted-bindings.html)                     | Disallow specified binding names in selected regions and scopes |     |     |
 | [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header                             | 🔧  |     |
 | [prefer-object-method-syntax](https://eslint-plugin.ntnyq.com/rules/prefer-object-method-syntax.html)           | Prefer method syntax for inline object functions                | 🔧  | 💡  |
+| [return-object-multiline](https://eslint-plugin.ntnyq.com/rules/return-object-multiline.html)                   | Require multiline formatting for directly returned objects      | 🔧  |     |
 
 ## License
 

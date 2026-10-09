@@ -54,6 +54,7 @@ export default defineConfig({
                 'ntnyq/no-only-tests': 'error',
                 'ntnyq/prefer-newline-after-file-header': 'error',
                 'ntnyq/prefer-object-method-syntax': 'error',
+                'ntnyq/return-object-multiline': 'error',
               },
             },
           ],

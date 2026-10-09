@@ -17,3 +17,4 @@ sidebarDepth: 0
 | [no-restricted-bindings](/rules/no-restricted-bindings.html)                     | Disallow specified binding names in selected regions and scopes |     |     |
 | [prefer-newline-after-file-header](/rules/prefer-newline-after-file-header.html) | Require a newline after file header                             | 🔧  |     |
 | [prefer-object-method-syntax](/rules/prefer-object-method-syntax.html)           | Prefer method syntax for inline object functions                | 🔧  | 💡  |
+| [return-object-multiline](/rules/return-object-multiline.html)                   | Require multiline formatting for directly returned objects      | 🔧  |     |

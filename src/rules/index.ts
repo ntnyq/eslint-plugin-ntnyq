@@ -6,6 +6,7 @@ import noOnlyTests from './no-only-tests'
 import noRestrictedBindings from './no-restricted-bindings'
 import preferNewlineAfterFileHeader from './prefer-newline-after-file-header'
 import preferObjectMethodSyntax from './prefer-object-method-syntax'
+import returnObjectMultiline from './return-object-multiline'
 
 // @keep-sorted
 export const rules = {
@@ -17,4 +18,5 @@ export const rules = {
   'no-restricted-bindings': noRestrictedBindings,
   'prefer-newline-after-file-header': preferNewlineAfterFileHeader,
   'prefer-object-method-syntax': preferObjectMethodSyntax,
+  'return-object-multiline': returnObjectMultiline,
 }
