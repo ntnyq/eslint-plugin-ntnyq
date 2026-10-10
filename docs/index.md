@@ -3,39 +3,33 @@ layout: home
 
 hero:
   name: eslint-plugin-ntnyq
-  tagline: An opinionated ESLint plugin
-  # image:
-  #   light: /logo-light.svg
-  #   dark: /logo-dark.svg
-  #   alt: ESLint Plugin GitHub Action Logo
+  text: Small rules. Cleaner code.
+  tagline: Opinionated ESLint rules for consistent JavaScript and TypeScript.
+  image:
+    src: /logo.svg
+    alt: ESLint logo
   actions:
     - theme: brand
       text: Get Started
       link: /guide/
+    - theme: alt
+      text: Explore Rules
+      link: /rules/
+    - theme: alt
+      text: View on GitHub
+      link: https://github.com/ntnyq/eslint-plugin-ntnyq
+
+features:
+  - title: Focused Rules
+    details: Catch duplicate exports, focused tests, and inconsistent code patterns with rules you can enable individually.
+    link: /rules/
+    linkText: Explore the rules
+  - title: Automatic Fixes
+    details: Spend less time on repetitive edits with autofixes and editor suggestions for supported rules.
+    link: /rules/
+    linkText: Find fixable rules
+  - title: Flat Config Ready
+    details: Add the plugin to your ESLint flat config and choose the rules that fit your project.
+    link: /guide/
+    linkText: Set up the plugin
 ---
-
-<div id="package_status">
-
-[![CI](https://github.com/ntnyq/eslint-plugin-ntnyq/workflows/CI/badge.svg)](https://github.com/ntnyq/eslint-plugin-ntnyq/actions)
-[![NPM VERSION](https://img.shields.io/npm/v/eslint-plugin-ntnyq.svg)](https://www.npmjs.com/package/eslint-plugin-ntnyq)
-[![NPM DOWNLOADS](https://img.shields.io/npm/dy/eslint-plugin-ntnyq.svg)](https://www.npmjs.com/package/eslint-plugin-ntnyq)
-[![CODECOV](https://codecov.io/github/ntnyq/eslint-plugin-ntnyq/branch/main/graph/badge.svg)](https://codecov.io/github/ntnyq/eslint-plugin-ntnyq)
-[![LICENSE](https://img.shields.io/github/license/ntnyq/eslint-plugin-ntnyq.svg)](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/LICENSE)
-
-</div>
-
-## :book: Usage
-
-See [Guide](./guide/index.md).
-
-## :white_check_mark: Rules
-
-See [Rules](./rules/index.md).
-
-## :book: Releases
-
-See [Releases](https://github.com/ntnyq/eslint-plugin-ntnyq/releases).
-
-## :lock: License
-
-[MIT](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/LICENSE) License © 2023-PRESENT [ntnyq](https://github.com/ntnyq)

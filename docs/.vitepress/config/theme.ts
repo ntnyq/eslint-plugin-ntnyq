@@ -27,10 +27,16 @@ export function getThemeConfig() {
       text: 'Suggest changes to this page',
     },
 
-    // logo: {
-    //   light: '/logo-light.svg',
-    //   dark: '/logo-dark.svg',
-    // },
+    footer: {
+      message: `Released under the <a href="https://github.com/ntnyq/${packageName}/blob/main/LICENSE">MIT License</a>.`,
+      copyright:
+        'Copyright © 2023-present <a href="https://github.com/ntnyq">ntnyq</a>',
+    },
+
+    logo: {
+      src: '/logo.svg',
+      alt: 'ESLint logo',
+    },
 
     nav: [
       { link: '/', text: 'Home' },

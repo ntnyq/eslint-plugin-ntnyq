@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@ntnyq/eslint-config": "^7.0.0-beta.23",
-    "@types/node": "^26.6.4",
+    "@types/node": "^26.6.5",
     "@typescript-eslint/parser": "^8.71.1",
     "@typescript/native-preview": "^7.0.0-dev.20260707.2",
     "bumpp": "^12.3.0",
