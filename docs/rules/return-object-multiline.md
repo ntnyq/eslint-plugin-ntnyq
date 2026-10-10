@@ -18,7 +18,10 @@ This rule checks object literals returned directly by a `return` statement or
 an expression-bodied arrow function. The opening brace, each property or spread,
 and the closing brace must be separated by line breaks. A property may itself
 span multiple lines, but the next property must start after its last line.
-Empty returned objects must also have their braces on separate lines.
+Empty returned objects without comments may stay on one line, including when
+wrapped in TypeScript assertions. Empty objects containing comments still require
+their braces on separate lines. Non-empty objects wrapped in TypeScript assertions
+follow the same multiline requirements as directly returned objects.
 
 Enable the rule after registering the plugin as `ntnyq`:
 
@@ -46,6 +49,17 @@ const getArrowUser = () => ({
   name: 'Alice',
   age: 18,
 })
+
+function getEmpty() {
+  return {}
+}
+
+const getEmptyConst = () => ({}) as const
+const getEmptyAsserted = () => ({}) as unknown as User
+const getConstUser = () =>
+  ({
+    name: 'Alice',
+  }) as const
 ```
 
 :::
@@ -62,18 +76,28 @@ const getArrowUser = () => ({
   name: 'Alice', age: 18,
 })
 
-function getEmpty() {
-  return {}
+function getCommentedEmpty() {
+  return {/* empty */}
 }
+
+const getCommentedConst = () => ({/* empty */}) as const
+const getConstUser = () => ({ name: 'Alice' }) as const
+const getAssertedUser = () => ({ name: 'Alice' }) as unknown as User
+const getCheckedUser = () => ({ name: 'Alice' }) satisfies User
 ```
 
 :::
 
 ### Scope
 
-Parentheses around an object do not exempt it. Ordinary variable initializers
-and nested object values are not checked. Objects returned by nested functions
-are checked independently.
+Parentheses and TypeScript wrappers around an object do not exempt it. The rule
+unwraps `as` assertions (including `as const` and `as unknown as User`),
+angle-bracket assertions (`<User>{ ... }`), `satisfies`, and non-null assertions
+(`!`), including nested combinations. It checks the object at the end of the
+wrapper chain.
+
+Ordinary variable initializers and nested object values are not checked. Objects
+returned by nested functions are checked independently.
 
 ```ts
 const user = { name: 'Alice', age: 18 }
@@ -86,8 +110,8 @@ function getUser() {
 ```
 
 The rule does not resolve variables or inspect objects inside conditional,
-logical, call, array, or TypeScript wrapper expressions. These are outside its
-scope:
+logical, call, or array expressions, even when wrapped in TypeScript assertions.
+These are outside its scope:
 
 ```ts
 function getUser() {
@@ -98,8 +122,7 @@ const getConditional = () => (ready ? { name: 'Alice' } : {})
 const getFallback = () => cached || {}
 const getWrapped = () => wrap({ name: 'Alice' })
 const getArray = () => [{ name: 'Alice' }]
-const getAsserted = () => ({ name: 'Alice' }) as const
-const getChecked = () => ({ name: 'Alice' }) satisfies User
+const getAsserted = () => (ready ? { name: 'Alice' } : {}) as User
 ```
 
 Comments may share lines with braces or properties. Indentation, comma placement,
@@ -108,9 +131,10 @@ and nested object formatting are left to other rules or a formatter.
 ## Automatic fixes
 
 Run ESLint with `--fix` to insert the required line breaks, including for empty
-objects. The fixer replaces only whitespace before properties and closing
-braces, keeping comments, commas, property values, and parentheses intact. It
-never inserts a line break between `return` and its argument.
+objects containing comments. The fixer replaces only whitespace before properties
+and closing braces, keeping comments, commas, property values, parentheses, and
+TypeScript wrappers intact. It never inserts a line break between `return` and
+its argument.
 
 Existing line breaks are preserved. New line breaks use CRLF when the file
 contains CRLF, otherwise LF. The fixer does not add indentation or trailing
