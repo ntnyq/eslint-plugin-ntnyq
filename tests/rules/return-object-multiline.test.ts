@@ -67,7 +67,9 @@ await run<Options>({
       'function* getValue() { yield { a: 1 } }',
       'function getValue() { return\n{ a: 1 } }',
       'const getValue = () => ({\r\na: 1,\r\nb: 2,\r\n})',
-    ].map(code => ({ code })),
+    ].map(code => ({
+      code,
+    })),
     {
       code: $`
         function getValue() {
@@ -265,7 +267,11 @@ await run<Options>({
         'const getValue = () => ({ [key]: "a,b", value: `first\nsecond` })',
         'const getValue = () => ({\n[key]: "a,b",\nvalue: `first\nsecond`\n})',
       ],
-    ].map(([code, output]) => ({ code, errors: ['multiline'], output })),
+    ].map(([code, output]) => ({
+      code,
+      errors: ['multiline'],
+      output,
+    })),
     {
       code: $`
         function getValue() {
@@ -347,11 +353,27 @@ it('fixes nested returned objects without changing tokens or comments', () => {
 
   const before = parse(code, { tokens: true, comment: true })
   const after = parse(result.output, { tokens: true, comment: true })
-  expect(after.tokens?.map(({ type, value }) => ({ type, value }))).toEqual(
-    before.tokens?.map(({ type, value }) => ({ type, value })),
+  expect(
+    after.tokens?.map(({ type, value }) => ({
+      type,
+      value,
+    })),
+  ).toEqual(
+    before.tokens?.map(({ type, value }) => ({
+      type,
+      value,
+    })),
   )
-  expect(after.comments?.map(({ type, value }) => ({ type, value }))).toEqual(
-    before.comments?.map(({ type, value }) => ({ type, value })),
+  expect(
+    after.comments?.map(({ type, value }) => ({
+      type,
+      value,
+    })),
+  ).toEqual(
+    before.comments?.map(({ type, value }) => ({
+      type,
+      value,
+    })),
   )
   expect(linter.verifyAndFix(result.output, config)).toMatchObject({
     fixed: false,
@@ -379,11 +401,27 @@ it('preserves nested TypeScript wrappers and comments and produces an idempotent
 
   const before = parse(code, { tokens: true, comment: true })
   const after = parse(result.output, { tokens: true, comment: true })
-  expect(after.tokens?.map(({ type, value }) => ({ type, value }))).toEqual(
-    before.tokens?.map(({ type, value }) => ({ type, value })),
+  expect(
+    after.tokens?.map(({ type, value }) => ({
+      type,
+      value,
+    })),
+  ).toEqual(
+    before.tokens?.map(({ type, value }) => ({
+      type,
+      value,
+    })),
   )
-  expect(after.comments?.map(({ type, value }) => ({ type, value }))).toEqual(
-    before.comments?.map(({ type, value }) => ({ type, value })),
+  expect(
+    after.comments?.map(({ type, value }) => ({
+      type,
+      value,
+    })),
+  ).toEqual(
+    before.comments?.map(({ type, value }) => ({
+      type,
+      value,
+    })),
   )
   expect(linter.verifyAndFix(result.output, config)).toMatchObject({
     fixed: false,
