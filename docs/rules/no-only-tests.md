@@ -16,6 +16,10 @@ since: v0.15.0
 
 This rule reports while using `.only` blocks in tests.
 
+Static computed access such as `test['only']()` and optional call chains are
+also checked. Dynamic computed access such as `registry[key].test.only()` is
+ignored because the root test function cannot be resolved statically.
+
 ::: correct
 
 ```ts eslint-check
@@ -86,6 +90,9 @@ xit('skipped test', () => {})
 ### `fix`
 
 When `true`, the rule removes focus method usage such as `.only` or `.focus`.
+Direct optional calls retain short-circuiting: `test?.only()` becomes
+`test?.()`. Optional focus references and longer optional chains are reported
+without automatic fixes when removing the member would change that behavior.
 
 ## :rocket: Version
 

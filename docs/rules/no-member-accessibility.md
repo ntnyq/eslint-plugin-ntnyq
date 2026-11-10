@@ -16,6 +16,11 @@ since: v0.0.1
 
 This rule reports usage of TypeScript member accessibility.
 
+Constructor parameter properties without `readonly` are reported without an
+automatic fix. Removing their accessibility modifier would turn them into
+ordinary parameters and remove the emitted instance field assignment. Rewrite
+these as explicit fields and assignments when removing the modifier manually.
+
 ::: correct
 
 ```ts eslint-check

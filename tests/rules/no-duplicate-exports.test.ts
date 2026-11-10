@@ -6,7 +6,14 @@ import type { Options } from '../../src/rules/no-duplicate-exports'
 await run<Options>({
   name: RULE_NAME,
   rule,
-  valid: [],
+  valid: [
+    {
+      code: "export * from './data.json' with { type: 'json' }; export * from './data.json'",
+    },
+    {
+      code: "export * as 'first' from './pkg'; export * as 'second' from './pkg'",
+    },
+  ],
   invalid: [
     {
       description: 'export-all',
@@ -57,7 +64,7 @@ await run<Options>({
       },
       errors: ['multiSameSourceNamed', 'multiSameSourceNamed'],
       output(output) {
-        expect(output).toBe(`export { type Foo, bar } from './foobar'\n`)
+        expect(output).toBe(`\nexport { type Foo, bar } from './foobar'`)
       },
     },
     {
@@ -95,6 +102,35 @@ await run<Options>({
       output(output) {
         expect(output).toBe(`export { foo, bar } from "pkg'name"\n`)
       },
+    },
+    {
+      description: 'preserves runtime module loading order with inline style',
+      code: "export type { Foo } from './pkg'\nimport './side-effect'\nexport { bar } from './pkg'",
+      options: { style: 'inline' },
+      errors: ['multiSameSourceNamed', 'multiSameSourceNamed'],
+      output: "\nimport './side-effect'\nexport { type Foo, bar } from './pkg'",
+    },
+    {
+      description: 'preserves comments inside duplicate star exports',
+      code: "export * from './pkg'\nexport /* keep */ * from './pkg'",
+      errors: ['multiSameExportAll', 'multiSameExportAll'],
+      output: null,
+    },
+    {
+      description: 'keeps pure type exports erased with inline style',
+      code: "export type { Foo } from './pkg'\nexport type { Bar } from './pkg'",
+      options: { style: 'inline' },
+      errors: ['multiSameSourceNamed', 'multiSameSourceNamed'],
+      output: "export type { Foo, Bar } from './pkg'\n",
+    },
+    {
+      description: 'retains module specifiers containing colons in diagnostics',
+      code: "export * from 'node:fs'\nexport * from 'node:fs'",
+      errors(errors) {
+        expect(errors).toHaveLength(2)
+        expect(errors[0].message).toContain('export * from "node:fs"')
+      },
+      output: "export * from 'node:fs'\n",
     },
   ],
 })

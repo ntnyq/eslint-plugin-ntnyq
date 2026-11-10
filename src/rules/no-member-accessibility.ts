@@ -25,8 +25,10 @@ export default createESLintRule<Options, MessageIds>({
   create(context) {
     function handleMemberAccessibility(
       node:
+        | Tree.AccessorProperty
         | Tree.MethodDefinition
         | Tree.PropertyDefinition
+        | Tree.TSAbstractAccessorProperty
         | Tree.TSAbstractMethodDefinition
         | Tree.TSAbstractPropertyDefinition
         | Tree.TSParameterProperty,
@@ -35,47 +37,46 @@ export default createESLintRule<Options, MessageIds>({
         return
       }
 
+      const sourceCode = context.sourceCode
+      const modifiersStart = node.decorators.at(-1)?.range[1] ?? node.range[0]
+      const accessibilityToken = sourceCode
+        .getTokens(node)
+        .find(
+          token =>
+            token.range[0] >= modifiersStart &&
+            token.type === AST_TOKEN_TYPES.Keyword &&
+            token.value === node.accessibility,
+        )
+      if (!accessibilityToken) {
+        return
+      }
+
       context.report({
         node,
         messageId: 'noMemberAccessibility',
-        loc: {
-          start: node.loc.start,
-          end: {
-            ...node.loc.start,
-            column: node.loc.start.column + node.accessibility.length,
-          },
-        },
+        loc: accessibilityToken.loc,
         fix(fixer) {
-          const sourceCode = context.sourceCode
-          const tokens = sourceCode.getTokens(node)
-          let rangeToRemove: Tree.Range | null = null
-
-          for (const token of tokens) {
-            if (
-              token.type === AST_TOKEN_TYPES.Keyword &&
-              token.value === node.accessibility
-            ) {
-              const trailingWhitespaceLength =
-                sourceCode.text.slice(token.range[1]).match(/^[\t ]+/u)?.[0]
-                  .length ?? 0
-              rangeToRemove = [
-                token.range[0],
-                token.range[1] + trailingWhitespaceLength,
-              ]
-              break
-            }
-          }
-
-          if (!rangeToRemove) {
+          // Removing the sole parameter-property modifier removes the emitted
+          // instance field assignment. Keep it for a manual rewrite.
+          if (node.type === 'TSParameterProperty' && !node.readonly) {
             return null
           }
 
-          return fixer.removeRange(rangeToRemove)
+          const trailingWhitespaceLength =
+            sourceCode.text
+              .slice(accessibilityToken.range[1])
+              .match(/^[\t ]+/u)?.[0].length ?? 0
+          return fixer.removeRange([
+            accessibilityToken.range[0],
+            accessibilityToken.range[1] + trailingWhitespaceLength,
+          ])
         },
       })
     }
 
     return {
+      AccessorProperty: handleMemberAccessibility,
+      TSAbstractAccessorProperty: handleMemberAccessibility,
       MethodDefinition: handleMemberAccessibility,
       TSAbstractMethodDefinition: handleMemberAccessibility,
       PropertyDefinition: handleMemberAccessibility,

@@ -59,7 +59,9 @@ export default defineConfig([
 
 | Name                                                                                                            | Description                                                     | 🔧  | 💡  |
 | :-------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------- | :-: | :-: |
+| [indent-unindent](https://eslint-plugin.ntnyq.com/rules/indent-unindent.html)                                   | Enforce stable unindent template indentation                    | 🔧  |     |
 | [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement                            | 🔧  |     |
+| [no-explicit-void-return-type](https://eslint-plugin.ntnyq.com/rules/no-explicit-void-return-type.html)         | Disallow explicit void return types                             | 🔧  | 💡  |
 | [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility               | 🔧  |     |
 | [no-only-tests](https://eslint-plugin.ntnyq.com/rules/no-only-tests.html)                                       | Disallow `.only` blocks in tests                                | 🔧  |     |
 | [no-restricted-bindings](https://eslint-plugin.ntnyq.com/rules/no-restricted-bindings.html)                     | Disallow specified binding names in selected regions and scopes |     |     |

@@ -14,5 +14,5 @@ export const packageName = pkg.name
  */
 export const appTitle: string = packageName
 export const appVersion: string = pkg.version
-export const appUrl: string = `https://${packageName}.ntnyq.com`
+export const appUrl: string = pkg.homepage
 export const appDescription: string = 'An opinionated ESLint plugin.'

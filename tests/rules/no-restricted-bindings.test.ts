@@ -56,7 +56,10 @@ await run<Options>({
       'import type error = require("logger")',
       'enum Status { error }',
       'class Api { error = 1; errorMethod() {} }',
-    ].map(code => ({ code, options: allScopes })),
+    ].map(code => ({
+      code,
+      options: allScopes,
+    })),
     ...[
       'function run(error: unknown) { const requestError = error }',
       'function run() { const error = 1 }',
@@ -66,13 +69,19 @@ await run<Options>({
       'const run = function error() {}',
       'const Api = class error {}',
       'namespace Api { export const error = 1 }',
-    ].map(code => ({ code, options: topLevel })),
+    ].map(code => ({
+      code,
+      options: topLevel,
+    })),
     ...[
       'try {} catch (error) { console.log(error) }',
       'try {} catch ({ error }) {}',
       'try {} catch ({ cause: { error = 1 } }) {}',
       'try {} catch ([...error]) {}',
-    ].map(code => ({ code, options: exceptCatch })),
+    ].map(code => ({
+      code,
+      options: exceptCatch,
+    })),
     {
       code: 'class error {}',
       options: { restrictions: [{ names: ['error'], scope: 'nested' }] },
@@ -111,7 +120,11 @@ await run<Options>({
       'for (var error of errors) {}',
       'try {} catch (cause) { var error = cause }',
       'interface error {}; const error = 1',
-    ].map(code => ({ code, options: topLevel, errors: ['restrictedBinding'] })),
+    ].map(code => ({
+      code,
+      options: topLevel,
+      errors: ['restrictedBinding'],
+    })),
     ...[
       'function run(error: unknown) {}',
       'function run({ error = 1 }) {}',
@@ -221,12 +234,20 @@ await run<Options>({
       '<script setup lang="ts">const requestError = error</script><script lang="ts">const error = 1</script>',
       '<script setup lang="ts">function run() { const error = 1 }</script>',
       '<script setup lang="ts">if (ready) { const error = 1 }</script>',
-    ].map(code => ({ code, filename: 'Component.vue', options: setupOnly })),
+    ].map(code => ({
+      code,
+      filename: 'Component.vue',
+      options: setupOnly,
+    })),
     ...[
       '<script setup lang="ts">const { error: requestError } = defineProps<{ error?: string }>()</script>',
       '<template><div v-for="error in errors" :key="error">{{ error }}</div><Child v-slot="{ error }">{{ error }}</Child></template>',
       '<script setup lang="ts" generic="error">defineProps<{ value: error }>()</script>',
-    ].map(code => ({ code, filename: 'Component.vue', options: allScopes })),
+    ].map(code => ({
+      code,
+      filename: 'Component.vue',
+      options: allScopes,
+    })),
     {
       filename: 'Component.vue',
       code: '<script setup>const error = 1</script>',

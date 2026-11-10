@@ -65,6 +65,15 @@ export type Options = [
 
 Default to `separate`.
 
+With `inline`, type specifiers can be merged into a value export from the same
+source. A group containing only `export type` declarations stays type-only, so
+fixing cannot introduce a runtime dependency. Mixed groups are merged at the
+first value export to preserve module evaluation order.
+
+Declarations with different import attributes or namespace export names remain
+separate. Fixes preserve comments; a declaration containing an internal comment
+may be reported without an automatic fix.
+
 ## :rocket: Version
 
 This rule was introduced in eslint-plugin-ntnyq v0.8.1

@@ -1,6 +1,11 @@
 packages:
   - docs
 
+overrides:
+  # GHSA-238p-pmpm-9mq7: remove once micromark-extension-math updates KaTeX.
+  katex@>=0.11.0 <0.18.2: ^0.18.2
+  # GHSA-g3hv-75wg-m249: remove once upstreams require a patched release.
+  minimatch@>=7.0.0 <11.0.1: ^11.0.5
 allowBuilds:
   esbuild: true
   unrs-resolver: true

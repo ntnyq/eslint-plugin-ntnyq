@@ -8,6 +8,10 @@ await run<Options>({
   rule,
   valid: [
     {
+      description: 'does not match suffixes after unknown computed roots',
+      code: 'registry[key].test.only("case", () => {})',
+    },
+    {
       description: 'default-valid-blocks',
       filename: 'default-valid-blocks.ts',
       code: $`
@@ -74,6 +78,37 @@ await run<Options>({
     },
   ],
   invalid: [
+    {
+      description: 'preserves optional computed calls',
+      code: 'test?.["only"]("case", () => {})',
+      options: { fix: true },
+      errors: ['unexpected'],
+      output: 'test?.("case", () => {})',
+    },
+    {
+      description: 'withholds fixes for optional focus references',
+      code: 'const focused = test?.only',
+      options: { fix: true },
+      errors: ['unexpected'],
+      output: null,
+    },
+    {
+      description: 'detects computed focus access and preserves comments',
+      code: 'test[/* keep */ "only"]("case", () => {})',
+      options: { fix: true },
+      errors: ['unexpected'],
+      output: 'test/* keep */ ("case", () => {})',
+    },
+    {
+      description: 'detects computed block access in chains',
+      code: 'test["each"]([]).only("case", () => {})',
+      errors: ['unexpected'],
+    },
+    {
+      description: 'detects wrapped optional call paths',
+      code: '(test?.each([])).only("case", () => {})',
+      errors: ['unexpected'],
+    },
     {
       description: 'describe-only',
       filename: 'describe-only.ts',
@@ -174,7 +209,7 @@ await run<Options>({
       },
       errors: ['unexpected'],
       output: $`
-        it('some assertion', () => {})
+        it?.('some assertion', () => {})
       `,
     },
     {

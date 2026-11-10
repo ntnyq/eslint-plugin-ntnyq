@@ -47,13 +47,8 @@ function isFileHeaderComment(comment: Tree.BlockComment, tags: string[]) {
 function getFirstBlockComment(node: Tree.Program) {
   const firstComment = node.comments?.[0]
 
-  // no comments
-  if (!firstComment) {
-    return
-  }
-
-  // not a block comment
-  if (firstComment.type !== AST_TOKEN_TYPES.Block) {
+  // no comments or not a block comment
+  if (!firstComment || firstComment.type !== AST_TOKEN_TYPES.Block) {
     return
   }
 
@@ -90,6 +85,9 @@ export default createESLintRule<Options, MessageIds>({
     },
   },
   create(context) {
+    const newline = context.sourceCode.text.includes('\r\n')
+      ? '\r\n'
+      : SPECIAL_CHAR.newline
     const { tags: jsdocTags = FILE_HEADER_TAGS } = resolveOptions(
       context.options,
       defaultOptions,
@@ -124,7 +122,7 @@ export default createESLintRule<Options, MessageIds>({
           fix(fixer) {
             return fixer.insertTextAfter(
               firstBlockComment,
-              SPECIAL_CHAR.newline.repeat(2 - linesBetween),
+              newline.repeat(2 - linesBetween),
             )
           },
         })

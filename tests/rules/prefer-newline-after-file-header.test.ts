@@ -167,5 +167,11 @@ await run<Options>({
         )
       },
     },
+    {
+      description: 'preserves CRLF line endings',
+      code: '/** @file header */\r\nconst value = 1',
+      errors: ['requireNewlineBefore'],
+      output: '/** @file header */\r\n\r\nconst value = 1',
+    },
   ],
 })
