@@ -3,7 +3,7 @@ pageClass: rule-details
 sidebarDepth: 0
 title: ntnyq/return-object-multiline
 description: Require multiline formatting for directly returned objects.
-since: unreleased
+since: v0.19.0
 ---
 
 # ntnyq/return-object-multiline
@@ -146,7 +146,7 @@ Nothing.
 
 ## :rocket: Version
 
-This rule has not been released yet.
+This rule was introduced in eslint-plugin-ntnyq v0.19.0
 
 ## :mag: Implementation
 

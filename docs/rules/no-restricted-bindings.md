@@ -3,7 +3,7 @@ pageClass: rule-details
 sidebarDepth: 0
 title: ntnyq/no-restricted-bindings
 description: Disallow specified binding names in selected regions and scopes.
-since: unreleased
+since: v0.18.0
 ---
 
 # ntnyq/no-restricted-bindings
@@ -232,7 +232,7 @@ const { error: requestError } = defineProps<{ error?: string }>()
 
 ## :rocket: Version
 
-This rule has not been released yet.
+This rule was introduced in eslint-plugin-ntnyq v0.18.0
 
 ## :mag: Implementation
 
