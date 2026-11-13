@@ -1,16 +1,20 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/indent-unindent'
-import { run } from '../internal'
-import type { Options } from '../../src/rules/indent-unindent'
+import { runRuleTests } from '../helpers/ruleTester'
+import type { MessageIds, Options } from '../../src/rules/indent-unindent'
 
 function toCode(...lines: string[]) {
   return lines.join('\n')
 }
 
-await run<Options>({
+await runRuleTests<Options, MessageIds>({
   name: RULE_NAME,
   rule,
   valid: [
+    {
+      description: 'accepts consistently indented CRLF templates',
+      code: 'const value = unindent`\r\n  first\r\n\r\n  second\r\n`',
+    },
     {
       code: toCode('const value = $`', '  first', '', '  second', '`'),
     },
@@ -41,6 +45,13 @@ await run<Options>({
     },
   ],
   invalid: [
+    {
+      description: 'preserves CRLF and removes whitespace-only content',
+      code: 'function render() {\r\n  return unindent`\r\nfirst\r\n \r\nsecond\r\n  `\r\n}',
+      errors: ['indentUnindent'],
+      output:
+        'function render() {\r\n  return unindent`\r\n    first\r\n\r\n    second\r\n  `\r\n}',
+    },
     {
       description: 'removes indentation from an otherwise empty line',
       code: toCode('const value = $`', '  first', '  ', '  second', '`'),

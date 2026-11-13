@@ -10,7 +10,7 @@ import type {
   RuleListener,
   RuleWithMeta,
   RuleWithMetaAndName,
-} from '../types'
+} from '../eslint'
 
 export interface PluginDocs {
   recommended?: boolean
@@ -52,7 +52,7 @@ function createRule<TOptions extends unknown[], TMessageIds extends string>({
   }
 }
 
-function RuleCreator(urlCreator: (name: string) => string) {
+function createRuleFactory(urlCreator: (name: string) => string) {
   return function createNamedRule<
     TOptions extends unknown[],
     TMessageIds extends string,
@@ -84,6 +84,6 @@ export const createESLintRule: <
   ...rule
 }: Readonly<
   RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>
->) => Rule.RuleModule = RuleCreator(
+>) => Rule.RuleModule = createRuleFactory(
   ruleName => `https://eslint-plugin.ntnyq.com/rules/${ruleName}.html`,
 )

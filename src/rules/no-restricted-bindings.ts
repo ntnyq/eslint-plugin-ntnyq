@@ -1,7 +1,7 @@
-import { createESLintRule, resolveOptions } from '../utils'
+import { createESLintRule } from '../utils'
 import type { Scope } from '@typescript-eslint/utils/ts-eslint'
 import type { AST } from 'vue-eslint-parser'
-import type { Tree } from '../types'
+import type { Tree } from '../eslint'
 
 export type Region = 'script' | 'vue-script' | 'vue-script-setup'
 export type BindingScope = 'top-level' | 'nested' | 'all'
@@ -137,9 +137,7 @@ export default createESLintRule<Options, MessageIds>({
         "Binding '{{name}}' is not allowed in the {{scope}} scope of {{region}}.{{message}}",
     },
   },
-  create(context) {
-    const { restrictions = [] } = resolveOptions(context.options)
-
+  create(context, [{ restrictions = [] }]) {
     if (!restrictions.length) {
       return {}
     }

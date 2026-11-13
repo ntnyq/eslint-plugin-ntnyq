@@ -1,6 +1,6 @@
 import { ASTUtils } from '@typescript-eslint/utils'
-import { createESLintRule, resolveOptions } from '../utils'
-import type { Tree } from '../types'
+import { createESLintRule } from '../utils'
+import type { Tree } from '../eslint'
 
 export const RULE_NAME = 'no-only-tests'
 
@@ -135,14 +135,7 @@ export default createESLintRule<Options, MessageIds>({
       unexpected: '{{type}} not permitted',
     },
   },
-  create(context) {
-    const {
-      block = [],
-      focus = [],
-      functions = [],
-      fix = false,
-    } = resolveOptions(context.options, defaultOptions)
-
+  create(context, [{ block = [], focus = [], functions = [], fix = false }]) {
     return {
       CallExpression(node) {
         if (

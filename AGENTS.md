@@ -5,9 +5,10 @@
 Core plugin code lives in `src/`. ESLint rules are in `src/rules/`, shared
 helpers in `src/utils/`, and the public plugin entry point is `src/index.ts`.
 Tests mirror this layout under `tests/`; rule tests belong in `tests/rules/`,
-while reusable test setup lives in `tests/internal.ts`. Rule documentation is
-kept in `docs/rules/`, and the VitePress site configuration is under
-`docs/.vitepress/`. Static site assets belong in `docs/public/`. Build output is
+while reusable test setup lives in `tests/helpers/ruleTester.ts`. Helpers that
+belong to one complex rule live in its matching subdirectory under `src/rules/`.
+Rule documentation is kept in `docs/rules/`, and the VitePress site configuration
+is under `docs/.vitepress/`. Static site assets belong in `docs/public/`. Build output is
 generated in `dist/` and should not be edited directly.
 
 ## Build, Test, and Development Commands
@@ -17,11 +18,13 @@ Use the pnpm version declared in `package.json`.
 - `pnpm install --frozen-lockfile` installs the exact locked dependencies.
 - `pnpm dev` rebuilds the plugin in watch mode.
 - `pnpm build` creates ESM output and declarations with tsdown.
-- `pnpm test` runs the Vitest suite once.
+- `pnpm test` builds the plugin and runs the Vitest suite once.
+- `pnpm test:run` runs the suite against an existing build.
 - `pnpm lint` checks the repository with ESLint.
-- `pnpm typecheck` runs strict TypeScript checks without emitting files.
+- `pnpm typecheck` builds the plugin and checks source, tests, tools, and docs.
 - `pnpm format:check` verifies oxfmt formatting; `pnpm format` applies it.
 - `pnpm docs:dev` starts the documentation site locally.
+- `pnpm docs:generate` rebuilds the rule tables from registered rule metadata.
 - `pnpm run release:check` runs the full pre-release validation suite.
 
 ## Coding Style & Naming Conventions
@@ -42,6 +45,12 @@ cases, including diagnostics and fixer output where applicable. Update
 snapshots only when the changed output is intentional. There is no configured
 coverage threshold, but every behavior change should include a regression
 test. CI tests supported Node.js versions 22, 24, and 26.
+Compatibility tests also run against the minimum supported ESLint 9.5 and the
+current ESLint 10 development dependency. Type regression tests live in
+`*.test-d.ts` files and run through the tests TypeScript configuration.
+
+Keep plugin, test, and documentation environment types in their respective
+`tsconfig.json` files. Documentation SFCs are checked with `vue-tsc`.
 
 ## Commit & Pull Request Guidelines
 

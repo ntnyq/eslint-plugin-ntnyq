@@ -7,14 +7,18 @@ sidebarDepth: 0
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
 💡 Manually fixable by [editor suggestions](https://eslint.org/docs/developer-guide/working-with-rules#providing-suggestions).
 
+<!-- rules:start -->
+
 | Name                                                                             | Description                                                     | 🔧  | 💡  |
 | :------------------------------------------------------------------------------- | :-------------------------------------------------------------- | :-: | :-: |
-| [indent-unindent](/rules/indent-unindent.html)                                   | Enforce stable unindent template indentation                    | 🔧  |     |
+| [indent-unindent](/rules/indent-unindent.html)                                   | Enforce consistent indentation in unindent tagged templates     | 🔧  |     |
 | [no-duplicate-exports](/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement                            | 🔧  |     |
-| [no-explicit-void-return-type](/rules/no-explicit-void-return-type.html)         | Disallow explicit void return types                             | 🔧  | 💡  |
+| [no-explicit-void-return-type](/rules/no-explicit-void-return-type.html)         | Disallow explicit void return types on function implementations | 🔧  | 💡  |
 | [no-member-accessibility](/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility               | 🔧  |     |
-| [no-only-tests](/rules/no-only-tests.html)                                       | Disallow `.only` blocks in tests                                | 🔧  |     |
+| [no-only-tests](/rules/no-only-tests.html)                                       | Disallow .only blocks in tests                                  | 🔧  |     |
 | [no-restricted-bindings](/rules/no-restricted-bindings.html)                     | Disallow specified binding names in selected regions and scopes |     |     |
 | [prefer-newline-after-file-header](/rules/prefer-newline-after-file-header.html) | Require a newline after file header                             | 🔧  |     |
-| [prefer-object-method-syntax](/rules/prefer-object-method-syntax.html)           | Prefer method syntax for inline object functions                | 🔧  | 💡  |
+| [prefer-object-method-syntax](/rules/prefer-object-method-syntax.html)           | Require method syntax for inline functions in object literals   | 🔧  | 💡  |
 | [return-object-multiline](/rules/return-object-multiline.html)                   | Require multiline formatting for directly returned objects      | 🔧  |     |
+
+<!-- rules:end -->

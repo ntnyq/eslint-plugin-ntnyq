@@ -1,8 +1,7 @@
 import { joinNonEmptyValues } from '@ntnyq/utils'
-import { PROGRAM_EXIT, SPECIAL_CHAR } from '../constants'
-import { AST_NODE_TYPES } from '../types'
-import { createESLintRule, resolveOptions } from '../utils'
-import type { Tree } from '../types'
+import { AST_NODE_TYPES } from '../eslint'
+import { createESLintRule } from '../utils'
+import type { Tree } from '../eslint'
 
 const EXPORT_STYLE = {
   inline: 'inline',
@@ -30,9 +29,7 @@ const defaultOptions: Options[0] = {
   style: EXPORT_STYLE.separate,
 }
 
-function getIdentifierOrStringLiteralValue(
-  node: Tree.Identifier | Tree.StringLiteral,
-) {
+function getExportNameText(node: Tree.Identifier | Tree.StringLiteral) {
   if (node.type === AST_NODE_TYPES.Identifier) {
     return node.name
   }
@@ -41,9 +38,7 @@ function getIdentifierOrStringLiteralValue(
 }
 
 function toExportAllStatement(node: Tree.ExportAllDeclaration) {
-  const name = node.exported
-    ? getIdentifierOrStringLiteralValue(node.exported)
-    : ''
+  const name = node.exported ? getExportNameText(node.exported) : ''
 
   return joinNonEmptyValues(
     [
@@ -55,7 +50,7 @@ function toExportAllStatement(node: Tree.ExportAllDeclaration) {
       JSON.stringify(node.source.value),
     ],
     {
-      separator: SPECIAL_CHAR.whitespace,
+      separator: ' ',
     },
   )
 }
@@ -64,7 +59,7 @@ function getExportAllName(node: Tree.Identifier | Tree.StringLiteral | null) {
   return node?.type === AST_NODE_TYPES.Identifier ? node.name : node?.value
 }
 
-function toNamedExportNames(
+function formatExportSpecifiers(
   nodes: Tree.ExportNamedDeclarationWithSource[],
   outputExportKind: string,
 ) {
@@ -72,8 +67,8 @@ function toNamedExportNames(
     return [
       ...names,
       ...node.specifiers.map(s => {
-        const localName = getIdentifierOrStringLiteralValue(s.local)
-        const exportedName = getIdentifierOrStringLiteralValue(s.exported)
+        const localName = getExportNameText(s.local)
+        const exportedName = getExportNameText(s.exported)
         return joinNonEmptyValues(
           [
             outputExportKind !== EXPORT_TYPE &&
@@ -83,13 +78,13 @@ function toNamedExportNames(
             localName,
             ...(localName === exportedName ? [] : ['as', exportedName]),
           ],
-          { separator: SPECIAL_CHAR.whitespace },
+          { separator: ' ' },
         )
       }),
     ]
   }, [])
   return joinNonEmptyValues(allNames, {
-    separator: SPECIAL_CHAR.comma + SPECIAL_CHAR.whitespace,
+    separator: ', ',
   })
 }
 
@@ -121,11 +116,7 @@ export default createESLintRule<Options, MessageIds>({
       multiSameSourceNamed: `Multiple named export from same source '{{source}}'`,
     },
   },
-  create(context) {
-    const { style: namedExportStyle = EXPORT_STYLE.separate } = resolveOptions(
-      context.options,
-      defaultOptions,
-    )
+  create(context, [{ style: namedExportStyle = EXPORT_STYLE.separate }]) {
     const preferSeparateStyle = namedExportStyle === EXPORT_STYLE.separate
 
     function getSourceSuffix(
@@ -164,7 +155,7 @@ export default createESLintRule<Options, MessageIds>({
       ExportAllDeclaration(node) {
         exportAllNodes.push(node)
       },
-      [PROGRAM_EXIT]() {
+      'Program:exit': function () {
         const exportAllKey = (node: Tree.ExportAllDeclaration) =>
           JSON.stringify([
             node.source.value,
@@ -238,13 +229,13 @@ export default createESLintRule<Options, MessageIds>({
                               'export',
                               outputExportKind,
                               '{',
-                              toNamedExportNames(nodes, outputExportKind),
+                              formatExportSpecifiers(nodes, outputExportKind),
                               '}',
                               'from',
                               context.sourceCode.getText(node.source),
                               sourceSuffix,
                             ],
-                            { separator: SPECIAL_CHAR.whitespace },
+                            { separator: ' ' },
                           ),
                         )
                       : fixer.remove(node)

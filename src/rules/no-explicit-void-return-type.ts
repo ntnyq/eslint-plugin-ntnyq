@@ -1,7 +1,7 @@
 import { ASTUtils } from '@typescript-eslint/utils'
 import { createESLintRule } from '../utils'
 import type { CodePath } from '@typescript-eslint/utils/ts-eslint'
-import type { RuleListener, Tree } from '../types'
+import type { RuleListener, Tree } from '../eslint'
 
 type FunctionNode =
   | Tree.ArrowFunctionExpression

@@ -1,6 +1,6 @@
-import { AST_TOKEN_TYPES } from '../types'
+import { AST_TOKEN_TYPES } from '../eslint'
 import { createESLintRule } from '../utils'
-import type { Tree } from '../types'
+import type { Tree } from '../eslint'
 
 export const RULE_NAME = 'no-member-accessibility'
 

@@ -1,5 +1,5 @@
 import { createESLintRule } from '../utils'
-import type { Tree } from '../types'
+import type { Tree } from '../eslint'
 
 export const RULE_NAME = 'return-object-multiline'
 

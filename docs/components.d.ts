@@ -11,6 +11,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    CustomWrapper: typeof import('./.vitepress/components/CustomWrapper.vue')['default']
+    RuleExample: typeof import('./.vitepress/components/RuleExample.vue')['default']
   }
 }

@@ -2,10 +2,13 @@ import parserTypeScript from '@typescript-eslint/parser'
 import { Linter } from 'eslint'
 import { expect, it } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/prefer-object-method-syntax'
-import { $, run } from '../internal'
-import type { Options } from '../../src/rules/prefer-object-method-syntax'
+import { $, runRuleTests } from '../helpers/ruleTester'
+import type {
+  MessageIds,
+  Options,
+} from '../../src/rules/prefer-object-method-syntax'
 
-await run<Options>({
+await runRuleTests<Options, MessageIds>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -95,6 +98,28 @@ await run<Options>({
     },
   ],
   invalid: [
+    ...[
+      'function create() { { const arguments = 42; return { read: () => { return arguments } } } }',
+      'function create() { try {} catch (arguments) { return { read: () => { return arguments } } } }',
+      'function create() { { const arguments = 42; return { read: () => { return () => arguments } } } }',
+    ].map(code => ({
+      description: 'preserves arguments bindings inherited from nested scopes',
+      code,
+      languageOptions: { sourceType: 'script' as const },
+      options: { fix: true },
+      errors: ['preserveLexicalBindings'] satisfies MessageIds[],
+      output: null,
+    })),
+    {
+      description:
+        'can convert arrows that declare their own arguments binding',
+      code: 'const object = { read: () => { const arguments = 42; return arguments } }',
+      languageOptions: { sourceType: 'script' },
+      options: { fix: true },
+      errors: ['preferMethodSyntax'] satisfies MessageIds[],
+      output:
+        'const object = { read() { const arguments = 42; return arguments } }',
+    },
     {
       code: $`
         const config = {
@@ -106,7 +131,7 @@ await run<Options>({
       options: {
         fix: true,
       },
-      errors: ['preferMethodSyntax'],
+      errors: ['preferMethodSyntax'] satisfies MessageIds[],
       output: $`
         const config = {
           vite() { return ({
@@ -304,7 +329,7 @@ await run<Options>({
       options: {
         fix: true,
       },
-      errors: ['preserveLexicalBindings'],
+      errors: ['preserveLexicalBindings'] satisfies MessageIds[],
       output: null,
     },
     {
@@ -320,7 +345,7 @@ await run<Options>({
       options: {
         fix: true,
       },
-      errors: ['preserveLexicalBindings'],
+      errors: ['preserveLexicalBindings'] satisfies MessageIds[],
       output: null,
     },
     {
@@ -355,7 +380,7 @@ await run<Options>({
       options: {
         fix: true,
       },
-      errors: ['preserveLexicalBindings'],
+      errors: ['preserveLexicalBindings'] satisfies MessageIds[],
       output: null,
     },
     {
@@ -371,7 +396,7 @@ await run<Options>({
       options: {
         fix: true,
       },
-      errors: ['preferMethodSyntax'],
+      errors: ['preferMethodSyntax'] satisfies MessageIds[],
       output: $`
         const object = {
           factory() {
@@ -393,7 +418,7 @@ await run<Options>({
       options: {
         fix: true,
       },
-      errors: ['preserveLexicalBindings'],
+      errors: ['preserveLexicalBindings'] satisfies MessageIds[],
       output: null,
     },
     {

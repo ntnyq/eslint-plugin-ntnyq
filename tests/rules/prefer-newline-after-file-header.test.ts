@@ -2,10 +2,13 @@ import { expect } from 'vitest'
 import rule, {
   RULE_NAME,
 } from '../../src/rules/prefer-newline-after-file-header'
-import { $, run } from '../internal'
-import type { Options } from '../../src/rules/prefer-newline-after-file-header'
+import { $, runRuleTests } from '../helpers/ruleTester'
+import type {
+  MessageIds,
+  Options,
+} from '../../src/rules/prefer-newline-after-file-header'
 
-await run<Options>({
+await runRuleTests<Options, MessageIds>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -160,7 +163,7 @@ await run<Options>({
       options: {
         tags: ['['],
       },
-      errors: ['requireNewlineBefore'],
+      errors: ['missingBlankLineAfterHeader'],
       output(output) {
         expect(output).toBe(
           `/**\n * [ custom header\n */\n\nexport const foobar = 'foobar'`,
@@ -170,7 +173,7 @@ await run<Options>({
     {
       description: 'preserves CRLF line endings',
       code: '/** @file header */\r\nconst value = 1',
-      errors: ['requireNewlineBefore'],
+      errors: ['missingBlankLineAfterHeader'],
       output: '/** @file header */\r\n\r\nconst value = 1',
     },
   ],

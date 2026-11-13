@@ -1,8 +1,10 @@
+import { fileURLToPath } from 'node:url'
 import { ESLint } from 'eslint'
 import { describe, expect, it } from 'vitest'
-import { resolve } from '../scripts/utils'
 
-const TEST_CWD = resolve('tests/fixtures/integrations/eslint-plugin')
+const TEST_CWD = fileURLToPath(
+  new URL('./fixtures/integrations/eslint-plugin/', import.meta.url),
+)
 
 describe('Integration test', () => {
   it('should lint without errors', async () => {

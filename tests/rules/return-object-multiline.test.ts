@@ -3,8 +3,11 @@ import { Linter } from 'eslint'
 import { expect, it } from 'vitest'
 import { plugin } from '../../src'
 import rule, { RULE_NAME } from '../../src/rules/return-object-multiline'
-import { $, run } from '../internal'
-import type { Options } from '../../src/rules/return-object-multiline'
+import { $, runRuleTests } from '../helpers/ruleTester'
+import type {
+  MessageIds,
+  Options,
+} from '../../src/rules/return-object-multiline'
 
 const wrappedObjects = [
   ['(', ') as Value'],
@@ -22,7 +25,7 @@ const wrappedObjects = [
   ['(<Value>(', ')! as unknown) as Value'],
 ]
 
-await run<Options>({
+await runRuleTests<Options, MessageIds>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -121,12 +124,12 @@ await run<Options>({
         {
           code: `function getValue() { return ${prefix}${object}${suffix} }`,
           output: `function getValue() { return ${prefix}${output}${suffix} }`,
-          errors: ['multiline'],
+          errors: ['multiline'] satisfies MessageIds[],
         },
         {
           code: `const getValue = () => ${prefix}${object}${suffix}`,
           output: `const getValue = () => ${prefix}${output}${suffix}`,
-          errors: ['multiline'],
+          errors: ['multiline'] satisfies MessageIds[],
         },
       ]),
     ),
@@ -269,7 +272,7 @@ await run<Options>({
       ],
     ].map(([code, output]) => ({
       code,
-      errors: ['multiline'],
+      errors: ['multiline'] satisfies MessageIds[],
       output,
     })),
     {
@@ -304,7 +307,7 @@ await run<Options>({
           }
         }
       `,
-      errors: ['multiline'],
+      errors: ['multiline'] satisfies MessageIds[],
       output:
         'function getValue() {\n  return {\n    nested: { a: 1 },\n    getInner: () => ({\nb: 2\n}),\n    getOther() { return {} },\n  }\n}',
     },

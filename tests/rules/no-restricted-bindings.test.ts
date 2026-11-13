@@ -4,8 +4,11 @@ import { describe, expect, it } from 'vitest'
 import parserVue from 'vue-eslint-parser'
 import { plugin } from '../../src'
 import rule, { RULE_NAME } from '../../src/rules/no-restricted-bindings'
-import { $, run } from '../internal'
-import type { Options } from '../../src/rules/no-restricted-bindings'
+import { $, runRuleTests } from '../helpers/ruleTester'
+import type {
+  MessageIds,
+  Options,
+} from '../../src/rules/no-restricted-bindings'
 
 const topLevel: Options[0] = { restrictions: [{ names: ['error'] }] }
 const allScopes: Options[0] = {
@@ -20,7 +23,7 @@ const setupOnly: Options[0] = {
   restrictions: [{ names: ['error'], regions: ['vue-script-setup'] }],
 }
 
-await run<Options>({
+await runRuleTests<Options, MessageIds>({
   name: RULE_NAME,
   rule,
   valid: [
@@ -123,7 +126,7 @@ await run<Options>({
     ].map(code => ({
       code,
       options: topLevel,
-      errors: ['restrictedBinding'],
+      errors: ['restrictedBinding'] satisfies MessageIds[],
     })),
     ...[
       'function run(error: unknown) {}',
@@ -144,17 +147,17 @@ await run<Options>({
     ].map(code => ({
       code,
       options: exceptCatch,
-      errors: ['restrictedBinding'],
+      errors: ['restrictedBinding'] satisfies MessageIds[],
     })),
     {
       code: 'try {} catch ({ cause: { error } }) {}',
       options: allScopes,
-      errors: ['restrictedBinding'],
+      errors: ['restrictedBinding'] satisfies MessageIds[],
     },
     {
       code: 'class error {}',
       options: allScopes,
-      errors: ['restrictedBinding'],
+      errors: ['restrictedBinding'] satisfies MessageIds[],
     },
     {
       code: 'const error = 1; function run(error: unknown) { { const error = 2 } }',
@@ -220,7 +223,7 @@ await run<Options>({
   ],
 })
 
-await run<Options>({
+await runRuleTests<Options, MessageIds>({
   name: `${RULE_NAME}/vue`,
   rule,
   languageOptions: {
@@ -274,7 +277,7 @@ await run<Options>({
       code,
       filename: 'Component.vue',
       options: setupOnly,
-      errors: ['restrictedBinding'],
+      errors: ['restrictedBinding'] satisfies MessageIds[],
     })),
     {
       filename: 'Component.vue',
@@ -335,7 +338,7 @@ await run<Options>({
           },
         ],
       },
-      errors: ['restrictedBinding'],
+      errors: ['restrictedBinding'] satisfies MessageIds[],
     },
   ],
 })

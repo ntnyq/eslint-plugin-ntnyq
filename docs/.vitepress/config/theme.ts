@@ -1,5 +1,4 @@
-import { globSync } from 'tinyglobby'
-import { resolve } from '../../../scripts/utils.ts'
+import { rules } from 'eslint-plugin-ntnyq'
 import { appVersion, packageName } from '../meta.ts'
 import type { DefaultTheme } from 'vitepress'
 
@@ -11,16 +10,7 @@ const VERSIONS: DefaultTheme.NavItemWithLink[] = [
   },
 ]
 
-export function getThemeConfig() {
-  const rules = globSync(resolve('src/rules/*.ts'), {
-    cwd: resolve(),
-    ignore: ['**/index.ts'],
-    onlyFiles: true,
-    expandDirectories: false,
-  })
-    .map(path => path.split('/').pop()!)
-    .map(path => path.replace('.ts', ''))
-
+export function createThemeConfig() {
   const config: DefaultTheme.Config = {
     editLink: {
       pattern: `https://github.com/ntnyq/${packageName}/edit/main/docs/:path`,
@@ -77,7 +67,7 @@ export function getThemeConfig() {
           ],
         },
         {
-          items: rules.map(ruleId => ruleToSidebarItem(ruleId)),
+          items: Object.keys(rules).map(ruleId => ruleToSidebarItem(ruleId)),
           text: 'Rules list',
         },
       ],

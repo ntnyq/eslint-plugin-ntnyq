@@ -9,4 +9,5 @@ export type {
   RuleContext,
   RuleListener,
   RuleModule,
+  SourceCode,
 } from '@typescript-eslint/utils/ts-eslint'

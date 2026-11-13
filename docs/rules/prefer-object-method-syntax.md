@@ -291,6 +291,10 @@ The rule does not automatically fix:
 - arrows containing direct `eval(...)`, which can access lexical bindings dynamically;
 - conversions that would remove or relocate comments.
 
+Inherited `arguments` bindings include declarations in enclosing blocks and
+catch parameters. An `arguments` binding declared inside the arrow itself does
+not prevent conversion.
+
 For example, this arrow must retain the surrounding class instance as its `this` value:
 
 ```ts

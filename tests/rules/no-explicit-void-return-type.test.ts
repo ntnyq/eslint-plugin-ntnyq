@@ -1,9 +1,12 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/no-explicit-void-return-type'
-import { $, run } from '../internal'
-import type { Options } from '../../src/rules/no-explicit-void-return-type'
+import { $, runRuleTests } from '../helpers/ruleTester'
+import type {
+  MessageIds,
+  Options,
+} from '../../src/rules/no-explicit-void-return-type'
 
-await run<Options>({
+await runRuleTests<Options, MessageIds>({
   name: RULE_NAME,
   rule,
   valid: [

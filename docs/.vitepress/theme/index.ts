@@ -5,7 +5,7 @@ import 'virtual:group-icons.css'
 import TwoSlash from '@shikijs/vitepress-twoslash/client'
 import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
-import CustomWrapper from '../components/CustomWrapper.vue'
+import RuleExample from '../components/RuleExample.vue'
 import CustomLayout from './CustomLayout.vue'
 import type { Theme } from 'vitepress'
 
@@ -14,6 +14,6 @@ export default {
   Layout: () => h(CustomLayout),
   enhanceApp({ app }) {
     app.use(TwoSlash)
-    app.component('CustomWrapper', CustomWrapper)
+    app.component('RuleExample', RuleExample)
   },
 } satisfies Theme

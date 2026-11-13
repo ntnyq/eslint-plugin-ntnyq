@@ -8,22 +8,16 @@ import { createTwoslasher } from 'twoslash-eslint'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
 import { head } from './config/head.ts'
-import { getThemeConfig } from './config/theme.ts'
+import { createThemeConfig } from './config/theme.ts'
 import { appDescription, appTitle } from './meta.ts'
-
-const SPECIAL_CHAR = {
-  whitespace: ' ',
-  newline: '\n',
-}
 
 export default defineConfig({
   cleanUrls: true,
   description: appDescription,
   head,
-  ignoreDeadLinks: true,
   lastUpdated: true,
 
-  themeConfig: getThemeConfig(),
+  themeConfig: createThemeConfig(),
   title: appTitle,
   markdown: {
     codeTransformers: [
@@ -60,9 +54,7 @@ export default defineConfig({
           ],
           eslintCodePreprocess(code) {
             // Remove trailing newline and presentational `⏎` characters
-            return code
-              .replace(/⏎(?=\n)/gu, '')
-              .replace(/⏎$/gu, () => SPECIAL_CHAR.newline)
+            return code.replace(/⏎(?=\n)/gu, '').replace(/⏎$/gu, () => '\n')
           },
         }),
       }),
@@ -79,12 +71,12 @@ export default defineConfig({
             const next = tokens[idx + 1]
             if (next.type === 'fence') {
               next.info = joinNonEmptyValues([next.info, 'eslint-check'], {
-                separator: SPECIAL_CHAR.whitespace,
+                separator: ' ',
               })
             }
-            return '<CustomWrapper type="correct">'
+            return '<RuleExample type="correct">'
           }
-          return `</CustomWrapper>${SPECIAL_CHAR.newline}`
+          return '</RuleExample>\n'
         },
       })
 
@@ -94,12 +86,12 @@ export default defineConfig({
             const next = tokens[idx + 1]
             if (next.type === 'fence') {
               next.info = joinNonEmptyValues([next.info, 'eslint-check'], {
-                separator: SPECIAL_CHAR.whitespace,
+                separator: ' ',
               })
             }
-            return '<CustomWrapper type="incorrect">'
+            return '<RuleExample type="incorrect">'
           }
-          return `</CustomWrapper>${SPECIAL_CHAR.newline}`
+          return '</RuleExample>\n'
         },
       })
     },

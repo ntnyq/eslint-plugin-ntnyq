@@ -1,7 +1,6 @@
-import { SPECIAL_CHAR } from '../constants'
-import { AST_TOKEN_TYPES } from '../types'
-import { createESLintRule, resolveOptions } from '../utils'
-import type { Tree } from '../types'
+import { AST_TOKEN_TYPES } from '../eslint'
+import { createESLintRule } from '../utils'
+import type { Tree } from '../eslint'
 
 // @keep-sorted
 const FILE_HEADER_TAGS = [
@@ -18,7 +17,7 @@ const FILE_HEADER_TAGS = [
 
 export const RULE_NAME = 'prefer-newline-after-file-header'
 
-export type MessageIds = 'requireNewlineBefore'
+export type MessageIds = 'missingBlankLineAfterHeader'
 export type Options = [
   {
     tags?: string[]
@@ -81,17 +80,12 @@ export default createESLintRule<Options, MessageIds>({
     ],
     defaultOptions: [defaultOptions],
     messages: {
-      requireNewlineBefore: 'require a newline before',
+      missingBlankLineAfterHeader:
+        'Require a blank line after the file header.',
     },
   },
-  create(context) {
-    const newline = context.sourceCode.text.includes('\r\n')
-      ? '\r\n'
-      : SPECIAL_CHAR.newline
-    const { tags: jsdocTags = FILE_HEADER_TAGS } = resolveOptions(
-      context.options,
-      defaultOptions,
-    )
+  create(context, [{ tags: jsdocTags = FILE_HEADER_TAGS }]) {
+    const newline = context.sourceCode.text.includes('\r\n') ? '\r\n' : '\n'
 
     return {
       Program(node) {
@@ -118,7 +112,7 @@ export default createESLintRule<Options, MessageIds>({
 
         context.report({
           node: firstNode,
-          messageId: 'requireNewlineBefore',
+          messageId: 'missingBlankLineAfterHeader',
           fix(fixer) {
             return fixer.insertTextAfter(
               firstBlockComment,

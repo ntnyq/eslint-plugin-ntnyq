@@ -1,6 +1,8 @@
 import { ASTUtils } from '@typescript-eslint/utils'
-import { createESLintRule, resolveOptions } from '../utils'
-import type { Tree } from '../types'
+import { createESLintRule } from '../utils'
+import { createLexicalBindingTracker } from './prefer-object-method-syntax/createLexicalBindingTracker'
+import { getMethodReplacement } from './prefer-object-method-syntax/getMethodReplacement'
+import type { Tree } from '../eslint'
 
 export const RULE_NAME = 'prefer-object-method-syntax'
 
@@ -105,86 +107,19 @@ export default createESLintRule<Options, MessageIds>({
         "Avoid an inline arrow function for '{{propertyName}}'; move it outside the object to preserve lexical bindings.",
     },
   },
-  create(context) {
-    const {
-      allowArrowFunctions = false,
-      allowedPropertyNames = [],
-      avoidQuotes = false,
-      fix = false,
-    } = resolveOptions(context.options, defaultOptions)
+  create(
+    context,
+    [
+      {
+        allowArrowFunctions = false,
+        allowedPropertyNames = [],
+        avoidQuotes = false,
+        fix = false,
+      },
+    ],
+  ) {
     const sourceCode = context.sourceCode
-    const lexicalScopeStack: Set<Tree.ArrowFunctionExpression>[] = []
-    const arrowsWithLexicalBindings =
-      new WeakSet<Tree.ArrowFunctionExpression>()
-    const argumentsIdentifiers = new WeakSet<Tree.Identifier>()
-
-    /**
-     * Opens a lexical scope for a program or non-arrow function and records the
-     * `arguments` references owned by that scope.
-     *
-     * @param node - The node that establishes the lexical scope
-     * @remarks Returns no value
-     */
-    function enterFunction(
-      node: Tree.FunctionDeclaration | Tree.FunctionExpression | Tree.Program,
-    ) {
-      lexicalScopeStack.unshift(new Set())
-      const scope = sourceCode.getScope(node)
-
-      // Arrow functions inherit the nearest non-arrow function's `arguments`.
-      scope.variables
-        .filter(variable => variable.name === 'arguments')
-        .forEach(variable => {
-          variable.references.forEach(reference => {
-            if (reference.identifier.type === 'Identifier') {
-              argumentsIdentifiers.add(reference.identifier)
-            }
-          })
-        })
-
-      // An unresolved top-level `arguments` would become a method-local binding.
-      if (node.type === 'Program') {
-        scope.through.forEach(reference => {
-          if (
-            reference.identifier.type === 'Identifier' &&
-            reference.identifier.name === 'arguments'
-          ) {
-            argumentsIdentifiers.add(reference.identifier)
-          }
-        })
-      }
-    }
-
-    /**
-     * Closes the current program or non-arrow function lexical scope.
-     *
-     * @remarks Returns no value
-     */
-    function exitFunction() {
-      lexicalScopeStack.shift()
-    }
-
-    /**
-     * Stops tracking an arrow after its body has been traversed.
-     *
-     * @param node - The arrow function being exited
-     * @remarks Returns no value
-     */
-    function exitArrowFunction(node: Tree.ArrowFunctionExpression) {
-      lexicalScopeStack[0]?.delete(node)
-    }
-
-    /**
-     * Marks every active arrow in the current lexical scope as unsafe to
-     * convert to a method.
-     *
-     * @remarks Returns no value
-     */
-    function markLexicalBinding() {
-      lexicalScopeStack[0]?.forEach(arrowFunction => {
-        arrowsWithLexicalBindings.add(arrowFunction)
-      })
-    }
+    const lexicalBindings = createLexicalBindingTracker(sourceCode)
 
     /**
      * Resolves a readable property name for diagnostics.
@@ -199,195 +134,6 @@ export default createESLintRule<Options, MessageIds>({
       }
       const keyText = sourceCode.getText(node.key)
       return node.computed ? `[${keyText}]` : keyText
-    }
-
-    /**
-     * Builds the equivalent object method source for a fixable property.
-     *
-     * @param node - The object property to convert
-     * @returns Replacement source, or `undefined` when conversion is unsafe
-     */
-    function getMethodReplacement(node: Tree.Property) {
-      const value = node.value
-      if (
-        value.type !== 'FunctionExpression' &&
-        value.type !== 'ArrowFunctionExpression'
-      ) {
-        return
-      }
-
-      // Method syntax cannot preserve a named function's inner binding.
-      if (value.type === 'FunctionExpression' && value.id) {
-        return
-      }
-
-      // Single-line expression arrows stay unchanged. Multi-line expressions
-      // can be converted by introducing an explicit return statement.
-      if (
-        value.type === 'ArrowFunctionExpression' &&
-        value.body.type !== 'BlockStatement' &&
-        value.loc.start.line === value.loc.end.line
-      ) {
-        return
-      }
-
-      const firstKeyToken = sourceCode.getFirstToken(node)
-      const colonToken = sourceCode.getTokenBefore(value)
-      if (!firstKeyToken || !colonToken || colonToken.value !== ':') {
-        return
-      }
-      const lastKeyToken = sourceCode.getTokenBefore(colonToken)
-
-      // Replacing the whole property must not discard key/value comments.
-      if (
-        !lastKeyToken ||
-        sourceCode.commentsExistBetween(lastKeyToken, value)
-      ) {
-        return
-      }
-
-      const keyText = sourceCode.text.slice(
-        firstKeyToken.range[0],
-        lastKeyToken.range[1],
-      )
-      const methodPrefix = `${value.async ? 'async ' : ''}${
-        value.generator ? '*' : ''
-      }${keyText}`
-
-      if (value.type === 'FunctionExpression') {
-        const valueTokens = sourceCode.getTokens(value)
-        const firstValueToken = valueTokens[0]
-        const functionToken = valueTokens.find(
-          token => token.value === 'function',
-        )
-        if (!firstValueToken || !functionToken) {
-          return
-        }
-
-        // Modifier comments have no unambiguous position in method syntax.
-        if (
-          firstValueToken !== functionToken &&
-          sourceCode.commentsExistBetween(firstValueToken, functionToken)
-        ) {
-          return
-        }
-        const tokenBeforeParameters = value.generator
-          ? sourceCode.getTokenAfter(functionToken)
-          : functionToken
-        if (!tokenBeforeParameters) {
-          return
-        }
-
-        // Keep comments attached to a generator star instead of relocating
-        // them.
-        if (
-          value.generator &&
-          sourceCode.commentsExistBetween(functionToken, tokenBeforeParameters)
-        ) {
-          return
-        }
-        return (
-          methodPrefix +
-          sourceCode.text
-            .slice(tokenBeforeParameters.range[1], value.range[1])
-            .trimStart()
-        )
-      }
-
-      const arrowToken = sourceCode.getTokenBefore(
-        value.body,
-        token => token.value === '=>',
-      )
-      const firstArrowToken = sourceCode.getFirstToken(value)
-      const firstParameterToken = sourceCode.getFirstToken(value, {
-        skip: value.async ? 1 : 0,
-      })
-      const tokenBeforeArrow = arrowToken
-        ? sourceCode.getTokenBefore(arrowToken)
-        : null
-
-      // A comment immediately before `=>` would be lost by replacement.
-      if (
-        !arrowToken ||
-        !firstArrowToken ||
-        !firstParameterToken ||
-        !tokenBeforeArrow ||
-        sourceCode.commentsExistBetween(tokenBeforeArrow, arrowToken)
-      ) {
-        return
-      }
-
-      // Preserve comments between `async` and the parameter list.
-      if (
-        value.async &&
-        sourceCode.commentsExistBetween(firstArrowToken, firstParameterToken)
-      ) {
-        return
-      }
-
-      const parameterText = sourceCode.text.slice(
-        firstParameterToken.range[0],
-        tokenBeforeArrow.range[1],
-      )
-
-      // A concise arrow parameter needs parentheses in method syntax.
-      const needsParentheses =
-        value.params.length === 1 &&
-        value.params[0]?.range[0] === firstParameterToken.range[0]
-      const normalizedParameterText = needsParentheses
-        ? `(${parameterText})`
-        : parameterText
-      const bodyText = sourceCode.text.slice(
-        arrowToken.range[1],
-        value.range[1],
-      )
-      if (value.body.type === 'BlockStatement') {
-        return methodPrefix + normalizedParameterText + bodyText
-      }
-
-      const firstTokenAfterValue = sourceCode.getTokenAfter(value, {
-        includeComments: true,
-      })
-      const firstCodeTokenAfterValue = sourceCode.getTokenAfter(value)
-
-      // Adding the method's closing brace would relocate a trailing comment.
-      if (firstTokenAfterValue !== firstCodeTokenAfterValue) {
-        return
-      }
-
-      // Expression node ranges omit wrapping parentheses. Keep those with the
-      // expression so `return` precedes the opening parenthesis.
-      const firstExpressionToken = sourceCode.getTokenAfter(arrowToken)
-      if (!firstExpressionToken) {
-        return
-      }
-      const textBeforeExpression = sourceCode.text.slice(
-        arrowToken.range[1],
-        firstExpressionToken.range[0],
-      )
-      const expressionText = sourceCode.text.slice(
-        firstExpressionToken.range[0],
-        value.range[1],
-      )
-      const linebreak = textBeforeExpression.match(/\r\n|[\n\r]/u)?.[0]
-
-      if (!linebreak) {
-        return `${methodPrefix}${normalizedParameterText} {${
-          textBeforeExpression || ' '
-        }return ${expressionText} }`
-      }
-
-      const propertyLineStart =
-        firstKeyToken.range[0] - firstKeyToken.loc.start.column
-      const propertyLinePrefix = sourceCode.text.slice(
-        propertyLineStart,
-        firstKeyToken.range[0],
-      )
-      const propertyIndent = /^\s*$/u.test(propertyLinePrefix)
-        ? propertyLinePrefix
-        : ' '.repeat(firstKeyToken.loc.start.column)
-
-      return `${methodPrefix}${normalizedParameterText} {${textBeforeExpression}return ${expressionText}${linebreak}${propertyIndent}}`
     }
 
     /**
@@ -449,7 +195,7 @@ export default createESLintRule<Options, MessageIds>({
       const propertyName = getPropertyName(node)
       const hasLexicalBindings =
         value.type === 'ArrowFunctionExpression' &&
-        arrowsWithLexicalBindings.has(value)
+        lexicalBindings.hasLexicalBindings(value)
 
       // Converting this arrow would rebind its lexical runtime values.
       if (hasLexicalBindings) {
@@ -463,7 +209,7 @@ export default createESLintRule<Options, MessageIds>({
         return
       }
 
-      const replacement = getMethodReplacement(node)
+      const replacement = getMethodReplacement(sourceCode, node)
 
       // Ordinary functions are constructible; object methods are not.
       const isConstructibleFunction =
@@ -504,67 +250,7 @@ export default createESLintRule<Options, MessageIds>({
     }
 
     return {
-      Program: enterFunction,
-      FunctionDeclaration: enterFunction,
-      FunctionExpression: enterFunction,
-      'Program:exit': exitFunction,
-      'FunctionDeclaration:exit': exitFunction,
-      'FunctionExpression:exit': exitFunction,
-
-      /**
-       * Tracks an arrow while traversing its lexical scope.
-       *
-       * @param node - The arrow function being entered
-       * @remarks Returns no value
-       */
-      ArrowFunctionExpression(node) {
-        lexicalScopeStack[0]?.add(node)
-      },
-
-      'ArrowFunctionExpression:exit': exitArrowFunction,
-      ThisExpression: markLexicalBinding,
-      Super: markLexicalBinding,
-
-      /**
-       * Detects lexical `new.target` usage inside active arrows.
-       *
-       * @param node - The meta property being inspected
-       * @remarks Returns no value
-       */
-      MetaProperty(node) {
-        if (node.meta.name === 'new' && node.property.name === 'target') {
-          markLexicalBinding()
-        }
-      },
-
-      /**
-       * Detects direct eval calls that may access lexical bindings dynamically.
-       *
-       * @param node - The call expression being inspected
-       * @remarks Returns no value
-       */
-      CallExpression(node) {
-        // Optional eval calls are indirect and cannot access the local scope.
-        if (
-          !node.optional &&
-          node.callee.type === 'Identifier' &&
-          node.callee.name === 'eval'
-        ) {
-          markLexicalBinding()
-        }
-      },
-
-      /**
-       * Detects references to an inherited or unresolved `arguments` binding.
-       *
-       * @param node - The identifier being inspected
-       * @remarks Returns no value
-       */
-      Identifier(node) {
-        if (argumentsIdentifiers.has(node)) {
-          markLexicalBinding()
-        }
-      },
+      ...lexicalBindings.listeners,
       'Property:exit': reportProperty,
     }
   },

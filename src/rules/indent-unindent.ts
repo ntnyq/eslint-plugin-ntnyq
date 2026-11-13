@@ -28,7 +28,7 @@ const defaultOptions: Options[0] = {
  * template's raw value.
  */
 function unindent(value: string) {
-  const lines = value.split('\n')
+  const lines = value.split(/\r\n|[\n\r]/u)
   const whitespaceLines = lines.map(line => RE_FULL_WHITESPACE.test(line))
   const commonIndent = lines.reduce((minimum, line, index) => {
     if (whitespaceLines[index]) {
@@ -94,9 +94,8 @@ export default createESLintRule<Options, MessageIds>({
         'Enforce consistent indentation in the {{tag}} tagged template.',
     },
   },
-  create(context) {
-    const { indent = DEFAULT_INDENT, tags = DEFAULT_TAGS } =
-      context.options[0] ?? defaultOptions
+  create(context, [{ indent = DEFAULT_INDENT, tags = DEFAULT_TAGS }]) {
+    const newline = context.sourceCode.text.includes('\r\n') ? '\r\n' : '\n'
 
     return {
       TaggedTemplateExpression(node) {
@@ -115,7 +114,9 @@ export default createESLintRule<Options, MessageIds>({
         }
         /* v8 ignore stop */
 
-        const value = quasi.value.raw
+        // Espree normalizes line endings in value.raw. Read the source so a
+        // correctly formatted CRLF template does not trigger identical fixes.
+        const value = context.sourceCode.getText(quasi).slice(1, -1)
         const lineStartIndex = context.sourceCode.getIndexFromLoc({
           line: node.loc.start.line,
           column: 0,
@@ -129,8 +130,8 @@ export default createESLintRule<Options, MessageIds>({
           .map(line =>
             RE_FULL_WHITESPACE.test(line) ? '' : `${targetIndent}${line}`,
           )
-          .join('\n')
-        const fixedValue = `\n${content}\n${baseIndent}`
+          .join(newline)
+        const fixedValue = `${newline}${content}${newline}${baseIndent}`
 
         if (fixedValue === value) {
           return

@@ -1,9 +1,9 @@
 import { expect } from 'vitest'
 import rule, { RULE_NAME } from '../../src/rules/no-duplicate-exports'
-import { $, run } from '../internal'
-import type { Options } from '../../src/rules/no-duplicate-exports'
+import { $, runRuleTests } from '../helpers/ruleTester'
+import type { MessageIds, Options } from '../../src/rules/no-duplicate-exports'
 
-await run<Options>({
+await runRuleTests<Options, MessageIds>({
   name: RULE_NAME,
   rule,
   valid: [

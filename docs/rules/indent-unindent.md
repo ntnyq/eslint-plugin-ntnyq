@@ -111,6 +111,9 @@ The fixer:
 3. converts whitespace-only content lines to empty lines;
 4. aligns the closing backtick with the tagged expression's containing line.
 
+Files containing CRLF line endings retain CRLF in the rewritten template,
+including blank lines and the lines next to the backticks. Other files use LF.
+
 Because this is a layout rule for a deliberately selected unindent tag, every
 reported problem is automatically fixable. As with the upstream rule, enabling
 it opts the selected tags into rewriting the raw template contents.
