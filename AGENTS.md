@@ -12,7 +12,7 @@ generated in `dist/` and should not be edited directly.
 
 ## Build, Test, and Development Commands
 
-Use pnpm 11 (declared in `package.json`).
+Use the pnpm version declared in `package.json`.
 
 - `pnpm install --frozen-lockfile` installs the exact locked dependencies.
 - `pnpm dev` rebuilds the plugin in watch mode.

@@ -85,6 +85,9 @@ export default createESLintRule<Options, MessageIds>({
     },
   },
   create(context) {
+    const newline = context.sourceCode.text.includes('\r\n')
+      ? '\r\n'
+      : SPECIAL_CHAR.newline
     const { tags: jsdocTags = FILE_HEADER_TAGS } = resolveOptions(
       context.options,
       defaultOptions,
@@ -119,7 +122,7 @@ export default createESLintRule<Options, MessageIds>({
           fix(fixer) {
             return fixer.insertTextAfter(
               firstBlockComment,
-              SPECIAL_CHAR.newline.repeat(2 - linesBetween),
+              newline.repeat(2 - linesBetween),
             )
           },
         })

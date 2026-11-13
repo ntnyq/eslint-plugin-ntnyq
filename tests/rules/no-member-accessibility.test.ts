@@ -33,6 +33,27 @@ await run<Options>({
   ],
   invalid: [
     {
+      description: 'checks auto-accessor accessibility',
+      code: 'abstract class Test { public accessor value = 1; protected abstract accessor other: number }',
+      errors: ['noMemberAccessibility', 'noMemberAccessibility'],
+      output:
+        'abstract class Test { accessor value = 1; abstract accessor other: number }',
+    },
+    {
+      description: 'preserves parameter properties without readonly',
+      code: 'class Test { constructor(public value: number) {} }',
+      errors: ['noMemberAccessibility'],
+      output: null,
+    },
+    {
+      description: 'highlights accessibility after decorators and modifiers',
+      code: 'class Test { @decorate() public static value = 1 }',
+      errors(errors) {
+        expect(errors[0]).toMatchObject({ column: 26, endColumn: 32 })
+      },
+      output: 'class Test { @decorate() static value = 1 }',
+    },
+    {
       filename: 'public.ts',
       code: $`
         class Test {

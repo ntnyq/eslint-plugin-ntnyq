@@ -1,3 +1,4 @@
+import { ASTUtils } from '@typescript-eslint/utils'
 import { createESLintRule, resolveOptions } from '../utils'
 import type { Tree } from '../types'
 
@@ -47,18 +48,25 @@ function getNodeName(node: Tree.Node): string | undefined {
     return node.name
   }
 
-  if (
-    node.type === 'MemberExpression' &&
-    !node.computed &&
-    node.property.type === 'Identifier'
-  ) {
-    return node.property.name
+  if (node.type === 'MemberExpression') {
+    return ASTUtils.getPropertyName(node) ?? undefined
   }
 
   return undefined
 }
 
-function getCallPath(node: Tree.Node, path: string[] = []) {
+function getCallPath(
+  node: Tree.Node,
+  path: string[] = [],
+): string[] | undefined {
+  if (
+    node.type === 'ChainExpression' ||
+    node.type === 'TSAsExpression' ||
+    node.type === 'TSSatisfiesExpression' ||
+    node.type === 'TSNonNullExpression'
+  ) {
+    return getCallPath(node.expression, path)
+  }
   const nodeName = getNodeName(node)
 
   if (isMemberExpression(node) && nodeName) {
@@ -73,7 +81,7 @@ function getCallPath(node: Tree.Node, path: string[] = []) {
     return [nodeName, ...path]
   }
 
-  return path
+  return undefined
 }
 
 export default createESLintRule<Options, MessageIds>({
@@ -152,19 +160,16 @@ export default createESLintRule<Options, MessageIds>({
           },
         })
       },
-      Identifier(node) {
-        const parent = node.parent
-        if (
-          !parent ||
-          !isMemberExpression(parent) ||
-          parent.computed ||
-          parent.property !== node ||
-          !focus.includes(node.name)
-        ) {
+      MemberExpression(node) {
+        const propertyName = getNodeName(node)
+        if (!propertyName || !focus.includes(propertyName)) {
           return
         }
 
-        const callPath = getCallPath(parent).join('.')
+        const callPath = getCallPath(node)?.join('.')
+        if (!callPath) {
+          return
+        }
         const matchBlock = block.some(item => {
           if (item.endsWith('*')) {
             return callPath.startsWith(item.replace(/\*$/, ''))
@@ -175,18 +180,41 @@ export default createESLintRule<Options, MessageIds>({
           return
         }
 
-        const accessToken = context.sourceCode.getTokenBefore(node)
-        const canFix = accessToken?.value === '.' || accessToken?.value === '?.'
+        const sourceCode = context.sourceCode
+        const accessToken = sourceCode.getTokenBefore(node.property)
+        const closingToken = node.computed
+          ? sourceCode.getLastToken(node)
+          : null
+        const canFix =
+          accessToken?.value === '.' ||
+          accessToken?.value === '?.' ||
+          (accessToken?.value === '[' && closingToken?.value === ']')
 
         context.report({
-          node,
+          node: node.property,
           messageId: 'unexpected',
           data: {
             type: callPath,
           },
           fix(fixer) {
             if (fix && canFix) {
-              return [fixer.remove(accessToken), fixer.remove(node)]
+              // Keep the optional token only when it becomes an optional call.
+              // Other uses need a manual rewrite to preserve short-circuiting.
+              if (
+                node.optional &&
+                (node.parent.type !== 'CallExpression' ||
+                  node.parent.callee !== node ||
+                  node.parent.optional)
+              ) {
+                return null
+              }
+              return [
+                ...(accessToken.value === '?.' && node.optional
+                  ? []
+                  : [fixer.remove(accessToken)]),
+                fixer.remove(node.property),
+                ...(closingToken ? [fixer.remove(closingToken)] : []),
+              ]
             }
             return null
           },

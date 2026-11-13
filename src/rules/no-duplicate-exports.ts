@@ -40,22 +40,28 @@ function getIdentifierOrStringLiteralValue(
   return node.raw
 }
 
-function toExportAllStatement(key: string) {
-  const [source, kind, name = ''] = key.split(SPECIAL_CHAR.colon)
+function toExportAllStatement(node: Tree.ExportAllDeclaration) {
+  const name = node.exported
+    ? getIdentifierOrStringLiteralValue(node.exported)
+    : ''
 
   return joinNonEmptyValues(
     [
       'export',
-      kind === EXPORT_TYPE ? EXPORT_TYPE : '',
+      node.exportKind === EXPORT_TYPE ? EXPORT_TYPE : '',
       '*',
       ...(name ? ['as', name] : []),
       'from',
-      `"${source}"`,
+      JSON.stringify(node.source.value),
     ],
     {
       separator: SPECIAL_CHAR.whitespace,
     },
   )
+}
+
+function getExportAllName(node: Tree.Identifier | Tree.StringLiteral | null) {
+  return node?.type === AST_NODE_TYPES.Identifier ? node.name : node?.value
 }
 
 function toNamedExportNames(
@@ -123,7 +129,7 @@ export default createESLintRule<Options, MessageIds>({
     const preferSeparateStyle = namedExportStyle === EXPORT_STYLE.separate
 
     function getSourceSuffix(
-      node: Tree.ExportNamedDeclarationWithSource,
+      node: Tree.ExportNamedDeclarationWithSource | Tree.ExportAllDeclaration,
     ): string {
       return context.sourceCode.text
         .slice(node.source.range[1], node.range[1])
@@ -160,12 +166,12 @@ export default createESLintRule<Options, MessageIds>({
       },
       [PROGRAM_EXIT]() {
         const exportAllKey = (node: Tree.ExportAllDeclaration) =>
-          joinNonEmptyValues(
-            [node.source.value, node.exportKind, node.exported?.name],
-            {
-              separator: SPECIAL_CHAR.colon,
-            },
-          )
+          JSON.stringify([
+            node.source.value,
+            node.exportKind,
+            getExportAllName(node.exported),
+            getSourceSuffix(node),
+          ])
         const namedExportKey = (node: Tree.ExportNamedDeclarationWithSource) =>
           JSON.stringify([
             node.source.value,
@@ -179,7 +185,7 @@ export default createESLintRule<Options, MessageIds>({
           namedExportKey,
         )
 
-        seenExportAll.forEach((nodes, key) => {
+        seenExportAll.forEach(nodes => {
           if (nodes.length <= 1) {
             return
           }
@@ -188,9 +194,12 @@ export default createESLintRule<Options, MessageIds>({
               messageId: 'multiSameExportAll',
               node,
               data: {
-                statement: toExportAllStatement(key),
+                statement: toExportAllStatement(node),
               },
-              fix: idx === 0 ? undefined : fixer => fixer.remove(node),
+              fix:
+                idx === 0 || context.sourceCode.getCommentsInside(node).length
+                  ? undefined
+                  : fixer => fixer.remove(node),
             })
           })
         })
@@ -202,11 +211,16 @@ export default createESLintRule<Options, MessageIds>({
           const canFix = nodes.every(
             node => context.sourceCode.getCommentsInside(node).length === 0,
           )
-          nodes.forEach((node, idx) => {
-            const outputExportKind =
-              preferSeparateStyle && node.exportKind === EXPORT_TYPE
-                ? EXPORT_TYPE
-                : ''
+          // A type-only declaration is erased. Merge at the first runtime
+          // declaration so side-effectful dependencies keep their order.
+          const replacementNode =
+            nodes.find(node => node.exportKind !== EXPORT_TYPE) ?? nodes[0]
+          const outputExportKind = nodes.every(
+            node => node.exportKind === EXPORT_TYPE,
+          )
+            ? EXPORT_TYPE
+            : ''
+          nodes.forEach(node => {
             const sourceSuffix = getSourceSuffix(node)
             context.report({
               messageId: 'multiSameSourceNamed',
@@ -216,7 +230,7 @@ export default createESLintRule<Options, MessageIds>({
               },
               fix: canFix
                 ? fixer =>
-                    idx === 0
+                    node === replacementNode
                       ? fixer.replaceText(
                           node,
                           joinNonEmptyValues(
