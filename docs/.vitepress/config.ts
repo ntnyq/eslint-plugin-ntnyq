@@ -1,12 +1,11 @@
 import { joinNonEmptyValues } from '@ntnyq/utils'
 import { transformerRenderWhitespace } from '@shikijs/transformers'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-import parserTypeScript from '@typescript-eslint/parser'
-import pluginNtnyq from 'eslint-plugin-ntnyq'
 import MarkdownItContainer from 'markdown-it-container'
 import { createTwoslasher } from 'twoslash-eslint'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
+import { eslintConfig } from './config/eslint.ts'
 import { head } from './config/head.ts'
 import { createThemeConfig } from './config/theme.ts'
 import { appDescription, appTitle } from './meta.ts'
@@ -31,27 +30,7 @@ export default defineConfig({
         errorRendering: 'hover',
         explicitTrigger: /\beslint-check\b/,
         twoslasher: createTwoslasher({
-          eslintConfig: [
-            {
-              files: ['**/*.?([cm])[jt]s?(x)'],
-              languageOptions: {
-                parser: parserTypeScript,
-              },
-              plugins: {
-                ntnyq: pluginNtnyq,
-              },
-              rules: {
-                'ntnyq/indent-unindent': 'error',
-                'ntnyq/no-duplicate-exports': 'error',
-                'ntnyq/no-explicit-void-return-type': 'error',
-                'ntnyq/no-member-accessibility': 'error',
-                'ntnyq/no-only-tests': 'error',
-                'ntnyq/prefer-newline-after-file-header': 'error',
-                'ntnyq/prefer-object-method-syntax': 'error',
-                'ntnyq/return-object-multiline': 'error',
-              },
-            },
-          ],
+          eslintConfig,
           eslintCodePreprocess(code) {
             // Remove trailing newline and presentational `⏎` characters
             return code.replace(/⏎(?=\n)/gu, '').replace(/⏎$/gu, () => '\n')
