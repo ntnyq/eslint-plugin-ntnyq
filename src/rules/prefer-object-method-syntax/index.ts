@@ -1,8 +1,8 @@
 import { ASTUtils } from '@typescript-eslint/utils'
-import { createESLintRule } from '../utils'
-import { createLexicalBindingTracker } from './prefer-object-method-syntax/createLexicalBindingTracker'
-import { getMethodReplacement } from './prefer-object-method-syntax/getMethodReplacement'
-import type { Tree } from '../eslint'
+import { createESLintRule } from '../../utils'
+import { createLexicalBindingTracker } from './createLexicalBindingTracker'
+import { getMethodReplacement } from './getMethodReplacement'
+import type { Tree } from '../../eslint'
 
 export const RULE_NAME = 'prefer-object-method-syntax'
 
@@ -129,10 +129,13 @@ export default createESLintRule<Options, MessageIds>({
      */
     function getPropertyName(node: Tree.Property) {
       const propertyName = ASTUtils.getPropertyName(node)
+
       if (propertyName != null) {
         return propertyName
       }
+
       const keyText = sourceCode.getText(node.key)
+
       return node.computed ? `[${keyText}]` : keyText
     }
 
@@ -153,13 +156,16 @@ export default createESLintRule<Options, MessageIds>({
       ) {
         return
       }
+
       const value = node.value
+
       if (
         value.type !== 'FunctionExpression' &&
         value.type !== 'ArrowFunctionExpression'
       ) {
         return
       }
+
       if (
         value.type === 'ArrowFunctionExpression' &&
         (allowArrowFunctions === true ||
@@ -179,6 +185,7 @@ export default createESLintRule<Options, MessageIds>({
       }
 
       const staticPropertyName = ASTUtils.getPropertyName(node)
+
       if (
         staticPropertyName != null &&
         allowedPropertyNames.includes(staticPropertyName)
@@ -206,6 +213,7 @@ export default createESLintRule<Options, MessageIds>({
             propertyName,
           },
         })
+
         return
       }
 

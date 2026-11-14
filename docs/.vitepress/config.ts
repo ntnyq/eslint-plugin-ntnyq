@@ -69,13 +69,16 @@ export default defineConfig({
         render(tokens, idx: number) {
           if (tokens[idx].nesting === 1) {
             const next = tokens[idx + 1]
+
             if (next.type === 'fence') {
               next.info = joinNonEmptyValues([next.info, 'eslint-check'], {
                 separator: ' ',
               })
             }
+
             return '<RuleExample type="correct">'
           }
+
           return '</RuleExample>\n'
         },
       })
@@ -84,13 +87,16 @@ export default defineConfig({
         render(tokens, idx: number) {
           if (tokens[idx].nesting === 1) {
             const next = tokens[idx + 1]
+
             if (next.type === 'fence') {
               next.info = joinNonEmptyValues([next.info, 'eslint-check'], {
                 separator: ' ',
               })
             }
+
             return '<RuleExample type="incorrect">'
           }
+
           return '</RuleExample>\n'
         },
       })

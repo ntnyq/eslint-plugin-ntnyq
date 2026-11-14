@@ -21,6 +21,7 @@ function createRule<TOptions extends unknown[], TMessageIds extends string>({
   meta,
 }: Readonly<RuleWithMeta<TOptions, TMessageIds, PluginDocs>>): Rule.RuleModule {
   const resolvedDefaultOptions = toArray(meta.defaultOptions)
+
   return {
     create: ((
       context: Readonly<RuleContext<TMessageIds, TOptions>>,
@@ -39,10 +40,12 @@ function createRule<TOptions extends unknown[], TMessageIds extends string>({
           ) {
             return deepMerge(resolvedDefaultOptions[i], context.options[i])
           }
+
           return context.options[i] ?? resolvedDefaultOptions[i]
           /* v8 ignore stop */
         },
       ) as unknown as TOptions
+
       return create(context, optionsWithDefault)
     }) as unknown as Rule.RuleModule['create'],
     meta: {

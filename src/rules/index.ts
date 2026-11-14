@@ -4,6 +4,7 @@ import noExplicitVoidReturnType from './no-explicit-void-return-type'
 import noMemberAccessibility from './no-member-accessibility'
 import noOnlyTests from './no-only-tests'
 import noRestrictedBindings from './no-restricted-bindings'
+import paddingLineBetweenStatements from './padding-line-between-statements'
 import preferNewlineAfterFileHeader from './prefer-newline-after-file-header'
 import preferObjectMethodSyntax from './prefer-object-method-syntax'
 import returnObjectMultiline from './return-object-multiline'
@@ -16,6 +17,7 @@ export const rules = {
   'no-member-accessibility': noMemberAccessibility,
   'no-only-tests': noOnlyTests,
   'no-restricted-bindings': noRestrictedBindings,
+  'padding-line-between-statements': paddingLineBetweenStatements,
   'prefer-newline-after-file-header': preferNewlineAfterFileHeader,
   'prefer-object-method-syntax': preferObjectMethodSyntax,
   'return-object-multiline': returnObjectMultiline,

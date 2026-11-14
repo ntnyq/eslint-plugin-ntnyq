@@ -17,6 +17,7 @@ sidebarDepth: 0
 | [no-member-accessibility](/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility               | 🔧  |     |
 | [no-only-tests](/rules/no-only-tests.html)                                       | Disallow .only blocks in tests                                  | 🔧  |     |
 | [no-restricted-bindings](/rules/no-restricted-bindings.html)                     | Disallow specified binding names in selected regions and scopes |     |     |
+| [padding-line-between-statements](/rules/padding-line-between-statements.html)   | Require or disallow padding lines between statements            | 🔧  |     |
 | [prefer-newline-after-file-header](/rules/prefer-newline-after-file-header.html) | Require a newline after file header                             | 🔧  |     |
 | [prefer-object-method-syntax](/rules/prefer-object-method-syntax.html)           | Require method syntax for inline functions in object literals   | 🔧  | 💡  |
 | [return-object-multiline](/rules/return-object-multiline.html)                   | Require multiline formatting for directly returned objects      | 🔧  |     |

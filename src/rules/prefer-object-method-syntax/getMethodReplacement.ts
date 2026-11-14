@@ -12,6 +12,7 @@ export function getMethodReplacement(
   node: Tree.Property,
 ): string | undefined {
   const value = node.value
+
   if (
     value.type !== 'FunctionExpression' &&
     value.type !== 'ArrowFunctionExpression'
@@ -36,9 +37,11 @@ export function getMethodReplacement(
 
   const firstKeyToken = sourceCode.getFirstToken(node)
   const colonToken = sourceCode.getTokenBefore(value)
+
   if (!firstKeyToken || !colonToken || colonToken.value !== ':') {
     return
   }
+
   const lastKeyToken = sourceCode.getTokenBefore(colonToken)
 
   // Replacing the whole property must not discard key/value comments.
@@ -58,6 +61,7 @@ export function getMethodReplacement(
     const valueTokens = sourceCode.getTokens(value)
     const firstValueToken = valueTokens[0]
     const functionToken = valueTokens.find(token => token.value === 'function')
+
     if (!firstValueToken || !functionToken) {
       return
     }
@@ -69,9 +73,11 @@ export function getMethodReplacement(
     ) {
       return
     }
+
     const tokenBeforeParameters = value.generator
       ? sourceCode.getTokenAfter(functionToken)
       : functionToken
+
     if (!tokenBeforeParameters) {
       return
     }
@@ -84,6 +90,7 @@ export function getMethodReplacement(
     ) {
       return
     }
+
     return (
       methodPrefix +
       sourceCode.text
@@ -136,6 +143,7 @@ export function getMethodReplacement(
     ? `(${parameterText})`
     : parameterText
   const bodyText = sourceCode.text.slice(arrowToken.range[1], value.range[1])
+
   if (value.body.type === 'BlockStatement') {
     return methodPrefix + normalizedParameterText + bodyText
   }
@@ -153,9 +161,11 @@ export function getMethodReplacement(
   // Expression node ranges omit wrapping parentheses. Keep those with the
   // expression so `return` precedes the opening parenthesis.
   const firstExpressionToken = sourceCode.getTokenAfter(arrowToken)
+
   if (!firstExpressionToken) {
     return
   }
+
   const textBeforeExpression = sourceCode.text.slice(
     arrowToken.range[1],
     firstExpressionToken.range[0],

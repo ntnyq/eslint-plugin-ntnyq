@@ -23,6 +23,7 @@
     "typescriptreact"
   ],
   "js/ts.experimental.useTsgo": true,
+  "js/ts.tsdk.path": "node_modules/@typescript/native-preview",
   "cSpell.allowCompoundWords": true,
   "cSpell.useGitignore": true,
   "cSpell.words": [
@@ -30,6 +31,7 @@
     "changelogithub",
     "esbuild",
     "iconify",
+    "katex",
     "lcov",
     "oxfmt",
     "pnpm",

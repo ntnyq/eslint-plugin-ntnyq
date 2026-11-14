@@ -159,6 +159,7 @@ export default createESLintRule<Options, MessageIds>({
           const isSetup = element.startTag.attributes.some(
             attribute => !attribute.directive && attribute.key.name === 'setup',
           )
+
           return [
             {
               region: isSetup ? 'vue-script-setup' : 'vue-script',
@@ -186,6 +187,7 @@ export default createESLintRule<Options, MessageIds>({
           for (const variable of scope.variables) {
             for (const definition of variable.defs) {
               const identifier = definition.name
+
               if (
                 identifier.type !== 'Identifier' ||
                 reportedPositions.has(identifier.range[0]) ||
@@ -203,6 +205,7 @@ export default createESLintRule<Options, MessageIds>({
                   identifier.range[0] >= script.range[0] &&
                   identifier.range[1] <= script.range[1],
               )?.region
+
               if (!region) {
                 continue
               }
@@ -216,6 +219,7 @@ export default createESLintRule<Options, MessageIds>({
                   (definition.type !== 'CatchClause' ||
                     !item.except?.includes('catch-parameter')),
               )
+
               if (!restriction) {
                 continue
               }

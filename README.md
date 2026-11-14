@@ -67,6 +67,7 @@ export default defineConfig([
 | [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility               | 🔧  |     |
 | [no-only-tests](https://eslint-plugin.ntnyq.com/rules/no-only-tests.html)                                       | Disallow .only blocks in tests                                  | 🔧  |     |
 | [no-restricted-bindings](https://eslint-plugin.ntnyq.com/rules/no-restricted-bindings.html)                     | Disallow specified binding names in selected regions and scopes |     |     |
+| [padding-line-between-statements](https://eslint-plugin.ntnyq.com/rules/padding-line-between-statements.html)   | Require or disallow padding lines between statements            | 🔧  |     |
 | [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header                             | 🔧  |     |
 | [prefer-object-method-syntax](https://eslint-plugin.ntnyq.com/rules/prefer-object-method-syntax.html)           | Require method syntax for inline functions in object literals   | 🔧  | 💡  |
 | [return-object-multiline](https://eslint-plugin.ntnyq.com/rules/return-object-multiline.html)                   | Require multiline formatting for directly returned objects      | 🔧  |     |

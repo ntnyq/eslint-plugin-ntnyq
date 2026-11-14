@@ -337,5 +337,5 @@ This rule was introduced in eslint-plugin-ntnyq v0.15.0
 
 ## :mag: Implementation
 
-- [Rule source](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/rules/prefer-object-method-syntax.ts)
+- [Rule source](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/src/rules/prefer-object-method-syntax/index.ts)
 - [Test source](https://github.com/ntnyq/eslint-plugin-ntnyq/blob/main/tests/rules/prefer-object-method-syntax.test.ts)

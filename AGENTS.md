@@ -5,8 +5,9 @@
 Core plugin code lives in `src/`. ESLint rules are in `src/rules/`, shared
 helpers in `src/utils/`, and the public plugin entry point is `src/index.ts`.
 Tests mirror this layout under `tests/`; rule tests belong in `tests/rules/`,
-while reusable test setup lives in `tests/helpers/ruleTester.ts`. Helpers that
-belong to one complex rule live in its matching subdirectory under `src/rules/`.
+while reusable test setup lives in `tests/helpers/ruleTester.ts`. Complex rules
+keep their `index.ts` entry point and private helpers together in a matching
+subdirectory under `src/rules/`.
 Rule documentation is kept in `docs/rules/`, and the VitePress site configuration
 is under `docs/.vitepress/`. Static site assets belong in `docs/public/`. Build output is
 generated in `dist/` and should not be edited directly.

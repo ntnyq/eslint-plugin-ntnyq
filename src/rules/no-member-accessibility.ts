@@ -47,6 +47,7 @@ export default createESLintRule<Options, MessageIds>({
             token.type === AST_TOKEN_TYPES.Keyword &&
             token.value === node.accessibility,
         )
+
       if (!accessibilityToken) {
         return
       }
@@ -66,6 +67,7 @@ export default createESLintRule<Options, MessageIds>({
             sourceCode.text
               .slice(accessibilityToken.range[1])
               .match(/^[\t ]+/u)?.[0].length ?? 0
+
           return fixer.removeRange([
             accessibilityToken.range[0],
             accessibilityToken.range[1] + trailingWhitespaceLength,

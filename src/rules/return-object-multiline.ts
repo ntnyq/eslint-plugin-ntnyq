@@ -55,6 +55,7 @@ export default createESLintRule<Options, MessageIds>({
           })!
           ranges.push([previousToken.range[1], part.range[0]])
         }
+
         previousEndLine = part.loc.end.line
       }
 

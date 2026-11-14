@@ -51,9 +51,11 @@ export default createESLintRule<Options, MessageIds>({
      */
     function getReturnTypeKind(node: FunctionNode): ReturnTypeKind | undefined {
       const returnType = node.returnType?.typeAnnotation
+
       if (returnType?.type === 'TSVoidKeyword') {
         return 'void'
       }
+
       if (
         returnType?.type === 'TSTypeReference' &&
         returnType.typeName.type === 'Identifier' &&
@@ -77,6 +79,7 @@ export default createESLintRule<Options, MessageIds>({
       const { node } = state
       const returnType = node.returnType
       const returnTypeKind = getReturnTypeKind(node)
+
       if (!returnType || !returnTypeKind) {
         return
       }
@@ -124,6 +127,7 @@ export default createESLintRule<Options, MessageIds>({
       if (!ASTUtils.isFunction(node)) {
         return
       }
+
       functionStack.unshift({
         hasValueReturn: false,
         node,
@@ -134,11 +138,14 @@ export default createESLintRule<Options, MessageIds>({
       if (!ASTUtils.isFunction(node)) {
         return
       }
+
       const state = functionStack.shift()
+
       /* v8 ignore start */
       if (!state || state.node !== node) {
         return
       }
+
       /* v8 ignore stop */
       reportFunction(codePath, state)
     }
@@ -149,6 +156,7 @@ export default createESLintRule<Options, MessageIds>({
       ReturnStatement(node: Tree.ReturnStatement) {
         if (node.argument) {
           const state = functionStack[0]
+
           if (state) {
             state.hasValueReturn = true
           }

@@ -34,16 +34,20 @@ function unindent(value: string) {
     if (whitespaceLines[index]) {
       return minimum
     }
+
     const indent = line.match(/^\s*/u)?.[0].length
+
     return indent === undefined ? minimum : Math.min(minimum, indent)
   }, Number.POSITIVE_INFINITY)
 
   let emptyLinesHead = 0
+
   while (emptyLinesHead < lines.length && whitespaceLines[emptyLinesHead]) {
     emptyLinesHead += 1
   }
 
   let emptyLinesTail = 0
+
   while (
     emptyLinesTail < lines.length &&
     whitespaceLines[lines.length - emptyLinesTail - 1]
@@ -108,6 +112,7 @@ export default createESLintRule<Options, MessageIds>({
         }
 
         const quasi = node.quasi.quasis[0]
+
         /* v8 ignore start */
         if (!quasi) {
           return

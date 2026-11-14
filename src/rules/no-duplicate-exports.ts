@@ -33,6 +33,7 @@ function getExportNameText(node: Tree.Identifier | Tree.StringLiteral) {
   if (node.type === AST_NODE_TYPES.Identifier) {
     return node.name
   }
+
   // AST_NODE_TYPES.StringLiteral
   return node.raw
 }
@@ -69,6 +70,7 @@ function formatExportSpecifiers(
       ...node.specifiers.map(s => {
         const localName = getExportNameText(s.local)
         const exportedName = getExportNameText(s.exported)
+
         return joinNonEmptyValues(
           [
             outputExportKind !== EXPORT_TYPE &&
@@ -83,6 +85,7 @@ function formatExportSpecifiers(
       }),
     ]
   }, [])
+
   return joinNonEmptyValues(allNames, {
     separator: ', ',
   })
@@ -134,10 +137,13 @@ export default createESLintRule<Options, MessageIds>({
     ): Map<string, T[]> {
       return nodes.reduce((map, item) => {
         const key = getKey(item)
+
         if (!map.has(key)) {
           map.set(key, [])
         }
+
         map.get(key)?.push(item)
+
         return map
       }, new Map<string, T[]>())
     }
@@ -180,6 +186,7 @@ export default createESLintRule<Options, MessageIds>({
           if (nodes.length <= 1) {
             return
           }
+
           nodes.forEach((node, idx) => {
             context.report({
               messageId: 'multiSameExportAll',
@@ -199,6 +206,7 @@ export default createESLintRule<Options, MessageIds>({
           if (nodes.length <= 1) {
             return
           }
+
           const canFix = nodes.every(
             node => context.sourceCode.getCommentsInside(node).length === 0,
           )

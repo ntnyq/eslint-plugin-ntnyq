@@ -67,6 +67,7 @@ function getCallPath(
   ) {
     return getCallPath(node.expression, path)
   }
+
   const nodeName = getNodeName(node)
 
   if (isMemberExpression(node) && nodeName) {
@@ -155,20 +156,25 @@ export default createESLintRule<Options, MessageIds>({
       },
       MemberExpression(node) {
         const propertyName = getNodeName(node)
+
         if (!propertyName || !focus.includes(propertyName)) {
           return
         }
 
         const callPath = getCallPath(node)?.join('.')
+
         if (!callPath) {
           return
         }
+
         const matchBlock = block.some(item => {
           if (item.endsWith('*')) {
             return callPath.startsWith(item.replace(/\*$/, ''))
           }
+
           return callPath.startsWith(`${item}.`)
         })
+
         if (!matchBlock) {
           return
         }
@@ -201,6 +207,7 @@ export default createESLintRule<Options, MessageIds>({
               ) {
                 return null
               }
+
               return [
                 ...(accessToken.value === '?.' && node.optional
                   ? []
@@ -209,6 +216,7 @@ export default createESLintRule<Options, MessageIds>({
                 ...(closingToken ? [fixer.remove(closingToken)] : []),
               ]
             }
+
             return null
           },
         })

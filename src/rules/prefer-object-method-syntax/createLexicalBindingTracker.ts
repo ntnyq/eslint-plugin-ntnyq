@@ -67,6 +67,7 @@ export function createLexicalBindingTracker(sourceCode: SourceCode) {
        */
       ArrowFunctionExpression(node) {
         lexicalScopeStack[0]?.add(node)
+
         // Through references are inherited from outside this arrow, including
         // block/catch bindings and unresolved globals named `arguments`.
         if (

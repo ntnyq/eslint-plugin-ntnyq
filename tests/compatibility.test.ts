@@ -15,6 +15,34 @@ describe.each([
 ])('ESLint $version compatibility', ({ Linter }) => {
   const linter = new Linter()
 
+  it('pads statements with stable fixes in the default parser', () => {
+    const config = {
+      plugins: { ntnyq: plugin },
+      rules: {
+        'ntnyq/padding-line-between-statements': [
+          'error',
+          { blankLine: 'always', prev: '*', next: 'return' },
+        ],
+      },
+    } satisfies import('eslint').Linter.Config
+    const output = 'function run() { const value = 1\r\n\r\nreturn value }'
+    expect(
+      linter.verifyAndFix(
+        'function run() { const value = 1\r\nreturn value }',
+        config,
+      ),
+    ).toEqual({
+      fixed: true,
+      messages: [],
+      output,
+    })
+    expect(linter.verifyAndFix(output, config)).toEqual({
+      fixed: false,
+      messages: [],
+      output,
+    })
+  })
+
   it('allows no-restricted-bindings without explicit options', () => {
     expect(
       linter.verify('const error = 1', {

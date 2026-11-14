@@ -26,12 +26,15 @@ export function deepMerge(
           // object type
           return [key, deepMerge(firstValue, secondValue)]
         }
+
         // value type
         return [key, secondValue]
       }
+
       if (firstHasKey) {
         return [key, firstValue]
       }
+
       return [key, secondValue]
     }),
   )

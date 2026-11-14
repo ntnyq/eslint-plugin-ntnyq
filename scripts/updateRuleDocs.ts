@@ -21,18 +21,22 @@ for (const [filename, baseUrl] of [
   const content = await readFile(file, 'utf8')
   const start = content.indexOf(START_MARKER)
   const end = content.indexOf(END_MARKER, start)
+
   if (start === -1 || end === -1) {
     throw new Error(`Missing rule table markers in ${filename}`)
   }
 
   const rows = Object.entries(rules).map(([ruleId, rule]) => {
     const meta = rule.meta
+
     if (!meta?.docs?.description) {
       throw new Error(`Missing documentation metadata for ${ruleId}`)
     }
+
     const description = meta.docs.description.replace(/^./u, char =>
       char.toUpperCase(),
     )
+
     return `| [${ruleId}](${baseUrl}${ruleId}.html) | ${description} | ${meta.fixable ? '🔧' : ''} | ${meta.hasSuggestions ? '💡' : ''} |`
   })
   const table = [
@@ -41,9 +45,11 @@ for (const [filename, baseUrl] of [
     ...rows,
   ].join('\n')
   const formatted = await format('rules.md', table)
+
   if (formatted.errors.length) {
     throw new Error(`Cannot format rule table in ${filename}`)
   }
+
   const updated = `${content.slice(0, start + START_MARKER.length)}\n\n${formatted.code.trimEnd()}\n\n${content.slice(end)}`
 
   if (shouldCheck) {
