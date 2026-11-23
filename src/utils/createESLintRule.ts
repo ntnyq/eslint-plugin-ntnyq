@@ -78,6 +78,7 @@ function createRuleFactory(urlCreator: (name: string) => string) {
     })
   }
 }
+
 export const createESLintRule: <
   TOptions extends unknown[],
   TMessageIds extends string,

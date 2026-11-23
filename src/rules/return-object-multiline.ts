@@ -53,6 +53,7 @@ export default createESLintRule<Options, MessageIds>({
           const previousToken = sourceCode.getTokenBefore(part, {
             includeComments: true,
           })!
+
           ranges.push([previousToken.range[1], part.range[0]])
         }
 

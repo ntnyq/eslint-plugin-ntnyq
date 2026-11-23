@@ -330,6 +330,7 @@ describe('padding-line-between-statements configuration', () => {
         ],
       },
     })
+
     expect(result.output).toBe('with (api) {}\n\nnext()')
     expect(result.messages).toEqual([])
   })

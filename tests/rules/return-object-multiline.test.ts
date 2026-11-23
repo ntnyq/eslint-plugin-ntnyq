@@ -325,6 +325,7 @@ it('exposes the rule through the plugin and supports the default parser', () => 
     'const getValue = () => ({ a: 1 })',
     config,
   )
+
   expect(result.fixed).toBe(true)
   expect(result.output).toBe('const getValue = () => ({\na: 1\n})')
   expect(result.messages).toEqual([])
@@ -356,6 +357,7 @@ it('fixes nested returned objects without changing tokens or comments', () => {
 
   const before = parse(code, { tokens: true, comment: true })
   const after = parse(result.output, { tokens: true, comment: true })
+
   expect(
     after.tokens?.map(({ type, value }) => ({
       type,
@@ -404,6 +406,7 @@ it('preserves nested TypeScript wrappers and comments and produces an idempotent
 
   const before = parse(code, { tokens: true, comment: true })
   const after = parse(result.output, { tokens: true, comment: true })
+
   expect(
     after.tokens?.map(({ type, value }) => ({
       type,

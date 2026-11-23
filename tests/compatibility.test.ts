@@ -26,6 +26,7 @@ describe.each([
       },
     } satisfies import('eslint').Linter.Config
     const output = 'function run() { const value = 1\r\n\r\nreturn value }'
+
     expect(
       linter.verifyAndFix(
         'function run() { const value = 1\r\nreturn value }',
@@ -70,6 +71,7 @@ describe.each([
       plugins: { ntnyq: plugin },
       rules: { 'ntnyq/no-only-tests': ['error', { block: ['custom'] }] },
     })
+
     expect(messages.map(message => message.message)).toEqual([
       'custom.only not permitted',
     ])
@@ -81,6 +83,7 @@ describe.each([
       rules: { 'ntnyq/indent-unindent': 'error' },
     } satisfies import('eslint').Linter.Config
     const valid = 'const value = unindent`\r\n  first\r\n\r\n  second\r\n`'
+
     expect(linter.verifyAndFix(valid, config)).toEqual({
       fixed: false,
       messages: [],
@@ -91,6 +94,7 @@ describe.each([
       'function render() {\r\n  return unindent`\r\nfirst\r\n \r\nsecond\r\n  `\r\n}'
     const output =
       'function render() {\r\n  return unindent`\r\n    first\r\n\r\n    second\r\n  `\r\n}'
+
     expect(linter.verifyAndFix(invalid, config)).toEqual({
       fixed: true,
       messages: [],
@@ -113,6 +117,7 @@ describe.each([
         'ntnyq/prefer-object-method-syntax': ['error', { fix: true }],
       },
     })
+
     expect(result.output).toBe(code)
     expect(result.fixed).toBe(false)
     expect(result.messages.map(message => message.messageId)).toEqual([

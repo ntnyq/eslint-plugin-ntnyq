@@ -13,6 +13,7 @@ describe('padding rule documentation diagnostics', () => {
   it.each(['correct', 'incorrect'])('checks the %s example', type => {
     const container = markdown.split(`::: ${type}\n`)[1]?.split('\n:::')[0]
     const code = container?.match(/```ts[^\n]*\n([\s\S]*?)\n```/u)?.[1]
+
     expect(code).toBeDefined()
 
     const messages = linter.verify(code ?? '', eslintConfig, {
