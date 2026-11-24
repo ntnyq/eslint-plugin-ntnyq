@@ -24,6 +24,7 @@ describe('deepMerge', () => {
 
   it('does not merge inherited values into own properties', () => {
     const first = {}
+
     Object.setPrototypeOf(first, { setting: { inherited: true } })
     expect(deepMerge(first, { setting: { own: true } })).toEqual({
       setting: { own: true },
@@ -47,6 +48,7 @@ describe('deepMerge', () => {
     b: [3, 4, 5],
     c: 2,
   }
+
   it('should merge two objects', () => {
     expect(deepMerge(OBJECT_DEEP, OBJECT_SHALLOW)).toMatchInlineSnapshot(`
       {

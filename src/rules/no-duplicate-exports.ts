@@ -219,8 +219,10 @@ export default createESLintRule<Options, MessageIds>({
           )
             ? EXPORT_TYPE
             : ''
+
           nodes.forEach(node => {
             const sourceSuffix = getSourceSuffix(node)
+
             context.report({
               messageId: 'multiSameSourceNamed',
               node,

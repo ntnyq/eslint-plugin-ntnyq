@@ -1,18 +1,8 @@
-import { createRequire } from 'node:module'
 import { Linter } from 'eslint'
 import { describe, expect, it } from 'vitest'
 import plugin from '../src'
 
-// ESLint 9.5 predates bundled declarations; use the shared Linter API at this
-// CommonJS boundary while executing the actual minimum supported version.
-const { Linter: LegacyLinter } = createRequire(import.meta.url)(
-  'eslint-v9',
-) as typeof import('eslint')
-
-describe.each([
-  { version: LegacyLinter.version, Linter: LegacyLinter },
-  { version: Linter.version, Linter },
-])('ESLint $version compatibility', ({ Linter }) => {
+describe('Plugin with ESLint Linter', () => {
   const linter = new Linter()
 
   it('pads statements with stable fixes in the default parser', () => {
@@ -26,6 +16,7 @@ describe.each([
       },
     } satisfies import('eslint').Linter.Config
     const output = 'function run() { const value = 1\r\n\r\nreturn value }'
+
     expect(
       linter.verifyAndFix(
         'function run() { const value = 1\r\nreturn value }',
@@ -58,6 +49,7 @@ describe.each([
       rules: { 'ntnyq/indent-unindent': 'error' },
     } satisfies import('eslint').Linter.Config
     const valid = 'const value = unindent`\r\n  first\r\n\r\n  second\r\n`'
+
     expect(linter.verifyAndFix(valid, config)).toEqual({
       fixed: false,
       messages: [],
@@ -68,6 +60,7 @@ describe.each([
       'function render() {\r\n  return unindent`\r\nfirst\r\n \r\nsecond\r\n  `\r\n}'
     const output =
       'function render() {\r\n  return unindent`\r\n    first\r\n\r\n    second\r\n  `\r\n}'
+
     expect(linter.verifyAndFix(invalid, config)).toEqual({
       fixed: true,
       messages: [],
@@ -90,6 +83,7 @@ describe.each([
         'ntnyq/prefer-object-method-syntax': ['error', { fix: true }],
       },
     })
+
     expect(result.output).toBe(code)
     expect(result.fixed).toBe(false)
     expect(result.messages.map(message => message.messageId)).toEqual([

@@ -359,6 +359,7 @@ describe('no-restricted-bindings configuration', () => {
           ],
         },
       })
+
       expect(messages.map(message => message.messageId)).toEqual([
         'restrictedBinding',
         'restrictedBinding',
@@ -393,6 +394,7 @@ describe('no-restricted-bindings configuration', () => {
       plugins: { ntnyq: plugin },
       rules: { [`ntnyq/${RULE_NAME}`]: ['error', allScopes] },
     })
+
     expect(messages).toEqual([])
   })
 })

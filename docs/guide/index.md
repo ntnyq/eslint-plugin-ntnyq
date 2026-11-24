@@ -2,6 +2,8 @@
 
 ## Install
 
+Requires ESLint 10.
+
 ::: code-group
 
 ```shell [npm]

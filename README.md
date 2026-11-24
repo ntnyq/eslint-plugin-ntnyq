@@ -12,6 +12,8 @@
 
 ## Install
 
+Requires ESLint 10.
+
 **npm**:
 
 ```shell

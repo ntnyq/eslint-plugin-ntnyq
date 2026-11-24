@@ -46,9 +46,8 @@ cases, including diagnostics and fixer output where applicable. Update
 snapshots only when the changed output is intentional. There is no configured
 coverage threshold, but every behavior change should include a regression
 test. CI tests supported Node.js versions 22, 24, and 26.
-Compatibility tests also run against the minimum supported ESLint 9.5 and the
-current ESLint 10 development dependency. Type regression tests live in
-`*.test-d.ts` files and run through the tests TypeScript configuration.
+The test suite uses the ESLint 10 development dependency. Type regression tests
+live in `*.test-d.ts` files and run through the tests TypeScript configuration.
 
 Keep plugin, test, and documentation environment types in their respective
 `tsconfig.json` files. Documentation SFCs are checked with `vue-tsc`.
