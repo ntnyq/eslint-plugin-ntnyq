@@ -15,7 +15,6 @@ sidebarDepth: 0
 | [no-duplicate-exports](/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement                            | 🔧  |     |
 | [no-explicit-void-return-type](/rules/no-explicit-void-return-type.html)         | Disallow explicit void return types on function implementations | 🔧  | 💡  |
 | [no-member-accessibility](/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility               | 🔧  |     |
-| [no-only-tests](/rules/no-only-tests.html)                                       | Disallow .only blocks in tests                                  | 🔧  |     |
 | [no-restricted-bindings](/rules/no-restricted-bindings.html)                     | Disallow specified binding names in selected regions and scopes |     |     |
 | [padding-line-between-statements](/rules/padding-line-between-statements.html)   | Require or disallow padding lines between statements            | 🔧  |     |
 | [prefer-newline-after-file-header](/rules/prefer-newline-after-file-header.html) | Require a newline after file header                             | 🔧  |     |

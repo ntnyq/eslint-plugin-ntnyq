@@ -17,7 +17,6 @@ matching tests, and rule documentation together:
 
 | Scenario                        | Reference in `src/rules/`              | Focus                                                                              |
 | ------------------------------- | -------------------------------------- | ---------------------------------------------------------------------------------- |
-| Configurable call checks        | `no-only-tests.ts`                     | Object options, static member access, optional calls, opt-in fixes                 |
 | Bindings and Vue script regions | `no-restricted-bindings.ts`            | Scope manager, runtime versus type bindings, parser services, report-only behavior |
 | Statement spacing               | `padding-line-between-statements.ts`   | Variadic options, schema definitions, comments, line endings                       |
 | Return annotations              | `no-explicit-void-return-type.ts`      | No options, code paths, automatic fixes versus suggestions                         |
@@ -152,9 +151,9 @@ dependency merely to inspect services supplied by the configured parser.
 
 Declare `meta.fixable` only when fixes exist: `'whitespace'` for whitespace-only
 changes or `'code'` for code changes. Declare `meta.hasSuggestions` only when
-suggestions exist. Fix opt-in is rule-specific; rules such as `no-only-tests` and
-`prefer-object-method-syntax` default `fix` to `false`, while formatting rules may
-fix by default. Choose and document the new rule's behavior explicitly.
+suggestions exist. Fix opt-in is rule-specific; `prefer-object-method-syntax`
+defaults `fix` to `false`, while formatting rules may fix by default. Choose and
+document the new rule's behavior explicitly.
 
 Preserve comments, parentheses, separators, ASI behavior, line endings, evaluation
 order, and lexical bindings. If an automatic change cannot preserve semantics,
@@ -169,20 +168,23 @@ Import the default rule and `RULE_NAME` from its module, and import `Options` an
 replace its module and cases with the new rule's behavior:
 
 ```ts
-import rule, { RULE_NAME } from '../../src/rules/no-only-tests'
+import rule, { RULE_NAME } from '../../src/rules/prefer-object-method-syntax'
 import { runRuleTests } from '../helpers/ruleTester'
-import type { MessageIds, Options } from '../../src/rules/no-only-tests'
+import type {
+  MessageIds,
+  Options,
+} from '../../src/rules/prefer-object-method-syntax'
 
 await runRuleTests<Options, MessageIds>({
   name: RULE_NAME,
   rule,
-  valid: [{ code: 'test("case", () => {})' }],
+  valid: [{ code: 'const object = { read() { return 42 } }' }],
   invalid: [
     {
-      code: 'test.only("case", () => {})',
+      code: 'const object = { read: () => { return 42 } }',
       options: { fix: true },
-      errors: ['unexpected'],
-      output: 'test("case", () => {})',
+      errors: ['preferMethodSyntax'],
+      output: 'const object = { read() { return 42 } }',
     },
   ],
 })

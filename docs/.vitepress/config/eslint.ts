@@ -16,7 +16,6 @@ export const eslintConfig: Linter.Config[] = [
       'ntnyq/no-duplicate-exports': 'error',
       'ntnyq/no-explicit-void-return-type': 'error',
       'ntnyq/no-member-accessibility': 'error',
-      'ntnyq/no-only-tests': 'error',
       'ntnyq/padding-line-between-statements': [
         'error',
         {

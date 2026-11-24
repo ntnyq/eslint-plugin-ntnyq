@@ -65,7 +65,6 @@ export default defineConfig([
 | [no-duplicate-exports](https://eslint-plugin.ntnyq.com/rules/no-duplicate-exports.html)                         | Disallow duplicate exports statement                            | 🔧  |     |
 | [no-explicit-void-return-type](https://eslint-plugin.ntnyq.com/rules/no-explicit-void-return-type.html)         | Disallow explicit void return types on function implementations | 🔧  | 💡  |
 | [no-member-accessibility](https://eslint-plugin.ntnyq.com/rules/no-member-accessibility.html)                   | Disallow usage of typescript member accessibility               | 🔧  |     |
-| [no-only-tests](https://eslint-plugin.ntnyq.com/rules/no-only-tests.html)                                       | Disallow .only blocks in tests                                  | 🔧  |     |
 | [no-restricted-bindings](https://eslint-plugin.ntnyq.com/rules/no-restricted-bindings.html)                     | Disallow specified binding names in selected regions and scopes |     |     |
 | [padding-line-between-statements](https://eslint-plugin.ntnyq.com/rules/padding-line-between-statements.html)   | Require or disallow padding lines between statements            | 🔧  |     |
 | [prefer-newline-after-file-header](https://eslint-plugin.ntnyq.com/rules/prefer-newline-after-file-header.html) | Require a newline after file header                             | 🔧  |     |

@@ -52,29 +52,6 @@ describe.each([
     ).toEqual([])
   })
 
-  it('merges partial options before reporting and fixing focused tests', () => {
-    expect(
-      linter.verifyAndFix('test.only("case", () => {})', {
-        plugins: { ntnyq: plugin },
-        rules: { 'ntnyq/no-only-tests': ['error', { fix: true }] },
-      }),
-    ).toEqual({
-      fixed: true,
-      messages: [],
-      output: 'test("case", () => {})',
-    })
-  })
-
-  it('honors explicit array options while keeping other defaults', () => {
-    const messages = linter.verify('custom.only(); test.only()', {
-      plugins: { ntnyq: plugin },
-      rules: { 'ntnyq/no-only-tests': ['error', { block: ['custom'] }] },
-    })
-    expect(messages.map(message => message.message)).toEqual([
-      'custom.only not permitted',
-    ])
-  })
-
   it('keeps CRLF template fixes stable in the default parser', () => {
     const config = {
       plugins: { ntnyq: plugin },

@@ -34,8 +34,8 @@ Follow `.editorconfig` and `.oxfmtrc.jsonc`: two-space indentation, LF endings,
 single quotes, no semicolons, trailing commas, and an 80-column target. Keep
 TypeScript ESM-compatible and preserve strict typing; use `import type` for
 type-only imports. Rule files and rule IDs use kebab-case, for example
-`no-only-tests.ts` and `RULE_NAME = 'no-only-tests'`. Use camelCase for
-functions and variables and PascalCase for types. Export new rules through
+`no-duplicate-exports.ts` and `RULE_NAME = 'no-duplicate-exports'`. Use camelCase
+for functions and variables and PascalCase for types. Export new rules through
 `src/rules/index.ts` and add matching documentation.
 
 ## Testing Guidelines
@@ -56,9 +56,9 @@ Keep plugin, test, and documentation environment types in their respective
 ## Commit & Pull Request Guidelines
 
 Recent history uses Conventional Commit-style subjects such as
-`feat: implement rule no-only-tests`, `docs: ...`, and `chore(deps): ...`. Keep
-subjects imperative and narrowly scoped. Pull requests should explain the
-behavioral change, link related issues when available, and list validation
-performed. Include tests and rule documentation for user-visible rule changes;
-attach screenshots only for documentation UI changes. Ensure build, format,
-lint, typecheck, and tests pass before requesting review.
+`feat: add padding-line-between-statements rule`, `docs: ...`, and
+`chore(deps): ...`. Keep subjects imperative and narrowly scoped. Pull requests
+should explain the behavioral change, link related issues when available, and
+list validation performed. Include tests and rule documentation for user-visible
+rule changes; attach screenshots only for documentation UI changes. Ensure build,
+format, lint, typecheck, and tests pass before requesting review.

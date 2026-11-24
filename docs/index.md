@@ -21,7 +21,7 @@ hero:
 
 features:
   - title: Focused Rules
-    details: Catch duplicate exports, focused tests, and inconsistent code patterns with rules you can enable individually.
+    details: Catch duplicate exports and inconsistent code patterns with rules you can enable individually.
     link: /rules/
     linkText: Explore the rules
   - title: Automatic Fixes
